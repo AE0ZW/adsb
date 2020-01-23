@@ -1,0 +1,9 @@
+.map {
+    width: 80%;
+    height: 600px;
+    background-color: lightgray;
+}
+
+.info {
+    width: 20%;
+}
