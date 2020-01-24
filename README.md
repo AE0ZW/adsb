@@ -66,3 +66,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+Search Results
+Featured snippet from the web
+The latitude for Flagstaff Pulliam Airport (FLG), 6200 South Pulliam Drive #204, Flagstaff, AZ 86001, USA is: 35.13778 and the longitude is: -111.67167.
