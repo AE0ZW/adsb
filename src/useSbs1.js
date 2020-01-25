@@ -10,7 +10,6 @@ const useSbs1 = (host, port) => {
         socket.addEventListener('message', (msg) => {
             msg.data.text().then(data => {
                 const flightInfo = sbs1.parseSbs1Message(data);
-                console.log(state);
                 state[flightInfo.hex_ident] = flightInfo;
                 setState(state);
             });
