@@ -3,7 +3,7 @@ import L from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
 
 
-const iconUrl = 'flight_takeoff_black_18x18.png'
+const iconUrl = '/assets/flight_takeoff_black_18x18.png'
 
 export const AirportMarker = ({ lat, lon, name, code, elevation }) => {
 
