@@ -9,21 +9,18 @@ function App() {
     const [flights, setFlights] = useState([]);
 
     useEffect(() => {
-        return poll({ ...datasource }, setFlights);
+        return poll(datasource.url, datasource.interval, setFlights);
     }, []);
 
     return (
         <div>
-            <Map className="map" center={[airport.lat, airport.lon]} zoom={11}>
+            <Map className="map" center={[airport.lat, airport.lon]} zoom={9}>
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></TileLayer>
                 <AirportMarker {...airport} />
                 {flights.map(flight => (<FlightMarker {...flight} />))}
             </Map>
-            <div className="info">
-
-            </div>
         </div >
     );
 }
