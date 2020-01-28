@@ -1,4 +1,12 @@
+.container {
+    height:100%;
+}
+
 .map {
-    height: 600px;
-    background-color: lightgray;
+    height:99%;
+    width: 80%;
+}
+
+.info {
+    width: 20%;
 }

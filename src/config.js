@@ -7,6 +7,6 @@ export const airport = {
 }
 
 export const datasource = {
-    url:'http://raspberrypi.local:8080/data.json',
-    interval:1000
+    url: 'http://flytrak.local:8080/data.json',
+    interval: 1000
 }
