@@ -3,7 +3,8 @@ export const airport = {
     lon: -111.67167,
     name: 'Flagstaff Pulliam Airport',
     code: 'FLG',
-    elevation: 7014
+    elevation: 7014,
+    timezone: 'MST'
 }
 
 export const datasource = {

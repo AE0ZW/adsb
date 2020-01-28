@@ -1,12 +1,15 @@
 .container {
-    height:100%;
+    height: 100%;
 }
 
 .map {
-    height:99%;
+    float: left;
+    height: 99%;
     width: 80%;
 }
 
 .info {
+    padding-top:1em;
+    float: right;
     width: 20%;
 }
