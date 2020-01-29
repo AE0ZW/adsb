@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import './app.css';
-import { AirportMarker, FlightMarker, TimeBoard, FlightTable } from './components';
+import { AirportMarker, FlightMarker, FlightTable, TimeBoard } from './components';
 import PolarGrid from './components/PolarGrid';
 import { airport, datasource } from './config';
 import { poll } from './services';
@@ -26,7 +26,7 @@ function App() {
             </Map>
             <div className="info">
                 <TimeBoard timezones={['UTC', airport.timezone]}></TimeBoard>
-                <FlightTable headings={['Flight', 'Altitude', 'Heading', 'Speed']} flights={flights}></FlightTable>
+                <FlightTable headings={['Flight', 'Alt', 'Hdg', 'Speed']} flights={flights}></FlightTable>
             </div>
         </div >
     );
