@@ -1,11 +1,12 @@
-import React from 'react';
 import L from 'leaflet';
-import { Marker, Popup } from 'react-leaflet';
-
+import React from 'react';
+import { LayerGroup, Marker, Popup } from 'react-leaflet';
+import { positionAsList } from '../services';
+import PolarGrid from './PolarGrid';
 
 const iconUrl = '/assets/flight_takeoff_black_18x18.png'
 
-export const AirportMarker = ({ lat, lon, name, code, elevation }) => {
+export const AirportMarker = ({airport}) => {
 
     const icon = new L.DivIcon({
         html: `<img src="${iconUrl}">`,
@@ -13,12 +14,17 @@ export const AirportMarker = ({ lat, lon, name, code, elevation }) => {
         popupAnchor: [0, -9]
     });
 
+    const position = positionAsList(airport);
+
     return (
-        <Marker position={[lat, lon]} icon={icon}>
-            <Popup>
-                {name} ({code})<br />
-                Elevation {elevation} ft<br />
-            </Popup>
-        </Marker>
+        <LayerGroup>
+            <Marker position={position} icon={icon}>
+                <Popup>
+                    {airport.name} ({airport.iata})<br />
+                    Elevation {airport.altitude} ft<br />
+                </Popup>
+            </Marker>
+            <PolarGrid position={position} color='red'></PolarGrid>
+        </LayerGroup>
     );
 }
