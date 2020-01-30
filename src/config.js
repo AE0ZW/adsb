@@ -8,6 +8,6 @@ export const airport = {
 }
 
 export const datasource = {
-    url: 'http://flytrak.local:8080/data.json',
+    url: 'http://192.168.15.132:8080/data.json',
     interval: 1000
 }

@@ -1,8 +1,9 @@
 import React from 'react';
+import './flighttable.css'
 
 export const FlightTable = ({ headings, flights }) => {
     return (
-        <table style={{marginTop:'1em', width:'100%'}}>
+        <table className='flight' >
             <thead>
                 <tr>
                     {headings.map(text => (<th>{text}</th>))}

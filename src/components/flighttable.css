@@ -1,0 +1,11 @@
+.flight {
+    margin-top: 1em;
+    width: 100%;
+}
+
+.flight tbody tr:nth-child(even) {
+    background: #FFF
+}
+
+.flight tbody tr:nth-child(odd) {
+    background: #EEE}
