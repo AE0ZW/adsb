@@ -13,7 +13,7 @@ export const FlightMarker = ({ lat, lon, flight, speed, altitude, track, hex, co
     });
 
     return (
-        <Marker position={[lat, lon]} icon={icon}>
+        <Marker position={[lat, lon]} icon={icon} zIndexOffset={300}>
             <Popup>
                 {flight || hex}<br />
                 Altitude {altitude}<br />
