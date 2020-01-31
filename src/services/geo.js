@@ -11,41 +11,44 @@ const colors = [
 ];
 
 const getDistanceFromComparer = (position) => {
-    const from = positionAsObject(position);
+    const from = toLatlonObject(position);
     return (a, b) => {
-        const distA = haversine(from, positionAsObject(a));
-        const distB = haversine(from, positionAsObject(b));
+        const distA = haversine(from, toLatlonObject(a));
+        const distB = haversine(from, toLatlonObject(b));
 
         return distA - distB;
     }
 }
 
-const positionAsList = item => [item.latitude || item.lat, item.longitude || item.lon];
+const toLatlonList = latlon => [latlon.latitude || latlon.lat, latlon.longitude || latlon.lon];
 
-const positionAsObject = item => {
+const toLatlonObject = latlon => {
     return {
-        latitude: item.latitude || item.lat || item[0],
-        longitude: item.longitude || item.lon || item[1]
+        latitude: latlon.latitude || latlon.lat || latlon[0],
+        longitude: latlon.longitude || latlon.lon || latlon[1]
     }
 };
 
-const getAveragePosition = list => {
-    const positions = list.map(x => positionAsList(x));
-    return positions.reduce(([a, b], [c, d]) => [a + c / list.length, b + d / list.length], [0, 0])
+export const getCenter = latlonCollection => {
+    const positions = latlonCollection.map(x => toLatlonList(x));
+    return positions.reduce(([a, b], [c, d]) => [
+        a + c / latlonCollection.length,
+        b + d / latlonCollection.length
+    ], [0, 0])
 }
 
-const colorize = list => list.forEach((x, i) => x.color = colors[i % colors.length]);
+const addColor = list => list.forEach((x, i) => x.color = colors[i % colors.length]);
 
-const positionize = list => list.forEach((x, i) => x.position = positionAsList(x));
+const addPosition = latlonCollection => latlonCollection.forEach((x, i) => x.position = toLatlonList(x));
 
-export const getAirports = list => {
+export const getAirports = latlonCollection => {
     const sorted = [...airports.filter(x => x.country === 'United States')];
-    const center = getAveragePosition(list);
+    const center = getCenter(latlonCollection);
     const comparer = getDistanceFromComparer(center);
 
     sorted.sort(comparer);
-    colorize(sorted);
-    positionize(sorted);
+    addColor(sorted);
+    addPosition(sorted);
 
     return sorted;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './app.css';
 import { FlightMap, FlightTable, TimeBoard } from './components';
 import { datasource } from './config';
-import { getAirports, poll } from './services';
+import { getAirports, poll,getCenter } from './services';
 
 const defaultPosition = [39.833333, -98.583333]; // geographic center of the US
 
@@ -21,10 +21,10 @@ function App() {
         if (flights.length > 0 && airports.length === 0) {
             const airports = getAirports(flights).slice(0,6);
             setAirports(airports);
-            setCenter(airports[0].position);
+            setCenter(getCenter(airports));
             timezones.push(airports[0].tz);
             setTimezones(timezones);
-            setZoom(9);
+            setZoom(8);
         }
     }, [flights, airports.length, timezones]);
 
