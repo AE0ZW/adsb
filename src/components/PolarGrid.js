@@ -5,7 +5,7 @@ const radius10nm = 18520;
 
 const PolarGrid = ({ position, color }) => {
     
-    const getRing = m => <Circle center={position} radius={m * radius10nm} color={color} weight={1} fill={false} opacity={0.5}></Circle>;
+    const getRing = m => <Circle center={position} radius={m * radius10nm} color={color || 'black'} weight={1} fill={false} opacity={0.5}></Circle>;
     
     return (
         <LayerGroup>

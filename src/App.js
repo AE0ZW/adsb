@@ -5,6 +5,14 @@ import { datasource } from './config';
 import { getAirportsWithin, poll, positionAsList } from './services';
 
 const defaultPosition = [39.833333, -98.583333]; // geographic center of the US
+const airportColors = [
+    'red',
+    'green',
+    'navy',
+    'darkred',
+    'mediumseagreen',
+    'royalblue'
+];
 
 function App() {
     const [flights, setFlights] = useState([]);
@@ -19,11 +27,15 @@ function App() {
 
     useEffect(() => {
         if (flights.length > 0 && airports.length === 0) {
-            const airports = getAirportsWithin(50, positionAsList(flights[0]));
-            const primary = airports[0];
+            let airports = getAirportsWithin(50, positionAsList(flights[0]));
+            airports = airports.map((x, i) => {
+                x.position = positionAsList(x);
+                x.color = airportColors[i % airportColors.length];
+                return x;
+            });
             setAirports(airports);
-            setCenter(positionAsList(primary));
-            timezones.push(primary.tz);
+            setCenter(airports[0].position);
+            timezones.push(airports[0].tz);
             setTimezones(timezones);
             setZoom(9);
         }
@@ -34,7 +46,7 @@ function App() {
             <FlightMap center={center} zoom={zoom} airports={airports} flights={flights} />
             <div className="info">
                 <TimeBoard timezones={timezones} />
-                <FlightTable headings={['Flight', 'Alt', 'Hdg', 'Speed']} flights={flights} />
+                <FlightTable headings={['Flight', 'Alt', 'Hdg', 'Spd']} flights={flights} />
             </div>
         </div >
     );
