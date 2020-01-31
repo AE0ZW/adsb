@@ -1,14 +1,9 @@
 .container {
+    display:flex;
     height: 100%;
 }
 
-.map {
-    float: left;
-    height: 99%;
-    width: 80%;
-}
-
 .info {
-    float: right;
     width: 20%;
+    padding: .5em;
 }

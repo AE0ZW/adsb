@@ -10,7 +10,7 @@ export const FlightTable = ({ headings, flights }) => {
                 </tr>
             </thead>
             <tbody>
-                {flights.map(flight=>(<tr><td>{flight.flight||flight.hex}</td><td>{flight.altitude}</td><td>{flight.track}</td><td>{flight.speed}</td></tr>))}
+                {flights.map(({ flight, hex, track, altitude, speed }) => (<tr><td>{flight || hex}</td><td>{altitude}</td><td>{track}</td><td>{speed}</td></tr>))}
             </tbody>
         </table>
     );
