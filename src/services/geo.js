@@ -1,28 +1,51 @@
-import haversine from 'haversine';
 import airports from 'airport-data';
+import haversine from 'haversine';
 
-const defaultOptions = {
-    unit: 'nmi'
-}
+const colors = [
+    'orangered',
+    'limegreen',
+    'navy',
+    'orange',
+    'forestgreen',
+    'royalblue'
+];
 
-export const geoDist = (start, end, options) => {
-    return haversine(positionAsObject(start), positionAsObject(end), options || defaultOptions);
-}
-
-export const getComparer = (position, positionSelector) => {
+const getDistanceFromComparer = (position) => {
+    const from = positionAsObject(position);
     return (a, b) => {
-        return geoDist(position, positionSelector(a)) - geoDist(position, positionSelector(b));
+        const distA = haversine(from, positionAsObject(a));
+        const distB = haversine(from, positionAsObject(b));
+
+        return distA - distB;
     }
 }
 
-export const positionAsList = item => [item.latitude || item.lat, item.longitude || item.lon];
-export const positionAsObject = item => {
+const positionAsList = item => [item.latitude || item.lat, item.longitude || item.lon];
+
+const positionAsObject = item => {
     return {
         latitude: item.latitude || item.lat || item[0],
         longitude: item.longitude || item.lon || item[1]
     }
 };
 
-export const getAirportsWithin = (distance, position) => {
-    return airports.filter(airport => haversine(positionAsObject(position), positionAsObject(airport), defaultOptions) <= distance);
+const getAveragePosition = list => {
+    const positions = list.map(x => positionAsList(x));
+    return positions.reduce(([a, b], [c, d]) => [a + c / list.length, b + d / list.length], [0, 0])
+}
+
+const colorize = list => list.forEach((x, i) => x.color = colors[i % colors.length]);
+
+const positionize = list => list.forEach((x, i) => x.position = positionAsList(x));
+
+export const getAirports = list => {
+    const sorted = [...airports.filter(x => x.country === 'United States')];
+    const center = getAveragePosition(list);
+    const comparer = getDistanceFromComparer(center);
+
+    sorted.sort(comparer);
+    colorize(sorted);
+    positionize(sorted);
+
+    return sorted;
 }
