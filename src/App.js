@@ -6,11 +6,11 @@ import { getAirportsWithin, poll, positionAsList } from './services';
 
 const defaultPosition = [39.833333, -98.583333]; // geographic center of the US
 const airportColors = [
-    'red',
-    'green',
+    'orangered',
+    'limegreen',
     'navy',
-    'darkred',
-    'mediumseagreen',
+    'orange',
+    'forestgreen',
     'royalblue'
 ];
 

@@ -15,11 +15,12 @@ export const FlightMarker = ({ lat, lon, flight, speed, altitude, track, hex, co
     return (
         <Marker position={[lat, lon]} icon={icon}>
             <Popup>
+                {flight || hex}<br />
                 Altitude {altitude}<br />
                 Heading {track}<br />
                 Speed {speed}
             </Popup>
-            <Tooltip permanent={true} >
+            <Tooltip opacity={0.7}>
                 {flight || hex}
             </Tooltip>
         </Marker>
