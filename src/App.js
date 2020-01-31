@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './app.css';
 import { FlightMap, FlightTable, TimeBoard } from './components';
-import { datasource } from './config';
 import { getAirports, poll,getCenter } from './services';
 
 const defaultPosition = [39.833333, -98.583333]; // geographic center of the US
@@ -14,7 +13,7 @@ function App() {
     const [timezones, setTimezones] = useState(['UTC']);
 
     useEffect(() => {
-        return poll(datasource, setFlights);
+        return poll(process.env.REACT_APP_DATA_URL, process.env.REACT_APP_DATA_PERIOD, setFlights);
     }, []);
 
     useEffect(() => {

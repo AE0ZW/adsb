@@ -11,7 +11,7 @@ export const connect = (url, messageHandler) => {
     };
 }
 
-export const poll = ({url, interval}, messageHandler) => {
+export const poll = (url, interval, messageHandler) => {
     const timer = setInterval(() => {
         fetch(url)
             .then(resp => resp.json())
