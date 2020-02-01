@@ -20,7 +20,7 @@ export const FlightMarker = ({ lat, lon, flight, speed, altitude, track, hex, co
                 Heading {track}<br />
                 Speed {speed}
             </Popup>
-            <Tooltip opacity={0.7}>
+            <Tooltip>
                 {flight || hex}
             </Tooltip>
         </Marker>
