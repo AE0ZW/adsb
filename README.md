@@ -1,73 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# dump1090-client
+This is yet-another-take on a UI for the dump1090 program. dump1090 interfaces with a software
+defined radio (SDR) to monitor the status transmissions of aircraft.
 
-## Available Scripts
+The app is built with:
 
-In the project directory, you can run:
+- React
+- Leafletjs
+- OpenStreetMap
+- Various goodness from npm.
 
-### `npm start`
+![dump1090-client](dump1090-client.png)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- The center of the map is calculated from the initial fetch of data.json from the dump1090 daemon. The lat/lon of the aircraft are averaged and the map center set to the result.
+- Each displayed airport has a color-coded set of range rings. The range increases 10 nmi per ring.
+- The airports are ordered by their distance from the lat/lon average and the first 6 are displayed.
+- Hovering an aircraft icon reveals the callsign or IACO hex identifier of the aircraft.
+- Clicking an aircraft or airport icon pops up information about the item.
 
-### `npm test`
+## Demo
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The demo folder contains dockerfiles to build the three services and a docker-compose-yml to tie it all together. Execute `docker-compose up` in the `./demo` directory and then point your browser to `http://localhost:80`.
 
-### `npm run build`
+The three services used by the demo are:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- dump1090
+- data
+- app
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### dump1090
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This container runs the dump1090 daemon and exposes ports to the networks (internal and external). To view the data being sent to the UI browse `http://localhost:8080/data.json`.
 
-### `npm run eject`
+You can use netcat to view the raw and decoded data stream. On a Linux box run `nc localhost 30002` for the raw data and `nc localhost 30003` for the decoded data.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### data
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The file `raw.dat` contains about an hours worth of raw data recorded in Flagstaff, AZ in late January, 2020. The data is sent to the dump1090 service over port 30001 at the rate of 10 messages/s.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### app
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-
-Search Results
-Featured snippet from the web
-The latitude for Flagstaff Pulliam Airport (FLG), 6200 South Pulliam Drive #204, Flagstaff, AZ 86001, USA is: 35.13778 and the longitude is: -111.67167.
+This container builds the react app and serves it over port 80.
