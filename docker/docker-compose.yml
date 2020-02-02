@@ -2,7 +2,7 @@ version: "3.7"
 services:
     dump1090:
         build: ./dump1090
-        image: flightmon/dump9010
+        image: adsb-monitor/dump9010
         expose:
             - 30001
         ports: 
@@ -15,12 +15,12 @@ services:
             driver: none
     data:
         build: ./data
-        image: flightmon/data
+        image: adsb-monitor/data
         networks:
             - default
     app:
         build: ./app
-        image: flightmon/app
+        image: adsb-monitor/app
         ports: 
             - "80:80"
         networks:
