@@ -18,6 +18,7 @@ The app is built with:
 - The airports are ordered by their distance from the lat/lon average and the first 6 are displayed.
 - Hovering an aircraft icon reveals the callsign or ICAO hex identifier of the aircraft.
 - Clicking an aircraft or airport icon pops up information about the item.
+- An initial configuration screen enables the user to enter the host and port of the dump1090 daemon.
 
 ## Demo
 
