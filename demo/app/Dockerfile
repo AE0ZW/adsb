@@ -5,8 +5,6 @@ WORKDIR /build
 RUN apk add git; \
 git clone https://github.com/dennisdunn/dump1090-client.git; 
 
-COPY ./.env ./dump1090-client
-
 RUN cd dump1090-client; \
 npm install; \
 npm run build
