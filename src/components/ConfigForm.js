@@ -20,7 +20,7 @@ export const ConfigForm = ({ defaultHost, defaultPort, onSubmit }) => {
             <form onSubmit={handleSubmit}>
                 <p><label>Host: <input type='text' value={host} onChange={e=>setHost(e.target.value)}></input></label></p>
                 <p><label>Port: <input type='text' value={port} onChange={e=>setPort(e.target.value)}></input></label></p>
-                <p><input type='submit' value='Save'></input></p>
+                <p><input type='submit' value='Continue'></input></p>
             </form>
         </div>
     );

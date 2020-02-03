@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './app.css';
-import { FlightMap, FlightTable, TimeBoard } from './components';
-import { getAirports, poll, getCenter } from './services';
-import { Overlay } from './components';
-import { ConfigForm } from './components';
+import { ConfigForm, FlightMap, FlightTable, Overlay, TimeBoard } from './components';
+import { getAirports, getCenter, poll } from './services';
+import {useLocalstorage} from './hooks';
 
 const defaultPosition = [39.833333, -98.583333]; // geographic center of the US
 
@@ -14,8 +13,16 @@ function App() {
     const [airports, setAirports] = useState([]);
     const [timezones, setTimezones] = useState(['UTC']);
     const [overlay, setOverlay] = useState(true);
-    const [hostInfo, setHostInfo] = useState({ host: '192.168.0.0', port: 8080 });
+    const [hostInfo, setHostInfo] = useLocalstorage('dump1090-client', { host: '192.168.0.0', port: 8080 });
     const [isPolling, setIsPolling] = useState(false);
+    
+    console.dir(hostInfo);
+    
+    const configFormHandler = config => {
+        setHostInfo(config);
+        setOverlay(false);
+        setIsPolling(true);
+    }
 
     useEffect(() => {
         if (isPolling) {
@@ -25,7 +32,7 @@ function App() {
 
     useEffect(() => {
         if (flights.length > 0 && airports.length === 0) {
-            const airports = getAirports(flights).slice(0,6);
+            const airports = getAirports(flights).slice(0, 6);
             setAirports(airports);
             setCenter(getCenter(airports));
             timezones.push(airports[0].tz);
@@ -42,7 +49,10 @@ function App() {
                 <FlightTable headings={['Flight', 'Alt', 'Hdg', 'Spd']} flights={flights} />
             </div>
             <Overlay visible={overlay}>
-                <ConfigForm defaultHost={hostInfo.host} defaultPort={hostInfo.port} onSubmit={formData => {console.log(formData); setHostInfo(formData); setIsPolling(true);setOverlay(false); }}></ConfigForm>
+                <ConfigForm
+                    defaultHost={hostInfo.host}
+                    defaultPort={hostInfo.port}
+                    onSubmit={configFormHandler} />
             </Overlay>
         </div >
     );
