@@ -13,7 +13,7 @@ function App() {
     const [airports, setAirports] = useState([]);
     const [timezones, setTimezones] = useState(['UTC']);
     const [overlay, setOverlay] = useState(true);
-    const [hostInfo, setHostInfo] = useLocalstorage('dump1090-client', { host: '192.168.0.0', port: 8080 });
+    const [hostInfo, setHostInfo] = useLocalstorage('dump1090-client', { host: 'localhost', port: 8080 });
     const [isPolling, setIsPolling] = useState(false);
     
     console.dir(hostInfo);
