@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  adsb:
+    image: adsb
+    build: ./adsb
+    ports:
+      - "30001:30001"
+      - "30002:30002"
+      - "30003:30003"
+    devices:
+      - "/dev/bus/usb/001/004:/dev/bus/usb/001/004"
+  hub:
+    image: nodered/node-red
+    volumes:
+      - "./hub:/data"
+    ports:
+      - "1880:1880"
+    depends_on: 
+      - adsb
