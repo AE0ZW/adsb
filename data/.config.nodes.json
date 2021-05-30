@@ -688,5 +688,66 @@
                 "file": "/data/node_modules/node-red-dashboard/nodes/ui_spacer.js"
             }
         }
+    },
+    "node-red-contrib-functionx": {
+        "name": "node-red-contrib-functionx",
+        "version": "1.0.2",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "functionx": {
+                "name": "functionx",
+                "types": [
+                    "functionx"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-functionx",
+                "file": "/data/node_modules/node-red-contrib-functionx/functionx.js"
+            }
+        }
+    },
+    "node-red-contrib-web-worldmap": {
+        "name": "node-red-contrib-web-worldmap",
+        "version": "2.15.0",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "worldmap": {
+                "name": "worldmap",
+                "types": [
+                    "worldmap",
+                    "ui_worldmap",
+                    "worldmap in",
+                    "worldmap-tracks",
+                    "worldmap-hull"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-web-worldmap",
+                "file": "/data/node_modules/node-red-contrib-web-worldmap/worldmap.js"
+            }
+        }
+    },
+    "node-red-contrib-ui-clock": {
+        "name": "node-red-contrib-ui-clock",
+        "version": "1.0.1",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "ui_clock": {
+                "name": "ui_clock",
+                "types": [
+                    "ui_clock"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-ui-clock",
+                "file": "/data/node_modules/node-red-contrib-ui-clock/clock.js"
+            }
+        }
     }
 }
