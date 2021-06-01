@@ -10,7 +10,7 @@ services:
       - "30003:30003"
       - "8080:8080"
     devices:
-      - "/dev/bus/usb/001/004:/dev/bus/usb/001/004"
+      - "/dev/bus/usb/001/005:/dev/bus/usb/001/005"
   ui:
     image: nodered/node-red
     restart: unless-stopped

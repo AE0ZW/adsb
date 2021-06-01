@@ -431,25 +431,6 @@
             }
         }
     },
-    "node-red-contrib-npm": {
-        "name": "node-red-contrib-npm",
-        "version": "1.0.2",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "npm": {
-                "name": "npm",
-                "types": [
-                    "npm"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-npm",
-                "file": "/data/node_modules/node-red-contrib-npm/npm/npm.js"
-            }
-        }
-    },
     "node-red-dashboard": {
         "name": "node-red-dashboard",
         "version": "2.29.1",
@@ -689,22 +670,60 @@
             }
         }
     },
-    "node-red-contrib-functionx": {
-        "name": "node-red-contrib-functionx",
-        "version": "1.0.2",
+    "node-red-contrib-ui-clock": {
+        "name": "node-red-contrib-ui-clock",
+        "version": "1.0.1",
         "local": true,
         "user": true,
         "nodes": {
-            "functionx": {
-                "name": "functionx",
+            "ui_clock": {
+                "name": "ui_clock",
                 "types": [
-                    "functionx"
+                    "ui_clock"
                 ],
                 "enabled": true,
                 "local": true,
                 "user": false,
-                "module": "node-red-contrib-functionx",
-                "file": "/data/node_modules/node-red-contrib-functionx/functionx.js"
+                "module": "node-red-contrib-ui-clock",
+                "file": "/data/node_modules/node-red-contrib-ui-clock/clock.js"
+            }
+        }
+    },
+    "node-red-node-ui-table": {
+        "name": "node-red-node-ui-table",
+        "version": "0.3.10",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "ui_table": {
+                "name": "ui_table",
+                "types": [
+                    "ui_table"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-node-ui-table",
+                "file": "/data/node_modules/node-red-node-ui-table/node.js"
+            }
+        }
+    },
+    "node-red-contrib-npm": {
+        "name": "node-red-contrib-npm",
+        "version": "1.0.2",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "npm": {
+                "name": "npm",
+                "types": [
+                    "npm"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-npm",
+                "file": "/data/node_modules/node-red-contrib-npm/npm/npm.js"
             }
         }
     },
@@ -731,22 +750,22 @@
             }
         }
     },
-    "node-red-contrib-ui-clock": {
-        "name": "node-red-contrib-ui-clock",
-        "version": "1.0.1",
+    "node-red-contrib-functionx": {
+        "name": "node-red-contrib-functionx",
+        "version": "1.0.2",
         "local": true,
         "user": true,
         "nodes": {
-            "ui_clock": {
-                "name": "ui_clock",
+            "functionx": {
+                "name": "functionx",
                 "types": [
-                    "ui_clock"
+                    "functionx"
                 ],
                 "enabled": true,
                 "local": true,
                 "user": false,
-                "module": "node-red-contrib-ui-clock",
-                "file": "/data/node_modules/node-red-contrib-ui-clock/clock.js"
+                "module": "node-red-contrib-functionx",
+                "file": "/data/node_modules/node-red-contrib-functionx/functionx.js"
             }
         }
     }
