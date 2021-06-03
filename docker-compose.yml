@@ -10,7 +10,7 @@ services:
       - "30003:30003"
       - "8080:8080"
     devices:
-      - "/dev/bus/usb/001/005:/dev/bus/usb/001/005"
+      - "${SDR_DEVICE}:${SDR_DEVICE}"
   ui:
     image: nodered/node-red
     restart: unless-stopped
