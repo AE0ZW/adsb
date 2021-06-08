@@ -1,1 +1,1061 @@
-[{"id":"4f19d12f.1e2c4","type":"tab","label":"Rx","disabled":false,"info":""},{"id":"22062ea4.eb1692","type":"tab","label":"Db","disabled":false,"info":"This flow takes all of the incomming messages from the receiver and uses them to update an in-memory database of every aircraft seen. \n\nWhen an aircraft record changes, it is sent to the out-link for consumption by other flows.\n\nEvery n-seconds every active aircraft record is checked and if no messages have been received for m-seconds, the record is set to in-active."},{"id":"b89551a1.981bf","type":"tab","label":"UI - Flight table","disabled":false,"info":""},{"id":"440cd06f.70f26","type":"tab","label":"UI - Flight map","disabled":false,"info":""},{"id":"685b38.50b554c8","type":"tab","label":"UI - Time board","disabled":false,"info":""},{"id":"933825f3.5e6058","type":"ui_tab","name":"Local Flight Track","icon":"airport","disabled":false,"hidden":false},{"id":"56a51d5c.ea6104","type":"ui_group","name":"Map","tab":"933825f3.5e6058","order":1,"disp":false,"width":16,"collapse":false},{"id":"202f1509.5d29ea","type":"ui_group","name":"Dashboard","tab":"933825f3.5e6058","order":6,"disp":false,"width":"8","collapse":false},{"id":"96e62eeb.e7c3d","type":"ui_base","theme":{"name":"theme-light","lightTheme":{"default":"#0094CE","baseColor":"#3f4aa2","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":true,"reset":false},"darkTheme":{"default":"#097479","baseColor":"#097479","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":true,"reset":false},"customTheme":{"name":"Untitled Theme 1","default":"#4B7930","baseColor":"#4B7930","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","reset":false},"themeState":{"base-color":{"default":"#0094CE","value":"#0094CE","edited":true},"page-titlebar-backgroundColor":{"value":"#3f4aa2","edited":false},"page-backgroundColor":{"value":"#fafafa","edited":false},"page-sidebar-backgroundColor":{"value":"#333333","edited":false},"group-textColor":{"value":"#6973c5","edited":false},"group-borderColor":{"value":"#ffffff","edited":false},"group-backgroundColor":{"value":"#ffffff","edited":false},"widget-textColor":{"value":"#111111","edited":false},"widget-backgroundColor":{"value":"#3f4aa2","edited":false},"widget-borderColor":{"value":"#ffffff","edited":false},"base-font":{"value":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"}},"angularTheme":{"primary":"indigo","accents":"blue","warn":"red","background":"grey"}},"site":{"name":"Local Flight Track","hideToolbar":"false","allowSwipe":"false","lockMenu":"false","allowTempTheme":"none","dateFormat":"DD/MM/YYYY","sizes":{"sx":48,"sy":48,"gx":6,"gy":6,"cx":6,"cy":6,"px":0,"py":0}}},{"id":"f18730a5.cb179","type":"tcp in","z":"4f19d12f.1e2c4","name":"","server":"client","host":"recv","port":"30003","datamode":"stream","datatype":"utf8","newline":"\\n","topic":"","base64":false,"x":120,"y":60,"wires":[["bd3e632b.fd2f3"]]},{"id":"bd3e632b.fd2f3","type":"npm","z":"4f19d12f.1e2c4","name":"sbs1 decoder","func":"// NPM module exposed as variable, npm_module\nreturn npm_module(msg.payload);","npm_module":"sbs1-compat","module_style":"function","msg_payload":"return_val","function_name":"parseSbs1Message","x":340,"y":60,"wires":[["99cfcf6c.0ccf5"]],"outputLabels":["decoded ads-b messages"]},{"id":"fb63c521.8f3888","type":"link in","z":"22062ea4.eb1692","name":"adsb-message reader","links":["7de6f7c3.2417a8"],"x":175,"y":40,"wires":[["da9f9197.65b91"]]},{"id":"7de6f7c3.2417a8","type":"link out","z":"4f19d12f.1e2c4","name":"adsb-messages","links":["fb63c521.8f3888"],"x":715,"y":220,"wires":[]},{"id":"e38f79f9.9bcf28","type":"link out","z":"22062ea4.eb1692","name":"updated aircraft records","links":["17438f18.aa3ae1","5e748ed5.52e88"],"x":775,"y":160,"wires":[]},{"id":"15dd7292.72f38d","type":"function","z":"22062ea4.eb1692","name":"save aircraft record","func":"flow.set(msg.payload.hex_ident, msg.payload);\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":410,"y":160,"wires":[["62705afa.c3ef54"]]},{"id":"8aea2bb0.bdc4e8","type":"ui_table","z":"b89551a1.981bf","group":"202f1509.5d29ea","name":"flight info","order":9,"width":"8","height":"6","columns":[{"field":"label","title":"Ident","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"altitude","title":"Alt","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"track","title":"Hdg","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}},{"field":"ground_speed","title":"Speed","width":"","align":"left","formatter":"plaintext","formatterParams":{"target":"_blank"}}],"outputs":0,"cts":false,"x":740,"y":120,"wires":[]},{"id":"b1a21177.4703","type":"function","z":"b89551a1.981bf","name":"create add/update cmd","func":"const row = Object.assign({}, msg.payload);\nmsg.payload = {\n    \"command\": \"updateOrAddData\",\n    \"arguments\": [[row ]],\n    returnPromise: true\n}\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":460,"y":120,"wires":[["8aea2bb0.bdc4e8"]]},{"id":"fa0b8791.0c8b38","type":"inject","z":"685b38.50b554c8","name":"","props":[{"p":"payload"}],"repeat":"1","crontab":"","once":true,"onceDelay":0.1,"topic":"","payload":"","payloadType":"date","x":150,"y":120,"wires":[["5d74e9e.8c92b18","202359c0.dfbb56","776280a5.b5a86","32ec2796.de6a08"]]},{"id":"5d74e9e.8c92b18","type":"function","z":"685b38.50b554c8","name":"to EST","func":"const s = new Date(msg.payload).toLocaleString(\"en-us\", {timeZone: \"America/New_York\"});\nmsg.payload = Date.parse(s);\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":350,"y":200,"wires":[["1fdef077.9008b"]]},{"id":"202359c0.dfbb56","type":"function","z":"685b38.50b554c8","name":"to PST","func":"const s = new Date(msg.payload).toLocaleString(\"en-us\", {timeZone: \"America/Los_Angeles\"});\nmsg.payload = Date.parse(s);\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":370,"y":60,"wires":[["e409e166.ac1da"]]},{"id":"776280a5.b5a86","type":"function","z":"685b38.50b554c8","name":"to UTC","func":"const s = new Date(msg.payload).toLocaleString(\"en-us\", {timeZone: \"UTC\"});\nmsg.payload = Date.parse(s);\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":340,"y":300,"wires":[["d7eba269.976d2"]]},{"id":"e409e166.ac1da","type":"ui_clock","z":"685b38.50b554c8","name":"LA","group":"202f1509.5d29ea","order":1,"width":2,"height":2,"x":570,"y":60,"wires":[]},{"id":"1ded111d.ee858f","type":"ui_text","z":"685b38.50b554c8","group":"202f1509.5d29ea","order":5,"width":2,"height":1,"name":"","label":"L.A.","format":"","layout":"col-center","x":670,"y":60,"wires":[]},{"id":"32ec2796.de6a08","type":"ui_clock","z":"685b38.50b554c8","name":"Phoenix","group":"202f1509.5d29ea","order":2,"width":2,"height":2,"x":580,"y":120,"wires":[]},{"id":"16653673.b1c9aa","type":"ui_text","z":"685b38.50b554c8","group":"202f1509.5d29ea","order":6,"width":2,"height":1,"name":"","label":"Phoenix","format":"","layout":"col-center","x":700,"y":120,"wires":[]},{"id":"1fdef077.9008b","type":"ui_clock","z":"685b38.50b554c8","name":"New York","group":"202f1509.5d29ea","order":3,"width":2,"height":2,"x":560,"y":200,"wires":[]},{"id":"fc828fea.7617d","type":"ui_text","z":"685b38.50b554c8","group":"202f1509.5d29ea","order":7,"width":2,"height":1,"name":"","label":"New York","format":"","layout":"col-center","x":680,"y":200,"wires":[]},{"id":"d7eba269.976d2","type":"ui_clock","z":"685b38.50b554c8","name":"London","group":"202f1509.5d29ea","order":4,"width":2,"height":2,"x":560,"y":300,"wires":[]},{"id":"ebec2d81.1e3ed","type":"ui_text","z":"685b38.50b554c8","group":"202f1509.5d29ea","order":8,"width":2,"height":1,"name":"","label":"London","format":"","layout":"col-center","x":680,"y":300,"wires":[]},{"id":"99cfcf6c.0ccf5","type":"switch","z":"4f19d12f.1e2c4","name":"msg_type router","property":"payload.message_type","propertyType":"msg","rules":[{"t":"eq","v":"SEL","vt":"str"},{"t":"eq","v":"ID","vt":"str"},{"t":"eq","v":"AIR","vt":"str"},{"t":"eq","v":"STA","vt":"str"},{"t":"eq","v":"CLK","vt":"str"},{"t":"else"}],"checkall":"false","repair":false,"outputs":6,"x":440,"y":240,"wires":[[],[],[],[],[],["7de6f7c3.2417a8"]],"outputLabels":["SELECTION CHANGE MESSAGE"," NEW ID MESSAGE"," NEW AIRCRAFT MESSAGE","STATUS CHANGE MESSAGE"," CLICK MESSAGE"," TRANSMISSION MESSAGE"]},{"id":"da9f9197.65b91","type":"function","z":"22062ea4.eb1692","name":"sbs1 -> aircraft rec","func":"\nconst fns = [\n    props => ({hex_ident: props.hex_ident}),\n    props => ({flight_id: props.flight_id ? props.flight_id.trim() : null}),\n    props => ({timestamp: Date.parse(props.logged_date + \" \" + props.logged_time)}),\n    props => ({altitude: props.altitude}),\n    props => ({ground_speed: props.ground_speed}),\n    props => ({track: props.track}),\n    props => ({lat: props.lat}),\n    props => ({lon: props.lon}),\n    props => ({vertical_rate: props.vertical_rate})\n];\n\nmsg.payload = fns.reduce((acc, current)=> {\n    return Object.assign(acc, current.call(this, msg.payload));\n}, {});\n\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":250,"y":100,"wires":[["7e08fee.33e6"]]},{"id":"7e08fee.33e6","type":"function","z":"22062ea4.eb1692","name":"merge with db record","func":"const assign_if = (target, source) => {\n    Object.keys(source).forEach(key => {\n        if(!!source[key]) {\n            target[key] = source[key];\n        }\n    })\n    return target;\n}\n\nconst known = flow.get(msg.payload.hex_ident) || {};\nmsg.payload = assign_if(known, msg.payload);\n\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":500,"y":100,"wires":[["15dd7292.72f38d"]]},{"id":"4c9b4997.309ee8","type":"inject","z":"22062ea4.eb1692","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"10","crontab":"","once":true,"onceDelay":0.1,"topic":"","payload":"","payloadType":"date","x":190,"y":320,"wires":[["b63b1d45.af16d"]]},{"id":"eafb3b18.54a508","type":"link out","z":"22062ea4.eb1692","name":"deleted aircraft records","links":["baea63fe.7a25c","c5c39f00.c2a82"],"x":715,"y":320,"wires":[]},{"id":"b63b1d45.af16d","type":"function","z":"22062ea4.eb1692","name":"prune aircraft records","func":"flow.keys().forEach(key => {\n    const item = flow.get(key);\n    if(item && item.timestamp + context.get(\"ttl\") * 1000 < msg.payload){\n        msg.payload = item;\n        node.send(msg);\n    }\n})","outputs":1,"noerr":0,"initialize":"context.set(\"ttl\", 30) // n second time-to-live","finalize":"","libs":[],"x":440,"y":320,"wires":[["9e694bb5.cc6c28"]]},{"id":"baea63fe.7a25c","type":"link in","z":"b89551a1.981bf","name":"pruned aircraft reader","links":["eafb3b18.54a508"],"x":175,"y":200,"wires":[["32e18b0e.bfc5e4"]]},{"id":"32e18b0e.bfc5e4","type":"function","z":"b89551a1.981bf","name":"clone payload","func":"msg.payload = Object.assign({}, msg.payload)\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":320,"y":200,"wires":[["3748a8ed.bbccb8"]]},{"id":"3748a8ed.bbccb8","type":"change","z":"b89551a1.981bf","name":"set table props","rules":[{"t":"set","p":"payload.id","pt":"msg","to":"payload.hex_ident","tot":"msg"},{"t":"set","p":"payload.label","pt":"msg","to":"msg.payload.flight_id \t? msg.payload.flight_id \t: msg.payload.hex_ident","tot":"jsonata"}],"action":"","property":"","from":"","to":"","reg":false,"x":440,"y":280,"wires":[["6c48c90d.d44648"]]},{"id":"6c48c90d.d44648","type":"function","z":"b89551a1.981bf","name":"create delete cmd","func":"msg.payload={\n    command:\"deleteRow\",\n    arguments: [msg.payload.hex_ident],\n    returnPromise: true\n}\n\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":570,"y":360,"wires":[["8aea2bb0.bdc4e8"]]},{"id":"62705afa.c3ef54","type":"function","z":"22062ea4.eb1692","name":"clone payload","func":"msg.payload = Object.assign({}, msg.payload)\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":620,"y":160,"wires":[["e38f79f9.9bcf28"]]},{"id":"264901d.ec0e9fe","type":"function","z":"22062ea4.eb1692","name":"clone payload","func":"msg.payload = Object.assign({}, msg.payload)\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":600,"y":400,"wires":[["eafb3b18.54a508"]]},{"id":"9e694bb5.cc6c28","type":"function","z":"22062ea4.eb1692","name":"remove aircraft record","func":"flow.set(msg.payload.hex_ident, null)\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","libs":[],"x":270,"y":400,"wires":[["264901d.ec0e9fe"]]},{"id":"17438f18.aa3ae1","type":"link in","z":"b89551a1.981bf","name":"aircraft reader","links":["e38f79f9.9bcf28"],"x":175,"y":40,"wires":[["badd9d1f.6f9b"]]},{"id":"badd9d1f.6f9b","type":"change","z":"b89551a1.981bf","name":"set table props","rules":[{"t":"set","p":"payload.id","pt":"msg","to":"payload.hex_ident","tot":"msg"},{"t":"set","p":"payload.label","pt":"msg","to":"msg.payload.flight_id \t? msg.payload.flight_id \t: msg.payload.hex_ident","tot":"jsonata"}],"action":"","property":"","from":"","to":"","reg":false,"x":320,"y":40,"wires":[["b1a21177.4703"]]},{"id":"87fdc566.658df8","type":"ui_worldmap","z":"440cd06f.70f26","group":"56a51d5c.ea6104","order":1,"width":0,"height":0,"name":"","lat":"35.198284","lon":"-111.651299","zoom":"","layer":"OSM grey","cluster":"","maxage":"60","usermenu":"hide","layers":"hide","panit":"false","panlock":"false","zoomlock":"false","hiderightclick":"true","coords":"none","showgrid":"false","allowFileDrop":"false","path":"/worldmap","x":720,"y":120,"wires":[]},{"id":"834e8281.fc9e2","type":"change","z":"440cd06f.70f26","name":"set map props","rules":[{"t":"set","p":"payload.name","pt":"msg","to":"payload.hex_ident","tot":"msg"},{"t":"set","p":"payload.label","pt":"msg","to":"msg.payload.flight_id ? msg.payload.flight_id : msg.payload.hex_ident","tot":"jsonata"},{"t":"set","p":"payload.iconColor","pt":"msg","to":"msg.payload.vertical_rate  < -100 ? \"red\" : msg.payload.vertical_rate > 100 ? \"green\" : \"black\"","tot":"jsonata"},{"t":"set","p":"payload.icon","pt":"msg","to":"plane","tot":"str"},{"t":"set","p":"payload.heading","pt":"msg","to":"payload.track","tot":"msg"},{"t":"set","p":"payload.speed","pt":"msg","to":"payload.ground_speed","tot":"msg"},{"t":"set","p":"payload.layer","pt":"msg","to":"aircraft","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":380,"y":120,"wires":[["87fdc566.658df8"]]},{"id":"5e748ed5.52e88","type":"link in","z":"440cd06f.70f26","name":"aircraft reader","links":["e38f79f9.9bcf28"],"x":155,"y":120,"wires":[["834e8281.fc9e2"]]},{"id":"c5c39f00.c2a82","type":"link in","z":"440cd06f.70f26","name":"pruned aircraft reader","links":["eafb3b18.54a508"],"x":155,"y":200,"wires":[["fdc5d61e.cbe348"]]},{"id":"fdc5d61e.cbe348","type":"change","z":"440cd06f.70f26","name":"create remove marker command","rules":[{"t":"set","p":"payload.name","pt":"msg","to":"msg.payload.hex_ident","tot":"str"},{"t":"set","p":"payload.deleted","pt":"msg","to":"true","tot":"bool"}],"action":"","property":"","from":"","to":"","reg":false,"x":430,"y":200,"wires":[["87fdc566.658df8"]]}]
+[
+    {
+        "id": "4f19d12f.1e2c4",
+        "type": "tab",
+        "label": "Rx",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "22062ea4.eb1692",
+        "type": "tab",
+        "label": "Db",
+        "disabled": false,
+        "info": "This flow takes all of the incomming messages from the receiver and uses them to update an in-memory database of every aircraft seen. \n\nWhen an aircraft record changes, it is sent to the out-link for consumption by other flows.\n\nEvery n-seconds every active aircraft record is checked and if no messages have been received for m-seconds, the record is set to in-active."
+    },
+    {
+        "id": "b89551a1.981bf",
+        "type": "tab",
+        "label": "UI - Flight table",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "440cd06f.70f26",
+        "type": "tab",
+        "label": "UI - Flight map",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "685b38.50b554c8",
+        "type": "tab",
+        "label": "UI - Time board",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "933825f3.5e6058",
+        "type": "ui_tab",
+        "name": "Local Flight Track",
+        "icon": "airport",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "56a51d5c.ea6104",
+        "type": "ui_group",
+        "name": "Map",
+        "tab": "933825f3.5e6058",
+        "order": 1,
+        "disp": false,
+        "width": 16,
+        "collapse": false
+    },
+    {
+        "id": "202f1509.5d29ea",
+        "type": "ui_group",
+        "name": "Dashboard",
+        "tab": "933825f3.5e6058",
+        "order": 6,
+        "disp": false,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "96e62eeb.e7c3d",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#3f4aa2",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#3f4aa2",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#6973c5",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#3f4aa2",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Local Flight Track",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "none",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "f18730a5.cb179",
+        "type": "tcp in",
+        "z": "4f19d12f.1e2c4",
+        "name": "",
+        "server": "client",
+        "host": "recv",
+        "port": "30003",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "\\n",
+        "topic": "",
+        "base64": false,
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "bd3e632b.fd2f3"
+            ]
+        ]
+    },
+    {
+        "id": "bd3e632b.fd2f3",
+        "type": "npm",
+        "z": "4f19d12f.1e2c4",
+        "name": "sbs1 decoder",
+        "func": "// NPM module exposed as variable, npm_module\nreturn npm_module(msg.payload);",
+        "npm_module": "sbs1-compat",
+        "module_style": "function",
+        "msg_payload": "return_val",
+        "function_name": "parseSbs1Message",
+        "x": 340,
+        "y": 60,
+        "wires": [
+            [
+                "99cfcf6c.0ccf5"
+            ]
+        ],
+        "outputLabels": [
+            "decoded ads-b messages"
+        ]
+    },
+    {
+        "id": "fb63c521.8f3888",
+        "type": "link in",
+        "z": "22062ea4.eb1692",
+        "name": "adsb-message reader",
+        "links": [
+            "7de6f7c3.2417a8"
+        ],
+        "x": 175,
+        "y": 40,
+        "wires": [
+            [
+                "da9f9197.65b91"
+            ]
+        ]
+    },
+    {
+        "id": "7de6f7c3.2417a8",
+        "type": "link out",
+        "z": "4f19d12f.1e2c4",
+        "name": "adsb-messages",
+        "links": [
+            "fb63c521.8f3888"
+        ],
+        "x": 715,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "e38f79f9.9bcf28",
+        "type": "link out",
+        "z": "22062ea4.eb1692",
+        "name": "updated aircraft records",
+        "links": [
+            "17438f18.aa3ae1",
+            "5e748ed5.52e88"
+        ],
+        "x": 775,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "15dd7292.72f38d",
+        "type": "function",
+        "z": "22062ea4.eb1692",
+        "name": "save aircraft record",
+        "func": "flow.set(msg.payload.hex_ident, msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "62705afa.c3ef54"
+            ]
+        ]
+    },
+    {
+        "id": "8aea2bb0.bdc4e8",
+        "type": "ui_table",
+        "z": "b89551a1.981bf",
+        "group": "202f1509.5d29ea",
+        "name": "flight info",
+        "order": 9,
+        "width": "8",
+        "height": "6",
+        "columns": [
+            {
+                "field": "label",
+                "title": "Ident",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "altitude",
+                "title": "Alt",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "track",
+                "title": "Hdg",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "ground_speed",
+                "title": "Speed",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 740,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "b1a21177.4703",
+        "type": "function",
+        "z": "b89551a1.981bf",
+        "name": "create add/update cmd",
+        "func": "const row = Object.assign({}, msg.payload);\nmsg.payload = {\n    \"command\": \"updateOrAddData\",\n    \"arguments\": [[row ]],\n    returnPromise: true\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 120,
+        "wires": [
+            [
+                "8aea2bb0.bdc4e8"
+            ]
+        ]
+    },
+    {
+        "id": "fa0b8791.0c8b38",
+        "type": "inject",
+        "z": "685b38.50b554c8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "5d74e9e.8c92b18",
+                "202359c0.dfbb56",
+                "776280a5.b5a86",
+                "32ec2796.de6a08"
+            ]
+        ]
+    },
+    {
+        "id": "5d74e9e.8c92b18",
+        "type": "function",
+        "z": "685b38.50b554c8",
+        "name": "to EST",
+        "func": "const s = new Date(msg.payload).toLocaleString(\"en-us\", {timeZone: \"America/New_York\"});\nmsg.payload = Date.parse(s);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "1fdef077.9008b"
+            ]
+        ]
+    },
+    {
+        "id": "202359c0.dfbb56",
+        "type": "function",
+        "z": "685b38.50b554c8",
+        "name": "to PST",
+        "func": "const s = new Date(msg.payload).toLocaleString(\"en-us\", {timeZone: \"America/Los_Angeles\"});\nmsg.payload = Date.parse(s);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "e409e166.ac1da"
+            ]
+        ]
+    },
+    {
+        "id": "776280a5.b5a86",
+        "type": "function",
+        "z": "685b38.50b554c8",
+        "name": "to UTC",
+        "func": "const s = new Date(msg.payload).toLocaleString(\"en-us\", {timeZone: \"UTC\"});\nmsg.payload = Date.parse(s);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "d7eba269.976d2"
+            ]
+        ]
+    },
+    {
+        "id": "e409e166.ac1da",
+        "type": "ui_clock",
+        "z": "685b38.50b554c8",
+        "name": "LA",
+        "group": "202f1509.5d29ea",
+        "order": 1,
+        "width": 2,
+        "height": 2,
+        "x": 570,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "1ded111d.ee858f",
+        "type": "ui_text",
+        "z": "685b38.50b554c8",
+        "group": "202f1509.5d29ea",
+        "order": 5,
+        "width": 2,
+        "height": 1,
+        "name": "",
+        "label": "L.A.",
+        "format": "",
+        "layout": "col-center",
+        "x": 670,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "32ec2796.de6a08",
+        "type": "ui_clock",
+        "z": "685b38.50b554c8",
+        "name": "Phoenix",
+        "group": "202f1509.5d29ea",
+        "order": 2,
+        "width": 2,
+        "height": 2,
+        "x": 580,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "16653673.b1c9aa",
+        "type": "ui_text",
+        "z": "685b38.50b554c8",
+        "group": "202f1509.5d29ea",
+        "order": 6,
+        "width": 2,
+        "height": 1,
+        "name": "",
+        "label": "Phoenix",
+        "format": "",
+        "layout": "col-center",
+        "x": 700,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "1fdef077.9008b",
+        "type": "ui_clock",
+        "z": "685b38.50b554c8",
+        "name": "New York",
+        "group": "202f1509.5d29ea",
+        "order": 3,
+        "width": 2,
+        "height": 2,
+        "x": 560,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "fc828fea.7617d",
+        "type": "ui_text",
+        "z": "685b38.50b554c8",
+        "group": "202f1509.5d29ea",
+        "order": 7,
+        "width": 2,
+        "height": 1,
+        "name": "",
+        "label": "New York",
+        "format": "",
+        "layout": "col-center",
+        "x": 680,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d7eba269.976d2",
+        "type": "ui_clock",
+        "z": "685b38.50b554c8",
+        "name": "London",
+        "group": "202f1509.5d29ea",
+        "order": 4,
+        "width": 2,
+        "height": 2,
+        "x": 560,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "ebec2d81.1e3ed",
+        "type": "ui_text",
+        "z": "685b38.50b554c8",
+        "group": "202f1509.5d29ea",
+        "order": 8,
+        "width": 2,
+        "height": 1,
+        "name": "",
+        "label": "London",
+        "format": "",
+        "layout": "col-center",
+        "x": 680,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "99cfcf6c.0ccf5",
+        "type": "switch",
+        "z": "4f19d12f.1e2c4",
+        "name": "msg_type router",
+        "property": "payload.message_type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "SEL",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ID",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "AIR",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "STA",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "CLK",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 6,
+        "x": 440,
+        "y": 240,
+        "wires": [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [
+                "7de6f7c3.2417a8"
+            ]
+        ],
+        "outputLabels": [
+            "SELECTION CHANGE MESSAGE",
+            " NEW ID MESSAGE",
+            " NEW AIRCRAFT MESSAGE",
+            "STATUS CHANGE MESSAGE",
+            " CLICK MESSAGE",
+            " TRANSMISSION MESSAGE"
+        ]
+    },
+    {
+        "id": "da9f9197.65b91",
+        "type": "function",
+        "z": "22062ea4.eb1692",
+        "name": "sbs1 -> aircraft rec",
+        "func": "\nconst fns = [\n    props => ({hex_ident: props.hex_ident}),\n    props => ({flight_id: props.flight_id ? props.flight_id.trim() : null}),\n    props => ({timestamp: Date.parse(props.logged_date + \" \" + props.logged_time)}),\n    props => ({altitude: props.altitude}),\n    props => ({ground_speed: props.ground_speed}),\n    props => ({track: props.track}),\n    props => ({lat: props.lat}),\n    props => ({lon: props.lon}),\n    props => ({vertical_rate: props.vertical_rate})\n];\n\nmsg.payload = fns.reduce((acc, current)=> {\n    return Object.assign(acc, current.call(this, msg.payload));\n}, {});\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 100,
+        "wires": [
+            [
+                "7e08fee.33e6"
+            ]
+        ]
+    },
+    {
+        "id": "7e08fee.33e6",
+        "type": "function",
+        "z": "22062ea4.eb1692",
+        "name": "merge with db record",
+        "func": "const assign_if = (target, source) => {\n    Object.keys(source).forEach(key => {\n        if(!!source[key]) {\n            target[key] = source[key];\n        }\n    })\n    return target;\n}\n\nconst known = flow.get(msg.payload.hex_ident) || {};\nmsg.payload = assign_if(known, msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 100,
+        "wires": [
+            [
+                "15dd7292.72f38d"
+            ]
+        ]
+    },
+    {
+        "id": "4c9b4997.309ee8",
+        "type": "inject",
+        "z": "22062ea4.eb1692",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 320,
+        "wires": [
+            [
+                "b63b1d45.af16d"
+            ]
+        ]
+    },
+    {
+        "id": "eafb3b18.54a508",
+        "type": "link out",
+        "z": "22062ea4.eb1692",
+        "name": "deleted aircraft records",
+        "links": [
+            "baea63fe.7a25c",
+            "c5c39f00.c2a82"
+        ],
+        "x": 715,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b63b1d45.af16d",
+        "type": "function",
+        "z": "22062ea4.eb1692",
+        "name": "prune aircraft records",
+        "func": "flow.keys().forEach(key => {\n    const item = flow.get(key);\n    if(item && item.timestamp + context.get(\"ttl\") * 1000 < msg.payload){\n        msg.payload = item;\n        node.send(msg);\n    }\n})",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "context.set(\"ttl\", 30) // n second time-to-live",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 320,
+        "wires": [
+            [
+                "9e694bb5.cc6c28"
+            ]
+        ]
+    },
+    {
+        "id": "baea63fe.7a25c",
+        "type": "link in",
+        "z": "b89551a1.981bf",
+        "name": "pruned aircraft reader",
+        "links": [
+            "eafb3b18.54a508"
+        ],
+        "x": 175,
+        "y": 200,
+        "wires": [
+            [
+                "32e18b0e.bfc5e4"
+            ]
+        ]
+    },
+    {
+        "id": "32e18b0e.bfc5e4",
+        "type": "function",
+        "z": "b89551a1.981bf",
+        "name": "clone payload",
+        "func": "msg.payload = Object.assign({}, msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "3748a8ed.bbccb8"
+            ]
+        ]
+    },
+    {
+        "id": "3748a8ed.bbccb8",
+        "type": "change",
+        "z": "b89551a1.981bf",
+        "name": "set table props",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.id",
+                "pt": "msg",
+                "to": "payload.hex_ident",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.label",
+                "pt": "msg",
+                "to": "msg.payload.flight_id \t? msg.payload.flight_id \t: msg.payload.hex_ident",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 280,
+        "wires": [
+            [
+                "6c48c90d.d44648"
+            ]
+        ]
+    },
+    {
+        "id": "6c48c90d.d44648",
+        "type": "function",
+        "z": "b89551a1.981bf",
+        "name": "create delete cmd",
+        "func": "msg.payload={\n    command:\"deleteRow\",\n    arguments: [msg.payload.hex_ident],\n    returnPromise: true\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 360,
+        "wires": [
+            [
+                "8aea2bb0.bdc4e8"
+            ]
+        ]
+    },
+    {
+        "id": "62705afa.c3ef54",
+        "type": "function",
+        "z": "22062ea4.eb1692",
+        "name": "clone payload",
+        "func": "msg.payload = Object.assign({}, msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 160,
+        "wires": [
+            [
+                "e38f79f9.9bcf28"
+            ]
+        ]
+    },
+    {
+        "id": "264901d.ec0e9fe",
+        "type": "function",
+        "z": "22062ea4.eb1692",
+        "name": "clone payload",
+        "func": "msg.payload = Object.assign({}, msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 400,
+        "wires": [
+            [
+                "eafb3b18.54a508"
+            ]
+        ]
+    },
+    {
+        "id": "9e694bb5.cc6c28",
+        "type": "function",
+        "z": "22062ea4.eb1692",
+        "name": "remove aircraft record",
+        "func": "flow.set(msg.payload.hex_ident, null)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 400,
+        "wires": [
+            [
+                "264901d.ec0e9fe"
+            ]
+        ]
+    },
+    {
+        "id": "17438f18.aa3ae1",
+        "type": "link in",
+        "z": "b89551a1.981bf",
+        "name": "aircraft reader",
+        "links": [
+            "e38f79f9.9bcf28"
+        ],
+        "x": 175,
+        "y": 40,
+        "wires": [
+            [
+                "badd9d1f.6f9b"
+            ]
+        ]
+    },
+    {
+        "id": "badd9d1f.6f9b",
+        "type": "change",
+        "z": "b89551a1.981bf",
+        "name": "set table props",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.id",
+                "pt": "msg",
+                "to": "payload.hex_ident",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.label",
+                "pt": "msg",
+                "to": "msg.payload.flight_id \t? msg.payload.flight_id \t: msg.payload.hex_ident",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 40,
+        "wires": [
+            [
+                "b1a21177.4703"
+            ]
+        ]
+    },
+    {
+        "id": "87fdc566.658df8",
+        "type": "ui_worldmap",
+        "z": "440cd06f.70f26",
+        "group": "56a51d5c.ea6104",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "lat": "35.198284",
+        "lon": "-111.651299",
+        "zoom": "",
+        "layer": "OSM",
+        "cluster": "",
+        "maxage": "60",
+        "usermenu": "hide",
+        "layers": "hide",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/flights",
+        "x": 710,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "834e8281.fc9e2",
+        "type": "change",
+        "z": "440cd06f.70f26",
+        "name": "set map props",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.name",
+                "pt": "msg",
+                "to": "payload.hex_ident",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.label",
+                "pt": "msg",
+                "to": "msg.payload.flight_id ? msg.payload.flight_id : msg.payload.hex_ident",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "msg.payload.vertical_rate  < -100 ? \"red\" : msg.payload.vertical_rate > 100 ? \"green\" : \"black\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.icon",
+                "pt": "msg",
+                "to": "plane",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.heading",
+                "pt": "msg",
+                "to": "payload.track",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.speed",
+                "pt": "msg",
+                "to": "payload.ground_speed",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "aircraft",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 120,
+        "wires": [
+            [
+                "87fdc566.658df8"
+            ]
+        ]
+    },
+    {
+        "id": "5e748ed5.52e88",
+        "type": "link in",
+        "z": "440cd06f.70f26",
+        "name": "aircraft reader",
+        "links": [
+            "e38f79f9.9bcf28"
+        ],
+        "x": 155,
+        "y": 120,
+        "wires": [
+            [
+                "834e8281.fc9e2"
+            ]
+        ]
+    },
+    {
+        "id": "c5c39f00.c2a82",
+        "type": "link in",
+        "z": "440cd06f.70f26",
+        "name": "pruned aircraft reader",
+        "links": [
+            "eafb3b18.54a508"
+        ],
+        "x": 155,
+        "y": 200,
+        "wires": [
+            [
+                "fdc5d61e.cbe348"
+            ]
+        ]
+    },
+    {
+        "id": "fdc5d61e.cbe348",
+        "type": "change",
+        "z": "440cd06f.70f26",
+        "name": "create remove marker command",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.name",
+                "pt": "msg",
+                "to": "msg.payload.hex_ident",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.deleted",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 200,
+        "wires": [
+            [
+                "87fdc566.658df8"
+            ]
+        ]
+    }
+]
