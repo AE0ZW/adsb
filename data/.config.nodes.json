@@ -729,7 +729,7 @@
     },
     "node-red-contrib-web-worldmap": {
         "name": "node-red-contrib-web-worldmap",
-        "version": "2.15.0",
+        "version": "2.15.2",
         "local": true,
         "user": true,
         "nodes": {
@@ -766,6 +766,25 @@
                 "user": false,
                 "module": "node-red-contrib-functionx",
                 "file": "/data/node_modules/node-red-contrib-functionx/functionx.js"
+            }
+        }
+    },
+    "node-red-contrib-uibuilder": {
+        "name": "node-red-contrib-uibuilder",
+        "version": "3.3.1",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "uibuilder": {
+                "name": "uibuilder",
+                "types": [
+                    "uibuilder"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-uibuilder",
+                "file": "/data/node_modules/node-red-contrib-uibuilder/nodes/uibuilder.js"
             }
         }
     }

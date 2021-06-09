@@ -4,11 +4,14 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
+        "bootstrap-vue": "^2.21.2",
         "node-red-contrib-functionx": "~1.0.2",
         "node-red-contrib-npm": "~1.0.2",
         "node-red-contrib-ui-clock": "~1.0.1",
-        "node-red-contrib-web-worldmap": "~2.15.0",
+        "node-red-contrib-uibuilder": "~3.3.1",
+        "node-red-contrib-web-worldmap": "~2.15.2",
         "node-red-dashboard": "~2.29.1",
-        "node-red-node-ui-table": "~0.3.10"
+        "node-red-node-ui-table": "~0.3.10",
+        "vue": "^2.6.14"
     }
 }
