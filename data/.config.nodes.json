@@ -729,7 +729,7 @@
     },
     "node-red-contrib-web-worldmap": {
         "name": "node-red-contrib-web-worldmap",
-        "version": "2.15.2",
+        "version": "2.15.3",
         "local": true,
         "user": true,
         "nodes": {

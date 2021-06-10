@@ -594,29 +594,29 @@
         "y": 200,
         "wires": [
             [
-                "f84e55e4.376d88"
+                "bee14a9a.2cd248"
             ]
         ]
     },
     {
-        "id": "f84e55e4.376d88",
+        "id": "bee14a9a.2cd248",
         "type": "uibuilder",
         "z": "4d81934d.085dac",
         "name": "",
-        "topic": "tracker",
-        "url": "flightsui",
+        "topic": "aircraft",
+        "url": "flights",
         "fwdInMessages": false,
         "allowScripts": false,
         "allowStyles": false,
-        "copyIndex": false,
+        "copyIndex": true,
         "templateFolder": "blank",
-        "showfolder": true,
+        "showfolder": false,
         "useSecurity": false,
         "sessionLength": 432000,
         "tokenAutoExtend": false,
         "reload": false,
         "x": 450,
-        "y": 200,
+        "y": 160,
         "wires": [
             [],
             []
