@@ -21,6 +21,13 @@
         "info": ""
     },
     {
+        "id": "4d81934d.085dac",
+        "type": "tab",
+        "label": "Ui",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "933825f3.5e6058",
         "type": "ui_tab",
         "name": "Local Flight Track",
@@ -187,7 +194,8 @@
         "z": "22062ea4.eb1692",
         "name": "db out",
         "links": [
-            "17438f18.aa3ae1"
+            "17438f18.aa3ae1",
+            "d1eb588f.5ef718"
         ],
         "x": 775,
         "y": 60,
@@ -381,12 +389,12 @@
         "layer": "OSM",
         "cluster": "",
         "maxage": "",
-        "usermenu": "show",
-        "layers": "show",
+        "usermenu": "hide",
+        "layers": "hide",
         "panit": "false",
         "panlock": "false",
         "zoomlock": "false",
-        "hiderightclick": "false",
+        "hiderightclick": "true",
         "coords": "none",
         "showgrid": "false",
         "allowFileDrop": "false",
@@ -513,7 +521,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 500,
+        "x": 480,
         "y": 180,
         "wires": [
             [
@@ -575,34 +583,43 @@
         ]
     },
     {
-        "id": "58c2b158.9db85",
-        "type": "worldmap in",
-        "z": "b89551a1.981bf",
+        "id": "d1eb588f.5ef718",
+        "type": "link in",
+        "z": "4d81934d.085dac",
         "name": "",
-        "path": "/flightmap",
-        "events": "all",
-        "x": 290,
-        "y": 360,
+        "links": [
+            "e38f79f9.9bcf28"
+        ],
+        "x": 235,
+        "y": 200,
         "wires": [
             [
-                "e1fdc9d8.c47c08"
+                "f84e55e4.376d88"
             ]
         ]
     },
     {
-        "id": "e1fdc9d8.c47c08",
-        "type": "debug",
-        "z": "b89551a1.981bf",
+        "id": "f84e55e4.376d88",
+        "type": "uibuilder",
+        "z": "4d81934d.085dac",
         "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 520,
-        "y": 380,
-        "wires": []
+        "topic": "tracker",
+        "url": "flightsui",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": false,
+        "templateFolder": "blank",
+        "showfolder": true,
+        "useSecurity": false,
+        "sessionLength": 432000,
+        "tokenAutoExtend": false,
+        "reload": false,
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [],
+            []
+        ]
     }
 ]
