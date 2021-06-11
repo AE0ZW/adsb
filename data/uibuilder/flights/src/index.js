@@ -8,9 +8,9 @@ window.onload = function() {
     uibuilder.start()
 
     // Listen for incoming messages from Node-RED
-    uibuilder.onChange('msg', function(msg) {
-        console.info('[indexjs:uibuilder.onChange] msg received from Node-RED server:', msg)
-    })
+    // uibuilder.onChange('msg', function(msg) {
+    //     console.info('[indexjs:uibuilder.onChange] msg received from Node-RED server:', msg)
+    // })
 
     render(html `<${App}/>`, document.body);
 }

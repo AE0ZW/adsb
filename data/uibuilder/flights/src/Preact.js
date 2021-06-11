@@ -8,5 +8,6 @@ export const html = htm.bind(_Preact.h);
 export const useLayoutEffect = _Hooks.useLayoutEffect;
 export const useEffect = _Hooks.useEffect;
 export const useState = _Hooks.useState;
+export const useRef = _Hooks.useRef;
 
 export default _Preact;
