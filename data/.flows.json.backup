@@ -28,14 +28,6 @@
         "info": ""
     },
     {
-        "id": "933825f3.5e6058",
-        "type": "ui_tab",
-        "name": "Local Flight Track",
-        "icon": "airport",
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "96e62eeb.e7c3d",
         "type": "ui_base",
         "theme": {

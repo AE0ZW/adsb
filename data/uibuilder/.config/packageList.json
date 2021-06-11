@@ -1,5 +1,4 @@
 [
   "jquery",
-  "socket.io",
-  "leaflet"
+  "socket.io"
 ]

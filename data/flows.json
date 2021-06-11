@@ -7,27 +7,6 @@
         "info": ""
     },
     {
-        "id": "22062ea4.eb1692",
-        "type": "tab",
-        "label": "Db",
-        "disabled": false,
-        "info": "This flow takes all of the incomming messages from the receiver and uses them to update an in-memory database of every aircraft seen. \n\nWhen an aircraft record changes, it is sent to the out-link for consumption by other flows.\n\nEvery n-seconds every active aircraft record is checked and if no messages have been received for m-seconds, the record is set to in-active."
-    },
-    {
-        "id": "b89551a1.981bf",
-        "type": "tab",
-        "label": "Map",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "4d81934d.085dac",
-        "type": "tab",
-        "label": "Ui",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "96e62eeb.e7c3d",
         "type": "ui_base",
         "theme": {
@@ -138,8 +117,8 @@
         "newline": "\\n",
         "topic": "",
         "base64": false,
-        "x": 120,
-        "y": 60,
+        "x": 140,
+        "y": 100,
         "wires": [
             [
                 "bd3e632b.fd2f3"
@@ -157,7 +136,7 @@
         "msg_payload": "return_val",
         "function_name": "parseSbs1Message",
         "x": 340,
-        "y": 60,
+        "y": 100,
         "wires": [
             [
                 "99cfcf6c.0ccf5"
@@ -165,51 +144,6 @@
         ],
         "outputLabels": [
             "decoded ads-b messages"
-        ]
-    },
-    {
-        "id": "7de6f7c3.2417a8",
-        "type": "link out",
-        "z": "4f19d12f.1e2c4",
-        "name": "adsb-messages",
-        "links": [
-            "fb63c521.8f3888",
-            "68a1bd7.fb66344"
-        ],
-        "x": 735,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "e38f79f9.9bcf28",
-        "type": "link out",
-        "z": "22062ea4.eb1692",
-        "name": "db out",
-        "links": [
-            "17438f18.aa3ae1",
-            "d1eb588f.5ef718"
-        ],
-        "x": 775,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "15dd7292.72f38d",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "save",
-        "func": "flow.set(msg.payload.icao, msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 470,
-        "y": 120,
-        "wires": [
-            [
-                "e008cb44.7bc208"
-            ]
         ]
     },
     {
@@ -252,8 +186,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 6,
-        "x": 360,
-        "y": 260,
+        "x": 580,
+        "y": 100,
         "wires": [
             [],
             [],
@@ -274,144 +208,6 @@
         ]
     },
     {
-        "id": "7e08fee.33e6",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "merge",
-        "func": "msg.payload = Object.entries(msg.payload)\n.filter(kvp => kvp[1])\n.map(kvp => ({[kvp[0]]: kvp[1]}))\n.reduce((acc, cur) => Object.assign(acc, cur), flow.get(msg.payload.icao) || {})\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 270,
-        "y": 140,
-        "wires": [
-            [
-                "15dd7292.72f38d"
-            ]
-        ]
-    },
-    {
-        "id": "17438f18.aa3ae1",
-        "type": "link in",
-        "z": "b89551a1.981bf",
-        "name": "aircraft reader",
-        "links": [
-            "e38f79f9.9bcf28"
-        ],
-        "x": 175,
-        "y": 140,
-        "wires": [
-            [
-                "62d5daa4.3f6074"
-            ]
-        ]
-    },
-    {
-        "id": "62d5daa4.3f6074",
-        "type": "change",
-        "z": "b89551a1.981bf",
-        "name": "update marker",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.name",
-                "pt": "msg",
-                "to": "payload.icao",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload.tooltip",
-                "pt": "msg",
-                "to": "msg.payload.flight_id ? msg.payload.flight_id : msg.payload.hex_ident",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "msg.payload.vertical_rate  < -100 ? \"red\" : msg.payload.vertical_rate > 100 ? \"green\" : \"black\"",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload.icon",
-                "pt": "msg",
-                "to": "plane",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "aircraft",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.ttl",
-                "pt": "msg",
-                "to": "20",
-                "tot": "num"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 320,
-        "y": 100,
-        "wires": [
-            [
-                "c14121ea.ce79c"
-            ]
-        ]
-    },
-    {
-        "id": "bb99adf8.f1314",
-        "type": "worldmap",
-        "z": "b89551a1.981bf",
-        "name": "",
-        "lat": "35.1983",
-        "lon": "-111.6513",
-        "zoom": "",
-        "layer": "OSM",
-        "cluster": "",
-        "maxage": "",
-        "usermenu": "hide",
-        "layers": "hide",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "true",
-        "coords": "none",
-        "showgrid": "false",
-        "allowFileDrop": "false",
-        "path": "/flightmap",
-        "x": 740,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "68a1bd7.fb66344",
-        "type": "link in",
-        "z": "22062ea4.eb1692",
-        "name": "db in",
-        "links": [
-            "7de6f7c3.2417a8"
-        ],
-        "x": 155,
-        "y": 60,
-        "wires": [
-            [
-                "7e08fee.33e6"
-            ]
-        ]
-    },
-    {
         "id": "68027129.5197d",
         "type": "function",
         "z": "4f19d12f.1e2c4",
@@ -422,8 +218,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 570,
-        "y": 380,
+        "x": 150,
+        "y": 180,
         "wires": [
             [
                 "6f6dc359.91c2ac"
@@ -431,9 +227,139 @@
         ]
     },
     {
-        "id": "4343c9ea.1b1fb8",
+        "id": "6f6dc359.91c2ac",
+        "type": "function",
+        "z": "4f19d12f.1e2c4",
+        "name": "filter out icao: \"000000\"",
+        "func": "if(msg.payload.icao === \"000000\"){\n    node.done();\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 180,
+        "wires": [
+            [
+                "129b5ede.303509"
+            ]
+        ]
+    },
+    {
+        "id": "d05426b5.b33bb",
+        "type": "function",
+        "z": "4f19d12f.1e2c4",
+        "name": "save",
+        "func": "flow.set(msg.payload.icao, msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 320,
+        "wires": [
+            [
+                "2051fd60.4dbaca"
+            ]
+        ]
+    },
+    {
+        "id": "129b5ede.303509",
+        "type": "function",
+        "z": "4f19d12f.1e2c4",
+        "name": "merge",
+        "func": "msg.payload = Object.entries(msg.payload)\n.filter(kvp => kvp[1])\n.map(kvp => ({[kvp[0]]: kvp[1]}))\n.reduce((acc, cur) => Object.assign(acc, cur), flow.get(msg.payload.icao) || {})\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 110,
+        "y": 320,
+        "wires": [
+            [
+                "d05426b5.b33bb"
+            ]
+        ]
+    },
+    {
+        "id": "2051fd60.4dbaca",
+        "type": "function",
+        "z": "4f19d12f.1e2c4",
+        "name": "clone payload",
+        "func": "msg.payload = Object.assign({}, msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 320,
+        "wires": [
+            [
+                "678cd28f.f5b44c"
+            ]
+        ]
+    },
+    {
+        "id": "4c39c65d.abb6a8",
+        "type": "comment",
+        "z": "4f19d12f.1e2c4",
+        "name": "Source the output of the SDR and parse",
+        "info": "",
+        "x": 190,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "cd9a5af.75dfba8",
+        "type": "comment",
+        "z": "4f19d12f.1e2c4",
+        "name": "Update the db of known aircraft.",
+        "info": "",
+        "x": 170,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "9708fe26.3c39e8",
+        "type": "comment",
+        "z": "4f19d12f.1e2c4",
+        "name": "Create marker options for Leaflet",
+        "info": "",
+        "x": 170,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6a242c8.592e654",
+        "type": "uibuilder",
+        "z": "4f19d12f.1e2c4",
+        "name": "",
+        "topic": "aircraft",
+        "url": "flights",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "templateFolder": "blank",
+        "showfolder": false,
+        "useSecurity": false,
+        "sessionLength": 432000,
+        "tokenAutoExtend": false,
+        "reload": false,
+        "x": 630,
+        "y": 460,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "82a8a5a0.3296c8",
         "type": "inject",
-        "z": "22062ea4.eb1692",
+        "z": "4f19d12f.1e2c4",
         "name": "",
         "props": [
             {
@@ -451,18 +377,18 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
-        "y": 260,
+        "x": 120,
+        "y": 640,
         "wires": [
             [
-                "5d7f911d.880ca"
+                "bcb48a83.6ebcd"
             ]
         ]
     },
     {
-        "id": "5d7f911d.880ca",
+        "id": "bcb48a83.6ebcd",
         "type": "function",
-        "z": "22062ea4.eb1692",
+        "z": "4f19d12f.1e2c4",
         "name": "clear the aircraft database",
         "func": "flow.keys().forEach(k => flow.set(k, undefined))\nreturn;",
         "outputs": 1,
@@ -470,148 +396,39 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 260,
+        "x": 360,
+        "y": 640,
         "wires": [
             []
         ]
     },
     {
-        "id": "e008cb44.7bc208",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "clone payload",
-        "func": "msg.payload = Object.assign({}, msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 660,
-        "y": 140,
-        "wires": [
-            [
-                "e38f79f9.9bcf28"
-            ]
-        ]
+        "id": "13095b58.9d227d",
+        "type": "comment",
+        "z": "4f19d12f.1e2c4",
+        "name": "Utilities",
+        "info": "",
+        "x": 90,
+        "y": 580,
+        "wires": []
     },
     {
-        "id": "c14121ea.ce79c",
-        "type": "switch",
-        "z": "b89551a1.981bf",
-        "name": "has call_sign?",
-        "property": "payload.call_sign",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nnull"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 480,
-        "y": 180,
-        "wires": [
-            [
-                "201ef426.cba53c"
-            ],
-            [
-                "bb99adf8.f1314"
-            ]
-        ],
-        "outputLabels": [
-            "yes",
-            "no"
-        ]
-    },
-    {
-        "id": "201ef426.cba53c",
-        "type": "change",
-        "z": "b89551a1.981bf",
-        "name": "set call sign label",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.label",
-                "pt": "msg",
-                "to": "payload.call_sign",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 590,
-        "y": 80,
-        "wires": [
-            [
-                "bb99adf8.f1314"
-            ]
-        ]
-    },
-    {
-        "id": "6f6dc359.91c2ac",
+        "id": "678cd28f.f5b44c",
         "type": "function",
         "z": "4f19d12f.1e2c4",
-        "name": "filter out icao: \"000000\"",
-        "func": "if(msg.payload.icao === \"000000\"){\n    node.done();\n}\nreturn msg;",
+        "name": "create marker",
+        "func": "\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 280,
+        "x": 140,
+        "y": 460,
         "wires": [
             [
-                "7de6f7c3.2417a8"
+                "6a242c8.592e654"
             ]
-        ]
-    },
-    {
-        "id": "d1eb588f.5ef718",
-        "type": "link in",
-        "z": "4d81934d.085dac",
-        "name": "",
-        "links": [
-            "e38f79f9.9bcf28"
-        ],
-        "x": 235,
-        "y": 200,
-        "wires": [
-            [
-                "bee14a9a.2cd248"
-            ]
-        ]
-    },
-    {
-        "id": "bee14a9a.2cd248",
-        "type": "uibuilder",
-        "z": "4d81934d.085dac",
-        "name": "",
-        "topic": "aircraft",
-        "url": "flights",
-        "fwdInMessages": false,
-        "allowScripts": false,
-        "allowStyles": false,
-        "copyIndex": true,
-        "templateFolder": "blank",
-        "showfolder": false,
-        "useSecurity": false,
-        "sessionLength": 432000,
-        "tokenAutoExtend": false,
-        "reload": false,
-        "x": 450,
-        "y": 160,
-        "wires": [
-            [],
-            []
         ]
     }
 ]
