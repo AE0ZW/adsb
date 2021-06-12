@@ -4,8 +4,10 @@ import htm from 'https://cdn.skypack.dev/htm@3.0.4';
 
 export const render = _Preact.render;
 export const html = htm.bind(_Preact.h);
+export const createContext = _Preact.createContext;
 
 export const useLayoutEffect = _Hooks.useLayoutEffect;
+export const useContext = _Hooks.useContext;
 export const useEffect = _Hooks.useEffect;
 export const useState = _Hooks.useState;
 export const useRef = _Hooks.useRef;

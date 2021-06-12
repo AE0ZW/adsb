@@ -1,16 +1,17 @@
 import { html, useState } from './Preact.js';
 import Navbar from './Navbar.js';
-import FlightChart from './FlightChart.js';
+import { Map, Marker } from './Map.js';
 
 const init = { center: [35, -111], zoom: 6 }
+const flight = { icao: "ABTEST", call_sign: "SWA1337", lat: 35, lon: -111, heading: 270, color: 'green' };
 
 const App = props => {
-    const [flights, setFlights] = useState([{ icao: "0000", position: [35, -111] }]);
 
-    return html `
-    <div class="appContainer">
-    <div class="navContainer"><${Navbar} name='ADS-B Flight Tracker'/><//>
-    <div class="mapContainer"><${FlightChart} flights=${flights} ...${init}/><//>
+    return html`<${Map} ...${init}>
+        <${Marker} ...${flight}/>
+    <//>
+    <div className="overlay">
+        <${Navbar} className="navbar" name='ADS-B Flight Tracker'/>
     <//>`
 }
 

@@ -2,7 +2,7 @@
     {
         "id": "4f19d12f.1e2c4",
         "type": "tab",
-        "label": "Rx",
+        "label": "ADS-B Receiver",
         "disabled": false,
         "info": ""
     },
@@ -256,7 +256,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 250,
+        "x": 270,
         "y": 320,
         "wires": [
             [
@@ -287,18 +287,19 @@
         "id": "2051fd60.4dbaca",
         "type": "function",
         "z": "4f19d12f.1e2c4",
-        "name": "clone payload",
+        "name": "detach",
         "func": "msg.payload = Object.assign({}, msg.payload);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
+        "x": 430,
         "y": 320,
         "wires": [
             [
-                "678cd28f.f5b44c"
+                "ca59dec1.6cf09",
+                "6a242c8.592e654"
             ]
         ]
     },
@@ -326,9 +327,9 @@
         "id": "9708fe26.3c39e8",
         "type": "comment",
         "z": "4f19d12f.1e2c4",
-        "name": "Create marker options for Leaflet",
+        "name": "Send to the UI",
         "info": "",
-        "x": 170,
+        "x": 110,
         "y": 400,
         "wires": []
     },
@@ -349,7 +350,7 @@
         "sessionLength": 432000,
         "tokenAutoExtend": false,
         "reload": false,
-        "x": 630,
+        "x": 110,
         "y": 460,
         "wires": [
             [],
@@ -377,8 +378,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 640,
+        "x": 440,
+        "y": 460,
         "wires": [
             [
                 "bcb48a83.6ebcd"
@@ -396,8 +397,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 640,
+        "x": 650,
+        "y": 460,
         "wires": [
             []
         ]
@@ -408,27 +409,24 @@
         "z": "4f19d12f.1e2c4",
         "name": "Utilities",
         "info": "",
-        "x": 90,
-        "y": 580,
+        "x": 410,
+        "y": 400,
         "wires": []
     },
     {
-        "id": "678cd28f.f5b44c",
-        "type": "function",
+        "id": "ca59dec1.6cf09",
+        "type": "debug",
         "z": "4f19d12f.1e2c4",
-        "name": "create marker",
-        "func": "\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 140,
-        "y": 460,
-        "wires": [
-            [
-                "6a242c8.592e654"
-            ]
-        ]
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 280,
+        "wires": []
     }
 ]

@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
     height: 100%;
 }
 
@@ -8,19 +7,18 @@ body {
     margin: 0px
 }
 
-.navContainer {
-    grid-area: navContainer;
+.overlay {
+    position: absolute;
+    top: 0px;
+    z-index: 1000;
+    display:flex;
+    flex-direction:row-reverse;
+    width:100%;
 }
 
-.mapContainer {
-    grid-area: mapContainer;
+.navbar {
+    background-color: rgba(255, 255,255, 0.6);
 }
-
-.appContainer {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto 500px;
-    grid-template-areas: 
-    "navContainer"
-    "mapContainer" ;
+.navbar:hover {
+   opacity: 0.5;
 }
