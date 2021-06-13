@@ -2,21 +2,7 @@
     {
         "id": "4f19d12f.1e2c4",
         "type": "tab",
-        "label": "Rx",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "22062ea4.eb1692",
-        "type": "tab",
-        "label": "Db",
-        "disabled": false,
-        "info": "This flow takes all of the incomming messages from the receiver and uses them to update an in-memory database of every aircraft seen. \n\nWhen an aircraft record changes, it is sent to the out-link for consumption by other flows.\n\nEvery n-seconds every active aircraft record is checked and if no messages have been received for m-seconds, the record is set to in-active."
-    },
-    {
-        "id": "b89551a1.981bf",
-        "type": "tab",
-        "label": "UI - Flight table",
+        "label": "ADS-B Receiver",
         "disabled": false,
         "info": ""
     },
@@ -28,45 +14,17 @@
         "info": ""
     },
     {
-        "id": "685b38.50b554c8",
+        "id": "b89551a1.981bf",
         "type": "tab",
-        "label": "UI - Time board",
+        "label": "UI - Flight table",
         "disabled": false,
         "info": ""
-    },
-    {
-        "id": "933825f3.5e6058",
-        "type": "ui_tab",
-        "name": "Local Flight Track",
-        "icon": "airport",
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "56a51d5c.ea6104",
-        "type": "ui_group",
-        "name": "Map",
-        "tab": "933825f3.5e6058",
-        "order": 1,
-        "disp": false,
-        "width": 16,
-        "collapse": false
-    },
-    {
-        "id": "202f1509.5d29ea",
-        "type": "ui_group",
-        "name": "Dashboard",
-        "tab": "933825f3.5e6058",
-        "order": 6,
-        "disp": false,
-        "width": "8",
-        "collapse": false
     },
     {
         "id": "96e62eeb.e7c3d",
         "type": "ui_base",
         "theme": {
-            "name": "theme-light",
+            "name": "theme-dark",
             "lightTheme": {
                 "default": "#0094CE",
                 "baseColor": "#3f4aa2",
@@ -90,16 +48,16 @@
             },
             "themeState": {
                 "base-color": {
-                    "default": "#0094CE",
-                    "value": "#0094CE",
+                    "default": "#097479",
+                    "value": "#097479",
                     "edited": true
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#3f4aa2",
+                    "value": "#097479",
                     "edited": false
                 },
                 "page-backgroundColor": {
-                    "value": "#fafafa",
+                    "value": "#111111",
                     "edited": false
                 },
                 "page-sidebar-backgroundColor": {
@@ -107,27 +65,27 @@
                     "edited": false
                 },
                 "group-textColor": {
-                    "value": "#6973c5",
+                    "value": "#0eb8c0",
                     "edited": false
                 },
                 "group-borderColor": {
-                    "value": "#ffffff",
+                    "value": "#555555",
                     "edited": false
                 },
                 "group-backgroundColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "widget-textColor": {
-                    "value": "#111111",
+                    "value": "#eeeeee",
                     "edited": false
                 },
                 "widget-backgroundColor": {
-                    "value": "#3f4aa2",
+                    "value": "#097479",
                     "edited": false
                 },
                 "widget-borderColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "base-font": {
@@ -138,14 +96,15 @@
                 "primary": "indigo",
                 "accents": "blue",
                 "warn": "red",
-                "background": "grey"
+                "background": "grey",
+                "palette": "dark"
             }
         },
         "site": {
-            "name": "Local Flight Track",
+            "name": "ADS-B Receiver",
             "hideToolbar": "false",
             "allowSwipe": "false",
-            "lockMenu": "false",
+            "lockMenu": "true",
             "allowTempTheme": "none",
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
@@ -159,6 +118,64 @@
                 "py": 0
             }
         }
+    },
+    {
+        "id": "450a7cc0.2f87b4",
+        "type": "ui_group",
+        "name": "map",
+        "tab": "",
+        "order": 1,
+        "disp": false,
+        "width": "22",
+        "collapse": false
+    },
+    {
+        "id": "609281d3.d0f6",
+        "type": "ui_tab",
+        "name": "Aircraft Data",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "14cb61d4.9d5d3e",
+        "type": "ui_group",
+        "name": "table",
+        "tab": "609281d3.d0f6",
+        "order": 1,
+        "disp": false,
+        "width": "11",
+        "collapse": false
+    },
+    {
+        "id": "9df62712.4fec98",
+        "type": "ui_tab",
+        "name": "Flight Map",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "b7c4863.ef4c878",
+        "type": "ui_group",
+        "name": "map",
+        "tab": "9df62712.4fec98",
+        "order": 1,
+        "disp": false,
+        "width": "20",
+        "collapse": false
+    },
+    {
+        "id": "87e7d73f.58b988",
+        "type": "ui_group",
+        "name": "controls",
+        "tab": "9df62712.4fec98",
+        "order": 2,
+        "disp": false,
+        "width": "2",
+        "collapse": false
     },
     {
         "id": "f18730a5.cb179",
@@ -203,120 +220,16 @@
         ]
     },
     {
-        "id": "fb63c521.8f3888",
-        "type": "link in",
-        "z": "22062ea4.eb1692",
-        "name": "adsb-message reader",
-        "links": [
-            "7de6f7c3.2417a8"
-        ],
-        "x": 175,
-        "y": 40,
-        "wires": [
-            [
-                "da9f9197.65b91"
-            ]
-        ]
-    },
-    {
         "id": "7de6f7c3.2417a8",
         "type": "link out",
         "z": "4f19d12f.1e2c4",
-        "name": "adsb-messages",
-        "links": [
-            "fb63c521.8f3888"
-        ],
-        "x": 715,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "e38f79f9.9bcf28",
-        "type": "link out",
-        "z": "22062ea4.eb1692",
-        "name": "updated aircraft records",
+        "name": "aircraft messages",
         "links": [
             "17438f18.aa3ae1",
             "5e748ed5.52e88"
         ],
-        "x": 775,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "15dd7292.72f38d",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "save aircraft record",
-        "func": "flow.set(msg.payload.hex_ident, msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 410,
-        "y": 160,
-        "wires": [
-            [
-                "62705afa.c3ef54"
-            ]
-        ]
-    },
-    {
-        "id": "8aea2bb0.bdc4e8",
-        "type": "ui_table",
-        "z": "b89551a1.981bf",
-        "group": "202f1509.5d29ea",
-        "name": "flight info",
-        "order": 9,
-        "width": "8",
-        "height": "6",
-        "columns": [
-            {
-                "field": "label",
-                "title": "Ident",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "altitude",
-                "title": "Alt",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "track",
-                "title": "Hdg",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "ground_speed",
-                "title": "Speed",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            }
-        ],
-        "outputs": 0,
-        "cts": false,
-        "x": 740,
-        "y": 120,
+        "x": 735,
+        "y": 200,
         "wires": []
     },
     {
@@ -334,210 +247,9 @@
         "y": 120,
         "wires": [
             [
-                "8aea2bb0.bdc4e8"
+                "c248f2d7.1bbfc"
             ]
         ]
-    },
-    {
-        "id": "fa0b8791.0c8b38",
-        "type": "inject",
-        "z": "685b38.50b554c8",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 120,
-        "wires": [
-            [
-                "5d74e9e.8c92b18",
-                "202359c0.dfbb56",
-                "776280a5.b5a86",
-                "32ec2796.de6a08"
-            ]
-        ]
-    },
-    {
-        "id": "5d74e9e.8c92b18",
-        "type": "function",
-        "z": "685b38.50b554c8",
-        "name": "to EST",
-        "func": "const s = new Date(msg.payload).toLocaleString(\"en-us\", {timeZone: \"America/New_York\"});\nmsg.payload = Date.parse(s);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 350,
-        "y": 200,
-        "wires": [
-            [
-                "1fdef077.9008b"
-            ]
-        ]
-    },
-    {
-        "id": "202359c0.dfbb56",
-        "type": "function",
-        "z": "685b38.50b554c8",
-        "name": "to PST",
-        "func": "const s = new Date(msg.payload).toLocaleString(\"en-us\", {timeZone: \"America/Los_Angeles\"});\nmsg.payload = Date.parse(s);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 370,
-        "y": 60,
-        "wires": [
-            [
-                "e409e166.ac1da"
-            ]
-        ]
-    },
-    {
-        "id": "776280a5.b5a86",
-        "type": "function",
-        "z": "685b38.50b554c8",
-        "name": "to UTC",
-        "func": "const s = new Date(msg.payload).toLocaleString(\"en-us\", {timeZone: \"UTC\"});\nmsg.payload = Date.parse(s);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 340,
-        "y": 300,
-        "wires": [
-            [
-                "d7eba269.976d2"
-            ]
-        ]
-    },
-    {
-        "id": "e409e166.ac1da",
-        "type": "ui_clock",
-        "z": "685b38.50b554c8",
-        "name": "LA",
-        "group": "202f1509.5d29ea",
-        "order": 1,
-        "width": 2,
-        "height": 2,
-        "x": 570,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "1ded111d.ee858f",
-        "type": "ui_text",
-        "z": "685b38.50b554c8",
-        "group": "202f1509.5d29ea",
-        "order": 5,
-        "width": 2,
-        "height": 1,
-        "name": "",
-        "label": "L.A.",
-        "format": "",
-        "layout": "col-center",
-        "x": 670,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "32ec2796.de6a08",
-        "type": "ui_clock",
-        "z": "685b38.50b554c8",
-        "name": "Phoenix",
-        "group": "202f1509.5d29ea",
-        "order": 2,
-        "width": 2,
-        "height": 2,
-        "x": 580,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "16653673.b1c9aa",
-        "type": "ui_text",
-        "z": "685b38.50b554c8",
-        "group": "202f1509.5d29ea",
-        "order": 6,
-        "width": 2,
-        "height": 1,
-        "name": "",
-        "label": "Phoenix",
-        "format": "",
-        "layout": "col-center",
-        "x": 700,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "1fdef077.9008b",
-        "type": "ui_clock",
-        "z": "685b38.50b554c8",
-        "name": "New York",
-        "group": "202f1509.5d29ea",
-        "order": 3,
-        "width": 2,
-        "height": 2,
-        "x": 560,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "fc828fea.7617d",
-        "type": "ui_text",
-        "z": "685b38.50b554c8",
-        "group": "202f1509.5d29ea",
-        "order": 7,
-        "width": 2,
-        "height": 1,
-        "name": "",
-        "label": "New York",
-        "format": "",
-        "layout": "col-center",
-        "x": 680,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "d7eba269.976d2",
-        "type": "ui_clock",
-        "z": "685b38.50b554c8",
-        "name": "London",
-        "group": "202f1509.5d29ea",
-        "order": 4,
-        "width": 2,
-        "height": 2,
-        "x": 560,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "ebec2d81.1e3ed",
-        "type": "ui_text",
-        "z": "685b38.50b554c8",
-        "group": "202f1509.5d29ea",
-        "order": 8,
-        "width": 2,
-        "height": 1,
-        "name": "",
-        "label": "London",
-        "format": "",
-        "layout": "col-center",
-        "x": 680,
-        "y": 300,
-        "wires": []
     },
     {
         "id": "99cfcf6c.0ccf5",
@@ -579,8 +291,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 6,
-        "x": 440,
-        "y": 240,
+        "x": 580,
+        "y": 60,
         "wires": [
             [],
             [],
@@ -588,7 +300,7 @@
             [],
             [],
             [
-                "7de6f7c3.2417a8"
+                "6b2eb604.61d508"
             ]
         ],
         "outputLabels": [
@@ -598,105 +310,6 @@
             "STATUS CHANGE MESSAGE",
             " CLICK MESSAGE",
             " TRANSMISSION MESSAGE"
-        ]
-    },
-    {
-        "id": "da9f9197.65b91",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "sbs1 -> aircraft rec",
-        "func": "\nconst fns = [\n    props => ({hex_ident: props.hex_ident}),\n    props => ({flight_id: props.flight_id ? props.flight_id.trim() : null}),\n    props => ({timestamp: Date.parse(props.logged_date + \" \" + props.logged_time)}),\n    props => ({altitude: props.altitude}),\n    props => ({ground_speed: props.ground_speed}),\n    props => ({track: props.track}),\n    props => ({lat: props.lat}),\n    props => ({lon: props.lon}),\n    props => ({vertical_rate: props.vertical_rate})\n];\n\nmsg.payload = fns.reduce((acc, current)=> {\n    return Object.assign(acc, current.call(this, msg.payload));\n}, {});\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 250,
-        "y": 100,
-        "wires": [
-            [
-                "7e08fee.33e6"
-            ]
-        ]
-    },
-    {
-        "id": "7e08fee.33e6",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "merge with db record",
-        "func": "const assign_if = (target, source) => {\n    Object.keys(source).forEach(key => {\n        if(!!source[key]) {\n            target[key] = source[key];\n        }\n    })\n    return target;\n}\n\nconst known = flow.get(msg.payload.hex_ident) || {};\nmsg.payload = assign_if(known, msg.payload);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 500,
-        "y": 100,
-        "wires": [
-            [
-                "15dd7292.72f38d"
-            ]
-        ]
-    },
-    {
-        "id": "4c9b4997.309ee8",
-        "type": "inject",
-        "z": "22062ea4.eb1692",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "10",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 190,
-        "y": 320,
-        "wires": [
-            [
-                "b63b1d45.af16d"
-            ]
-        ]
-    },
-    {
-        "id": "eafb3b18.54a508",
-        "type": "link out",
-        "z": "22062ea4.eb1692",
-        "name": "deleted aircraft records",
-        "links": [
-            "baea63fe.7a25c",
-            "c5c39f00.c2a82"
-        ],
-        "x": 715,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "b63b1d45.af16d",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "prune aircraft records",
-        "func": "flow.keys().forEach(key => {\n    const item = flow.get(key);\n    if(item && item.timestamp + context.get(\"ttl\") * 1000 < msg.payload){\n        msg.payload = item;\n        node.send(msg);\n    }\n})",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "context.set(\"ttl\", 30) // n second time-to-live",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 320,
-        "wires": [
-            [
-                "9e694bb5.cc6c28"
-            ]
         ]
     },
     {
@@ -783,64 +396,7 @@
         "y": 360,
         "wires": [
             [
-                "8aea2bb0.bdc4e8"
-            ]
-        ]
-    },
-    {
-        "id": "62705afa.c3ef54",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "clone payload",
-        "func": "msg.payload = Object.assign({}, msg.payload)\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 620,
-        "y": 160,
-        "wires": [
-            [
-                "e38f79f9.9bcf28"
-            ]
-        ]
-    },
-    {
-        "id": "264901d.ec0e9fe",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "clone payload",
-        "func": "msg.payload = Object.assign({}, msg.payload)\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 600,
-        "y": 400,
-        "wires": [
-            [
-                "eafb3b18.54a508"
-            ]
-        ]
-    },
-    {
-        "id": "9e694bb5.cc6c28",
-        "type": "function",
-        "z": "22062ea4.eb1692",
-        "name": "remove aircraft record",
-        "func": "flow.set(msg.payload.hex_ident, null)\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 270,
-        "y": 400,
-        "wires": [
-            [
-                "264901d.ec0e9fe"
+                "c248f2d7.1bbfc"
             ]
         ]
     },
@@ -850,7 +406,8 @@
         "z": "b89551a1.981bf",
         "name": "aircraft reader",
         "links": [
-            "e38f79f9.9bcf28"
+            "e38f79f9.9bcf28",
+            "7de6f7c3.2417a8"
         ],
         "x": 175,
         "y": 40,
@@ -895,35 +452,6 @@
         ]
     },
     {
-        "id": "87fdc566.658df8",
-        "type": "ui_worldmap",
-        "z": "440cd06f.70f26",
-        "group": "56a51d5c.ea6104",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "lat": "35.198284",
-        "lon": "-111.651299",
-        "zoom": "",
-        "layer": "OSM",
-        "cluster": "",
-        "maxage": "60",
-        "usermenu": "hide",
-        "layers": "hide",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "true",
-        "coords": "none",
-        "showgrid": "false",
-        "allowFileDrop": "false",
-        "path": "/flights",
-        "x": 710,
-        "y": 120,
-        "wires": []
-    },
-    {
         "id": "834e8281.fc9e2",
         "type": "change",
         "z": "440cd06f.70f26",
@@ -938,7 +466,7 @@
             },
             {
                 "t": "set",
-                "p": "payload.label",
+                "p": "payload.tooltip",
                 "pt": "msg",
                 "to": "msg.payload.flight_id ? msg.payload.flight_id : msg.payload.hex_ident",
                 "tot": "jsonata"
@@ -984,11 +512,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 380,
-        "y": 120,
+        "x": 300,
+        "y": 80,
         "wires": [
             [
-                "87fdc566.658df8"
+                "bae2d6dd.ffe6d8"
             ]
         ]
     },
@@ -998,10 +526,11 @@
         "z": "440cd06f.70f26",
         "name": "aircraft reader",
         "links": [
-            "e38f79f9.9bcf28"
+            "e38f79f9.9bcf28",
+            "7de6f7c3.2417a8"
         ],
-        "x": 155,
-        "y": 120,
+        "x": 95,
+        "y": 80,
         "wires": [
             [
                 "834e8281.fc9e2"
@@ -1009,40 +538,287 @@
         ]
     },
     {
-        "id": "c5c39f00.c2a82",
-        "type": "link in",
-        "z": "440cd06f.70f26",
-        "name": "pruned aircraft reader",
-        "links": [
-            "eafb3b18.54a508"
-        ],
-        "x": 155,
-        "y": 200,
+        "id": "c248f2d7.1bbfc",
+        "type": "ui_table",
+        "z": "b89551a1.981bf",
+        "group": "14cb61d4.9d5d3e",
+        "name": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 740,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e1c8d108.0f526",
+        "type": "function",
+        "z": "4f19d12f.1e2c4",
+        "name": "000000 filter",
+        "func": "\nreturn msg.payload.hex_ident === \"000000\" ? null :msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 160,
         "wires": [
             [
-                "fdc5d61e.cbe348"
+                "32a64cec.6fdd74"
             ]
         ]
     },
     {
-        "id": "fdc5d61e.cbe348",
+        "id": "6b2eb604.61d508",
+        "type": "function",
+        "z": "4f19d12f.1e2c4",
+        "name": "sbs1 -> aircraft",
+        "func": "\nconst fns = [\n    props => ({hex_ident: props.hex_ident}),\n    props => ({flight_id: props.flight_id ? props.flight_id.trim() : null}),\n    props => ({timestamp: Date.parse(props.logged_date + \" \" + props.logged_time)}),\n    props => ({altitude: props.altitude}),\n    props => ({ground_speed: props.ground_speed}),\n    props => ({track: props.track}),\n    props => ({lat: props.lat}),\n    props => ({lon: props.lon}),\n    props => ({vertical_rate: props.vertical_rate})\n];\n\nmsg.payload = fns.map(f => f.call(this, msg.payload)).reduce((a,c)=> Object.assign(a,c), {});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "e1c8d108.0f526"
+            ]
+        ]
+    },
+    {
+        "id": "e9b077cd.45f108",
+        "type": "function",
+        "z": "4f19d12f.1e2c4",
+        "name": "update cache",
+        "func": "flow.set(msg.payload.hex_ident, msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 240,
+        "wires": [
+            [
+                "f6b5665b.4fac88"
+            ]
+        ]
+    },
+    {
+        "id": "32a64cec.6fdd74",
+        "type": "function",
+        "z": "4f19d12f.1e2c4",
+        "name": "update cache entry",
+        "func": "const assign_if = (target, source) => {\n    Object.keys(source).forEach(key => {\n        if(!!source[key]) {\n            target[key] = source[key];\n        }\n    })\n    return target;\n}\n\nconst known = flow.get(msg.payload.hex_ident) || {};\nmsg.payload = assign_if(known, msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 240,
+        "wires": [
+            [
+                "e9b077cd.45f108"
+            ]
+        ]
+    },
+    {
+        "id": "f6b5665b.4fac88",
+        "type": "function",
+        "z": "4f19d12f.1e2c4",
+        "name": "detach",
+        "func": "msg.payload = Object.assign({}, msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 240,
+        "wires": [
+            [
+                "5d82ed99.8c5914",
+                "7de6f7c3.2417a8"
+            ]
+        ]
+    },
+    {
+        "id": "5d82ed99.8c5914",
+        "type": "debug",
+        "z": "4f19d12f.1e2c4",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "21d417f9.f35e28",
+        "type": "worldmap in",
+        "z": "440cd06f.70f26",
+        "name": "",
+        "path": "/worldmap",
+        "events": "all",
+        "x": 120,
+        "y": 420,
+        "wires": [
+            [
+                "e2da32bb.db098"
+            ]
+        ]
+    },
+    {
+        "id": "43fb731f.8bb12c",
+        "type": "ui_worldmap",
+        "z": "440cd06f.70f26",
+        "group": "b7c4863.ef4c878",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "lat": "35.198284",
+        "lon": " -111.651299",
+        "zoom": "",
+        "layer": "OSM",
+        "cluster": "",
+        "maxage": "20",
+        "usermenu": "hide",
+        "layers": "hide",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "x": 600,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "8e0c34a3.373ec8",
+        "type": "ui_switch",
+        "z": "440cd06f.70f26",
+        "name": "",
+        "label": "Labels",
+        "tooltip": "",
+        "group": "87e7d73f.58b988",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "x": 90,
+        "y": 260,
+        "wires": [
+            [
+                "d77f72ea.f89fc"
+            ]
+        ]
+    },
+    {
+        "id": "d77f72ea.f89fc",
         "type": "change",
         "z": "440cd06f.70f26",
-        "name": "create remove marker command",
+        "name": "set labels",
         "rules": [
             {
                 "t": "set",
-                "p": "payload.name",
+                "p": "labels",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c85c2e14.e5154",
+        "type": "switch",
+        "z": "440cd06f.70f26",
+        "name": "labels?",
+        "property": "labels",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 260,
+        "y": 180,
+        "wires": [
+            [
+                "de00bbda.b59ec8"
+            ],
+            [
+                "e0a1ff6b.edb8b"
+            ]
+        ],
+        "outputLabels": [
+            "use label",
+            "use tooltip"
+        ]
+    },
+    {
+        "id": "e0a1ff6b.edb8b",
+        "type": "change",
+        "z": "440cd06f.70f26",
+        "name": "tooltip",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.tooltip",
                 "pt": "msg",
-                "to": "msg.payload.hex_ident",
-                "tot": "str"
+                "to": "msg.payload.flight_id ? msg.payload.flight_id : msg.payload.hex_ident",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
-                "p": "payload.deleted",
+                "p": "payload.label",
                 "pt": "msg",
-                "to": "true",
-                "tot": "bool"
+                "to": "",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -1054,8 +830,113 @@
         "y": 200,
         "wires": [
             [
-                "87fdc566.658df8"
+                "43fb731f.8bb12c"
             ]
+        ]
+    },
+    {
+        "id": "de00bbda.b59ec8",
+        "type": "change",
+        "z": "440cd06f.70f26",
+        "name": "label",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.label",
+                "pt": "msg",
+                "to": "msg.payload.flight_id ? msg.payload.flight_id : msg.payload.hex_ident",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [
+                "43fb731f.8bb12c"
+            ]
+        ]
+    },
+    {
+        "id": "e2da32bb.db098",
+        "type": "switch",
+        "z": "440cd06f.70f26",
+        "name": "action router",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "click",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "connecct",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "disconnect",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 310,
+        "y": 420,
+        "wires": [
+            [
+                "ecf80a0c.3955d8"
+            ],
+            [],
+            []
+        ],
+        "outputLabels": [
+            "on click",
+            "on connect",
+            "on disconnect"
+        ]
+    },
+    {
+        "id": "bae2d6dd.ffe6d8",
+        "type": "function",
+        "z": "440cd06f.70f26",
+        "name": "popped?",
+        "func": "const popped = flow.get('popped') || [];\nmsg.payload.popped = popped.includes(msg.payload.hex_ident);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 100,
+        "y": 180,
+        "wires": [
+            [
+                "c85c2e14.e5154"
+            ]
+        ]
+    },
+    {
+        "id": "ecf80a0c.3955d8",
+        "type": "function",
+        "z": "440cd06f.70f26",
+        "name": "set popped",
+        "func": "let popped = flow.get('popped') || [];\nconst idx = popped.indexOf(msg.payload.name);\nif(idx < 0){\n    popped.push(msg.payload.name);\n}else{\n    popped.splice(idx, 1);\n}\nflow.set('popped', popped);\n\nreturn ;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 400,
+        "wires": [
+            []
         ]
     }
 ]
