@@ -43,7 +43,7 @@ export const Marker = ({ icao, call_sign, lat, lon, heading = 0, color = 'black'
     const map = useContext(MapContext);
 
     useEffect(() => {
-        if (map) {
+        if (map && lat && lon) {
             const icon = new L.DivIcon({
                 className: '',
                 html: `<i class="material-icons" style="transform:rotate(${heading}deg);color:${color}">flight</i>`,
