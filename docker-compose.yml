@@ -1,8 +1,7 @@
 version: "3.3"
 services:
   recv:
-    image: sdr-adsb
-    build: .
+    image: dump1090
     restart: unless-stopped
     ports:
       - "30001:30001"
