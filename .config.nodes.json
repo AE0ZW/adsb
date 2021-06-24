@@ -433,7 +433,7 @@
     },
     "node-red-dashboard": {
         "name": "node-red-dashboard",
-        "version": "2.29.1",
+        "version": "2.29.3",
         "local": true,
         "user": true,
         "nodes": {
@@ -670,41 +670,26 @@
             }
         }
     },
-    "node-red-contrib-ui-clock": {
-        "name": "node-red-contrib-ui-clock",
-        "version": "1.0.1",
+    "node-red-contrib-web-worldmap": {
+        "name": "node-red-contrib-web-worldmap",
+        "version": "2.15.3",
         "local": true,
         "user": true,
         "nodes": {
-            "ui_clock": {
-                "name": "ui_clock",
+            "worldmap": {
+                "name": "worldmap",
                 "types": [
-                    "ui_clock"
+                    "worldmap",
+                    "ui_worldmap",
+                    "worldmap in",
+                    "worldmap-tracks",
+                    "worldmap-hull"
                 ],
                 "enabled": true,
                 "local": true,
                 "user": false,
-                "module": "node-red-contrib-ui-clock",
-                "file": "/data/node_modules/node-red-contrib-ui-clock/clock.js"
-            }
-        }
-    },
-    "node-red-node-ui-table": {
-        "name": "node-red-node-ui-table",
-        "version": "0.3.10",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "ui_table": {
-                "name": "ui_table",
-                "types": [
-                    "ui_table"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-node-ui-table",
-                "file": "/data/node_modules/node-red-node-ui-table/node.js"
+                "module": "node-red-contrib-web-worldmap",
+                "file": "/data/node_modules/node-red-contrib-web-worldmap/worldmap.js"
             }
         }
     },
@@ -727,29 +712,6 @@
             }
         }
     },
-    "node-red-contrib-web-worldmap": {
-        "name": "node-red-contrib-web-worldmap",
-        "version": "2.15.0",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "worldmap": {
-                "name": "worldmap",
-                "types": [
-                    "worldmap",
-                    "ui_worldmap",
-                    "worldmap in",
-                    "worldmap-tracks",
-                    "worldmap-hull"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-web-worldmap",
-                "file": "/data/node_modules/node-red-contrib-web-worldmap/worldmap.js"
-            }
-        }
-    },
     "node-red-contrib-functionx": {
         "name": "node-red-contrib-functionx",
         "version": "1.0.2",
@@ -766,6 +728,25 @@
                 "user": false,
                 "module": "node-red-contrib-functionx",
                 "file": "/data/node_modules/node-red-contrib-functionx/functionx.js"
+            }
+        }
+    },
+    "node-red-contrib-ui-clock": {
+        "name": "node-red-contrib-ui-clock",
+        "version": "1.0.1",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "ui_clock": {
+                "name": "ui_clock",
+                "types": [
+                    "ui_clock"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-ui-clock",
+                "file": "/data/node_modules/node-red-contrib-ui-clock/clock.js"
             }
         }
     }

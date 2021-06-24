@@ -14,13 +14,6 @@
         "info": ""
     },
     {
-        "id": "b89551a1.981bf",
-        "type": "tab",
-        "label": "UI - Flight table",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "96e62eeb.e7c3d",
         "type": "ui_base",
         "theme": {
@@ -120,104 +113,25 @@
         }
     },
     {
-        "id": "450a7cc0.2f87b4",
-        "type": "ui_group",
-        "name": "map",
-        "tab": "",
-        "order": 1,
-        "disp": false,
-        "width": "22",
-        "collapse": false
-    },
-    {
-        "id": "609281d3.d0f6",
-        "type": "ui_tab",
-        "name": "Aircraft Data",
-        "icon": "dashboard",
-        "order": 2,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "14cb61d4.9d5d3e",
-        "type": "ui_group",
-        "name": "table",
-        "tab": "609281d3.d0f6",
-        "order": 1,
-        "disp": false,
-        "width": "11",
-        "collapse": false
-    },
-    {
-        "id": "9df62712.4fec98",
-        "type": "ui_tab",
-        "name": "Flight Map",
-        "icon": "dashboard",
-        "order": 1,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "b7c4863.ef4c878",
-        "type": "ui_group",
-        "name": "map",
-        "tab": "9df62712.4fec98",
-        "order": 1,
-        "disp": false,
-        "width": "20",
-        "collapse": false
-    },
-    {
-        "id": "87e7d73f.58b988",
-        "type": "ui_group",
-        "name": "controls",
-        "tab": "9df62712.4fec98",
-        "order": 2,
-        "disp": false,
-        "width": "2",
-        "collapse": false
-    },
-    {
         "id": "f18730a5.cb179",
         "type": "tcp in",
         "z": "4f19d12f.1e2c4",
         "name": "",
         "server": "client",
-        "host": "recv",
+        "host": "192.168.1.100",
         "port": "30003",
         "datamode": "stream",
         "datatype": "utf8",
         "newline": "\\n",
         "topic": "",
         "base64": false,
-        "x": 120,
+        "x": 150,
         "y": 60,
         "wires": [
             [
                 "bd3e632b.fd2f3",
                 "76bbb0b2.cec9d"
             ]
-        ]
-    },
-    {
-        "id": "bd3e632b.fd2f3",
-        "type": "npm",
-        "z": "4f19d12f.1e2c4",
-        "name": "sbs1 decoder",
-        "func": "// NPM module exposed as variable, npm_module\nreturn npm_module(msg.payload);",
-        "npm_module": "sbs1-compat",
-        "module_style": "function",
-        "msg_payload": "return_val",
-        "function_name": "parseSbs1Message",
-        "x": 340,
-        "y": 60,
-        "wires": [
-            [
-                "99cfcf6c.0ccf5"
-            ]
-        ],
-        "outputLabels": [
-            "decoded ads-b messages"
         ]
     },
     {
@@ -232,25 +146,6 @@
         "x": 615,
         "y": 300,
         "wires": []
-    },
-    {
-        "id": "b1a21177.4703",
-        "type": "function",
-        "z": "b89551a1.981bf",
-        "name": "create add/update cmd",
-        "func": "const row = Object.assign({}, msg.payload);\nmsg.payload = {\n    \"command\": \"updateOrAddData\",\n    \"arguments\": [[row ]],\n    returnPromise: true\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 460,
-        "y": 120,
-        "wires": [
-            [
-                "c248f2d7.1bbfc"
-            ]
-        ]
     },
     {
         "id": "99cfcf6c.0ccf5",
@@ -311,145 +206,6 @@
             "STATUS CHANGE MESSAGE",
             " CLICK MESSAGE",
             " TRANSMISSION MESSAGE"
-        ]
-    },
-    {
-        "id": "baea63fe.7a25c",
-        "type": "link in",
-        "z": "b89551a1.981bf",
-        "name": "pruned aircraft reader",
-        "links": [
-            "eafb3b18.54a508"
-        ],
-        "x": 175,
-        "y": 200,
-        "wires": [
-            [
-                "32e18b0e.bfc5e4"
-            ]
-        ]
-    },
-    {
-        "id": "32e18b0e.bfc5e4",
-        "type": "function",
-        "z": "b89551a1.981bf",
-        "name": "clone payload",
-        "func": "msg.payload = Object.assign({}, msg.payload)\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 320,
-        "y": 200,
-        "wires": [
-            [
-                "3748a8ed.bbccb8"
-            ]
-        ]
-    },
-    {
-        "id": "3748a8ed.bbccb8",
-        "type": "change",
-        "z": "b89551a1.981bf",
-        "name": "set table props",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.id",
-                "pt": "msg",
-                "to": "payload.hex_ident",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload.label",
-                "pt": "msg",
-                "to": "msg.payload.flight_id \t? msg.payload.flight_id \t: msg.payload.hex_ident",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 440,
-        "y": 280,
-        "wires": [
-            [
-                "6c48c90d.d44648"
-            ]
-        ]
-    },
-    {
-        "id": "6c48c90d.d44648",
-        "type": "function",
-        "z": "b89551a1.981bf",
-        "name": "create delete cmd",
-        "func": "msg.payload={\n    command:\"deleteRow\",\n    arguments: [msg.payload.hex_ident],\n    returnPromise: true\n}\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 570,
-        "y": 360,
-        "wires": [
-            [
-                "c248f2d7.1bbfc"
-            ]
-        ]
-    },
-    {
-        "id": "17438f18.aa3ae1",
-        "type": "link in",
-        "z": "b89551a1.981bf",
-        "name": "aircraft reader",
-        "links": [
-            "e38f79f9.9bcf28",
-            "7de6f7c3.2417a8"
-        ],
-        "x": 175,
-        "y": 40,
-        "wires": [
-            [
-                "badd9d1f.6f9b"
-            ]
-        ]
-    },
-    {
-        "id": "badd9d1f.6f9b",
-        "type": "change",
-        "z": "b89551a1.981bf",
-        "name": "set table props",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.id",
-                "pt": "msg",
-                "to": "payload.hex_ident",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload.label",
-                "pt": "msg",
-                "to": "msg.payload.flight_id \t? msg.payload.flight_id \t: msg.payload.hex_ident",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 320,
-        "y": 40,
-        "wires": [
-            [
-                "b1a21177.4703"
-            ]
         ]
     },
     {
@@ -537,22 +293,6 @@
                 "834e8281.fc9e2"
             ]
         ]
-    },
-    {
-        "id": "c248f2d7.1bbfc",
-        "type": "ui_table",
-        "z": "b89551a1.981bf",
-        "group": "14cb61d4.9d5d3e",
-        "name": "",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "columns": [],
-        "outputs": 0,
-        "cts": false,
-        "x": 740,
-        "y": 240,
-        "wires": []
     },
     {
         "id": "e1c8d108.0f526",
@@ -650,83 +390,6 @@
         ]
     },
     {
-        "id": "21d417f9.f35e28",
-        "type": "worldmap in",
-        "z": "440cd06f.70f26",
-        "name": "",
-        "path": "/worldmap",
-        "events": "all",
-        "x": 120,
-        "y": 420,
-        "wires": [
-            [
-                "e2da32bb.db098"
-            ]
-        ]
-    },
-    {
-        "id": "43fb731f.8bb12c",
-        "type": "ui_worldmap",
-        "z": "440cd06f.70f26",
-        "group": "b7c4863.ef4c878",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "lat": "35.198284",
-        "lon": " -111.651299",
-        "zoom": "",
-        "layer": "OSM",
-        "cluster": "",
-        "maxage": "20",
-        "usermenu": "hide",
-        "layers": "hide",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "true",
-        "coords": "none",
-        "showgrid": "false",
-        "allowFileDrop": "false",
-        "path": "/worldmap",
-        "x": 720,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "8e0c34a3.373ec8",
-        "type": "ui_switch",
-        "z": "440cd06f.70f26",
-        "name": "",
-        "label": "Labels",
-        "tooltip": "",
-        "group": "87e7d73f.58b988",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "decouple": "false",
-        "topic": "topic",
-        "topicType": "msg",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "animate": false,
-        "x": 330,
-        "y": 340,
-        "wires": [
-            [
-                "d77f72ea.f89fc"
-            ]
-        ]
-    },
-    {
         "id": "d77f72ea.f89fc",
         "type": "change",
         "z": "440cd06f.70f26",
@@ -745,8 +408,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 520,
-        "y": 340,
+        "x": 560,
+        "y": 300,
         "wires": [
             []
         ]
@@ -814,7 +477,7 @@
         "y": 200,
         "wires": [
             [
-                "43fb731f.8bb12c"
+                "c25e97fe.190c28"
             ]
         ]
     },
@@ -841,7 +504,7 @@
         "y": 160,
         "wires": [
             [
-                "43fb731f.8bb12c"
+                "c25e97fe.190c28"
             ]
         ]
     },
@@ -898,7 +561,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 100,
+        "x": 160,
         "y": 180,
         "wires": [
             [
@@ -955,7 +618,7 @@
         "type": "debug",
         "z": "4f19d12f.1e2c4",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -965,5 +628,66 @@
         "x": 420,
         "y": 400,
         "wires": []
+    },
+    {
+        "id": "bd3e632b.fd2f3",
+        "type": "npm",
+        "z": "4f19d12f.1e2c4",
+        "name": "sbs1 decoder",
+        "func": "// NPM module exposed as variable, npm_module\nreturn npm_module(msg.payload);",
+        "npm_module": "sbs1-compat",
+        "module_style": "function",
+        "msg_payload": "return_val",
+        "function_name": "parseSbs1Message",
+        "x": 380,
+        "y": 40,
+        "wires": [
+            [
+                "99cfcf6c.0ccf5"
+            ]
+        ],
+        "outputLabels": [
+            "decoded ads-b messages"
+        ]
+    },
+    {
+        "id": "c25e97fe.190c28",
+        "type": "worldmap",
+        "z": "440cd06f.70f26",
+        "name": "",
+        "lat": "34",
+        "lon": "-111",
+        "zoom": "6",
+        "layer": "OSM",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/flights",
+        "x": 680,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "de8f8d36.ccc81",
+        "type": "worldmap in",
+        "z": "440cd06f.70f26",
+        "name": "",
+        "path": "/worldmap",
+        "events": "all",
+        "x": 190,
+        "y": 320,
+        "wires": [
+            [
+                "e2da32bb.db098"
+            ]
+        ]
     }
 ]
