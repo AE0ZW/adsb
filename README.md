@@ -4,5 +4,15 @@ This flight tracker is built with node-red. It takes SBS messages from dump1090 
 port 30003.
 
 ## Usage
-docker run -it -v `pwd`:/data -p 1880:1880 nodered/node-red:latest-minimal
 
+Build a docker image that contains dashboard, worldmap, npm, and functionx packages.
+
+`docker build -t adsb .`
+
+Then run a container with the flows mapped into the container.
+
+`docker run -it --name adsb -v $(pwd):/data -p 1880:1880 adsb`
+
+Now you can connect to the running flow.
+
+`http://localhost:1880/flights`
