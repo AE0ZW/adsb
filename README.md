@@ -13,6 +13,8 @@ Then run a container with the flows mapped into the container.
 
 `docker run -it --name adsb -v $(pwd):/data -p 1880:1880 adsb`
 
+Connect to your dump1090 process by configuring the tcp node on the first flow.
+
 Now you can connect to the running flow.
 
 `http://localhost:1880/flights`
