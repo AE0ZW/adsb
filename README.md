@@ -5,4 +5,5 @@ port 30003.
 
 ## Usage
 `docker run -it -v $(pwd):/data -p 1880:1880 nodered/node-red:latest-minimal`
+
 Connect to your dump1090 process by configuring the tcp node on the first flow.
