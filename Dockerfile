@@ -1,20 +1,23 @@
-FROM node:alpine3.12 AS  build
+FROM alpine:3.12.7 AS  base
+
+RUN apk add --update nodejs nodejs-npm \
+&& npm install -g serve
+
+FROM base as build
 
 WORKDIR /var/build
 
-COPY ./ /var/build/
+COPY ./ .
 
 RUN npm install
 RUN npm run build
 
-FROM node:alpine3.12
+FROM base
 
 WORKDIR /adsb
-
-RUN npm install -g serve
 
 COPY --from=build /var/build/build .
 
 EXPOSE 80
 
-ENTRYPOINT ["/usr/local/bin/serve", "-l", "tcp://0.0.0.0:80", "-s", "-n", "/adsb"]
+CMD ["/usr/bin/serve", "-l", "tcp://0.0.0.0:80", "-s", "-n", "/adsb"]
