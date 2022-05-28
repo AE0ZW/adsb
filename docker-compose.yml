@@ -8,6 +8,8 @@ services:
     restart: always
     devices:
       - "/dev/bus/usb"
+    depends_on:
+      - mq
   mq:
     image: eclipse-mosquitto
     networks:
@@ -18,7 +20,7 @@ services:
     volumes:
       - "./images/mq/mosquitto.conf:/mosquitto/config/mosquitto.conf"
   app:
-    image: nodered/node-red:latest-minimal
+    image: nodered/node-red
     networks:
       - internal
     restart: always
@@ -27,7 +29,6 @@ services:
     volumes:
       - "./src/nodered:/data"
     depends_on:
-      - sdr
       - mq
 networks:
   internal:

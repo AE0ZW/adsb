@@ -497,7 +497,7 @@
         "y": 60,
         "wires": [
             [
-                "e7fc9b42b8f964b8"
+                "d4da317ac72b25e8"
             ]
         ]
     },
@@ -563,7 +563,6 @@
         "y": 180,
         "wires": [
             [
-                "8f34915eccc11987",
                 "61dd7bc080ea7765"
             ]
         ]
@@ -640,7 +639,27 @@
         "y": 320,
         "wires": [
             [
-                "dbc91fbba56c7d0f"
+                "dbc91fbba56c7d0f",
+                "8f34915eccc11987"
+            ]
+        ]
+    },
+    {
+        "id": "d4da317ac72b25e8",
+        "type": "function",
+        "z": "c1ee75866ab9c2b8",
+        "name": "filter empty callsign",
+        "func": "\nreturn msg.payload.callsign ? msg : null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "e7fc9b42b8f964b8"
             ]
         ]
     }

@@ -497,7 +497,7 @@
         "y": 60,
         "wires": [
             [
-                "e7fc9b42b8f964b8"
+                "d4da317ac72b25e8"
             ]
         ]
     },
@@ -514,8 +514,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 450,
-        "y": 60,
+        "x": 590,
+        "y": 80,
         "wires": []
     },
     {
@@ -598,8 +598,8 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 500,
-        "y": 220,
+        "x": 580,
+        "y": 280,
         "wires": []
     },
     {
@@ -641,6 +641,25 @@
             [
                 "dbc91fbba56c7d0f",
                 "8f34915eccc11987"
+            ]
+        ]
+    },
+    {
+        "id": "d4da317ac72b25e8",
+        "type": "function",
+        "z": "c1ee75866ab9c2b8",
+        "name": "filter empty callsign",
+        "func": "\nreturn msg.payload.callsign ? msg : null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 60,
+        "wires": [
+            [
+                "e7fc9b42b8f964b8"
             ]
         ]
     }

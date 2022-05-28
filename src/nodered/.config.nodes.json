@@ -405,6 +405,48 @@
             }
         }
     },
+    "node-red-contrib-functionx": {
+        "name": "node-red-contrib-functionx",
+        "version": "1.0.2",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "functionx": {
+                "name": "functionx",
+                "types": [
+                    "functionx"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-functionx",
+                "file": "/data/node_modules/node-red-contrib-functionx/functionx.js"
+            }
+        }
+    },
+    "node-red-contrib-web-worldmap": {
+        "name": "node-red-contrib-web-worldmap",
+        "version": "2.28.1",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "worldmap": {
+                "name": "worldmap",
+                "types": [
+                    "worldmap",
+                    "ui_worldmap",
+                    "worldmap in",
+                    "worldmap-tracks",
+                    "worldmap-hull"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-web-worldmap",
+                "file": "/data/node_modules/node-red-contrib-web-worldmap/worldmap.js"
+            }
+        }
+    },
     "node-red-dashboard": {
         "name": "node-red-dashboard",
         "version": "3.1.7",
@@ -641,88 +683,6 @@
                 "user": false,
                 "module": "node-red-dashboard",
                 "file": "/data/node_modules/node-red-dashboard/nodes/ui_spacer.js"
-            }
-        }
-    },
-    "node-red-contrib-web-worldmap": {
-        "name": "node-red-contrib-web-worldmap",
-        "version": "2.28.1",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "worldmap": {
-                "name": "worldmap",
-                "types": [
-                    "worldmap",
-                    "ui_worldmap",
-                    "worldmap in",
-                    "worldmap-tracks",
-                    "worldmap-hull"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-web-worldmap",
-                "file": "/data/node_modules/node-red-contrib-web-worldmap/worldmap.js"
-            }
-        }
-    },
-    "node-red-mongodb": {
-        "name": "node-red-mongodb",
-        "version": "0.0.18",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "mongo": {
-                "name": "mongo",
-                "types": [
-                    "mongodb",
-                    "mongodb out",
-                    "mongodb in"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-mongodb",
-                "file": "/data/node_modules/node-red-mongodb/66-mongodb.js"
-            }
-        }
-    },
-    "node-red-contrib-npm": {
-        "name": "node-red-contrib-npm",
-        "version": "1.0.2",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "npm": {
-                "name": "npm",
-                "types": [
-                    "npm"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-npm",
-                "file": "/data/node_modules/node-red-contrib-npm/npm/npm.js"
-            }
-        }
-    },
-    "node-red-contrib-functionx": {
-        "name": "node-red-contrib-functionx",
-        "version": "1.0.2",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "functionx": {
-                "name": "functionx",
-                "types": [
-                    "functionx"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-functionx",
-                "file": "/data/node_modules/node-red-contrib-functionx/functionx.js"
             }
         }
     }
