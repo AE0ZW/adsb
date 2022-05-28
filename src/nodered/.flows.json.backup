@@ -1,0 +1,647 @@
+[
+    {
+        "id": "06f12ee94683dc5b",
+        "type": "tab",
+        "label": "decode",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f2d18d1445b04b8f",
+        "type": "tab",
+        "label": "persist",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c1ee75866ab9c2b8",
+        "type": "tab",
+        "label": "view",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8e203d9b43fa53f9",
+        "type": "mqtt-broker",
+        "name": "mq",
+        "broker": "mq",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "5c5ff734c923ff9d",
+        "type": "ui_tab",
+        "name": "ADS-B Geolocator",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "4df2cf9f1c246909",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "eb7218b02fd8d276",
+        "type": "ui_group",
+        "name": "map",
+        "tab": "5c5ff734c923ff9d",
+        "order": 1,
+        "disp": false,
+        "width": "24",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c120271a4061c7c6",
+        "type": "mqtt in",
+        "z": "06f12ee94683dc5b",
+        "name": "",
+        "topic": "adsb/raw",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8e203d9b43fa53f9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "8007ce9591a9b027",
+                "c17aafa5d0448c44"
+            ]
+        ]
+    },
+    {
+        "id": "82d2482ce8a525fb",
+        "type": "functionx",
+        "z": "06f12ee94683dc5b",
+        "name": "decoder",
+        "func": "const decoder = require('mode-s-decoder')();\nconst payload = decoder.parse(msg.payload);\n\n// delete payload.msg\n\nreturn {payload};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 500,
+        "y": 160,
+        "wires": [
+            [
+                "f56aec8d3a5f9128"
+            ]
+        ]
+    },
+    {
+        "id": "f8172e6b0b1308a9",
+        "type": "mqtt out",
+        "z": "06f12ee94683dc5b",
+        "name": "",
+        "topic": "adsb/decoded",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8e203d9b43fa53f9",
+        "x": 640,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "8007ce9591a9b027",
+        "type": "function",
+        "z": "06f12ee94683dc5b",
+        "name": "-> byte array",
+        "func": "var DecodeHexStringToByteArray = function (hexString) {\n   var result = [];\n   while (hexString.length >= 2) { \n       result.push(parseInt(hexString.substring(0, 2), 16));\n       hexString = hexString.substring(2, hexString.length);\n   }\n   return result;\n}\n\nconst hex = msg.payload.replace(/[^0-9^a-f^A-F]/g, \"\");\nconst payload = DecodeHexStringToByteArray(hex)\n\nreturn {payload};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "82d2482ce8a525fb",
+                "1172ca092396f833"
+            ]
+        ]
+    },
+    {
+        "id": "1172ca092396f833",
+        "type": "debug",
+        "z": "06f12ee94683dc5b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "03ec1d6930ad8845",
+        "type": "debug",
+        "z": "06f12ee94683dc5b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "c17aafa5d0448c44",
+        "type": "debug",
+        "z": "06f12ee94683dc5b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "f56aec8d3a5f9128",
+        "type": "function",
+        "z": "06f12ee94683dc5b",
+        "name": "filter by crc",
+        "func": "\nreturn msg.payload.crcOk ? msg : null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 220,
+        "wires": [
+            [
+                "f8172e6b0b1308a9",
+                "03ec1d6930ad8845"
+            ]
+        ]
+    },
+    {
+        "id": "47b250829aa21e7b",
+        "type": "mqtt in",
+        "z": "f2d18d1445b04b8f",
+        "name": "",
+        "topic": "adsb/decoded",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8e203d9b43fa53f9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "06b300345345615a"
+            ]
+        ]
+    },
+    {
+        "id": "e11c90bfbdc8b848",
+        "type": "debug",
+        "z": "f2d18d1445b04b8f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "06b300345345615a",
+        "type": "functionx",
+        "z": "f2d18d1445b04b8f",
+        "name": "aircraft store",
+        "func": "if(! flow.get('db')) {\n    const timeout = 120000\n    const store = require('mode-s-aircraft-store')({timeout})\n    flow.set('db', store)\n\n}\nflow.get('db').addMessage(msg.payload)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 370,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a37effad043c3550",
+        "type": "function",
+        "z": "f2d18d1445b04b8f",
+        "name": "read store",
+        "func": "msg.payload = flow.get('db').getAircrafts()\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 260,
+        "wires": [
+            [
+                "770e2f408de592b2"
+            ]
+        ]
+    },
+    {
+        "id": "57f77045b9b9fd6b",
+        "type": "inject",
+        "z": "f2d18d1445b04b8f",
+        "name": "trigger aircraft dump",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "a37effad043c3550"
+            ]
+        ]
+    },
+    {
+        "id": "770e2f408de592b2",
+        "type": "split",
+        "z": "f2d18d1445b04b8f",
+        "name": "per record",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 150,
+        "y": 340,
+        "wires": [
+            [
+                "b67358b326237258"
+            ]
+        ]
+    },
+    {
+        "id": "b1d19a6904cbd86e",
+        "type": "mqtt out",
+        "z": "f2d18d1445b04b8f",
+        "name": "",
+        "topic": "adsb/aircraft",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8e203d9b43fa53f9",
+        "x": 650,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "b67358b326237258",
+        "type": "change",
+        "z": "f2d18d1445b04b8f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aircraft",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 200,
+        "wires": [
+            [
+                "e11c90bfbdc8b848",
+                "b1d19a6904cbd86e"
+            ]
+        ]
+    },
+    {
+        "id": "90498269f62dca31",
+        "type": "mqtt in",
+        "z": "c1ee75866ab9c2b8",
+        "name": "",
+        "topic": "adsb/aircraft",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "8e203d9b43fa53f9",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "e7fc9b42b8f964b8"
+            ]
+        ]
+    },
+    {
+        "id": "8f34915eccc11987",
+        "type": "debug",
+        "z": "c1ee75866ab9c2b8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e7fc9b42b8f964b8",
+        "type": "change",
+        "z": "c1ee75866ab9c2b8",
+        "name": "sweep",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "aircraft",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.lon",
+                "pt": "msg",
+                "to": "payload.lng",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "qos",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "retain",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.lng",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 180,
+        "wires": [
+            [
+                "8f34915eccc11987",
+                "61dd7bc080ea7765"
+            ]
+        ]
+    },
+    {
+        "id": "dbc91fbba56c7d0f",
+        "type": "ui_worldmap",
+        "z": "c1ee75866ab9c2b8",
+        "group": "eb7218b02fd8d276",
+        "order": 0,
+        "width": "24",
+        "height": "12",
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "OSMC",
+        "cluster": "",
+        "maxage": "120",
+        "usermenu": "hide",
+        "layers": "hide",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 500,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "61dd7bc080ea7765",
+        "type": "change",
+        "z": "c1ee75866ab9c2b8",
+        "name": "set icon props",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.name",
+                "pt": "msg",
+                "to": "payload.callsign",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.label",
+                "pt": "msg",
+                "to": "payload.callsign",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.icon",
+                "pt": "msg",
+                "to": "plane",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 320,
+        "wires": [
+            [
+                "dbc91fbba56c7d0f"
+            ]
+        ]
+    }
+]
