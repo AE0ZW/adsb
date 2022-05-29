@@ -7,8 +7,8 @@ a `node-red` application.
 
 1. Clone the repository. 
 ```bash
-git clone https://github.com/ke8hmv/adsb-nodered.git`
-2. cd adsb-nodered
+git clone https://github.com/ke8hmv/adsb-nodered.git
+cd adsb-nodered
 ```
 3. Install dependencies. 
 ```bash 
@@ -17,9 +17,6 @@ cd /data
 npm install
 exit
 ```
-4. Start the containers.
-```bash
-docker compose up
-```
+4. Start the containers. `docker compose up -d`
 5. Open your browser to `http://localhost:1880/flights`
 
