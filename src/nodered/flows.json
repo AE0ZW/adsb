@@ -330,7 +330,8 @@
         "y": 80,
         "wires": [
             [
-                "06b300345345615a"
+                "06b300345345615a",
+                "4a582bc66cfad05b"
             ]
         ]
     },
@@ -347,8 +348,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 490,
-        "y": 320,
+        "x": 630,
+        "y": 340,
         "wires": []
     },
     {
@@ -361,8 +362,8 @@
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 370,
-        "y": 80,
+        "x": 450,
+        "y": 60,
         "wires": [
             []
         ]
@@ -430,7 +431,7 @@
         "y": 340,
         "wires": [
             [
-                "b67358b326237258"
+                "c0afeb1355d21b2b"
             ]
         ]
     },
@@ -448,35 +449,43 @@
         "correl": "",
         "expiry": "",
         "broker": "8e203d9b43fa53f9",
-        "x": 650,
-        "y": 100,
+        "x": 630,
+        "y": 160,
         "wires": []
     },
     {
-        "id": "b67358b326237258",
-        "type": "change",
+        "id": "4a582bc66cfad05b",
+        "type": "debug",
         "z": "f2d18d1445b04b8f",
         "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "aircraft",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
         "x": 430,
-        "y": 200,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c0afeb1355d21b2b",
+        "type": "function",
+        "z": "f2d18d1445b04b8f",
+        "name": "filter empty callsign",
+        "func": "\nreturn msg.payload.callsign ? msg : null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 260,
         "wires": [
             [
-                "e11c90bfbdc8b848",
-                "b1d19a6904cbd86e"
+                "b1d19a6904cbd86e",
+                "e11c90bfbdc8b848"
             ]
         ]
     },
@@ -497,7 +506,7 @@
         "y": 60,
         "wires": [
             [
-                "d4da317ac72b25e8"
+                "61dd7bc080ea7765"
             ]
         ]
     },
@@ -517,55 +526,6 @@
         "x": 590,
         "y": 80,
         "wires": []
-    },
-    {
-        "id": "e7fc9b42b8f964b8",
-        "type": "change",
-        "z": "c1ee75866ab9c2b8",
-        "name": "sweep",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "aircraft",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.lon",
-                "pt": "msg",
-                "to": "payload.lng",
-                "tot": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "qos",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "retain",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "payload.lng",
-                "pt": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 230,
-        "y": 180,
-        "wires": [
-            [
-                "61dd7bc080ea7765"
-            ]
-        ]
     },
     {
         "id": "61dd7bc080ea7765",
@@ -606,25 +566,6 @@
             [
                 "dbc91fbba56c7d0f",
                 "8f34915eccc11987"
-            ]
-        ]
-    },
-    {
-        "id": "d4da317ac72b25e8",
-        "type": "function",
-        "z": "c1ee75866ab9c2b8",
-        "name": "filter empty callsign",
-        "func": "\nreturn msg.payload.callsign ? msg : null;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 330,
-        "y": 60,
-        "wires": [
-            [
-                "e7fc9b42b8f964b8"
             ]
         ]
     },
