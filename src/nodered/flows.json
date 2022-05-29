@@ -481,7 +481,7 @@
         "finalize": "",
         "libs": [],
         "x": 430,
-        "y": 260,
+        "y": 220,
         "wires": [
             [
                 "b1d19a6904cbd86e",
@@ -506,7 +506,7 @@
         "y": 60,
         "wires": [
             [
-                "61dd7bc080ea7765"
+                "c041eaecbfdf5e67"
             ]
         ]
     },
@@ -519,19 +519,19 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 590,
-        "y": 80,
+        "x": 610,
+        "y": 60,
         "wires": []
     },
     {
         "id": "61dd7bc080ea7765",
         "type": "change",
         "z": "c1ee75866ab9c2b8",
-        "name": "set icon props",
+        "name": "set marker labels",
         "rules": [
             {
                 "t": "set",
@@ -546,13 +546,6 @@
                 "pt": "msg",
                 "to": "payload.callsign",
                 "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload.icon",
-                "pt": "msg",
-                "to": "plane",
-                "tot": "str"
             }
         ],
         "action": "",
@@ -560,12 +553,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 320,
+        "x": 370,
+        "y": 60,
         "wires": [
             [
-                "dbc91fbba56c7d0f",
-                "8f34915eccc11987"
+                "cbdb62a880d63c0c"
             ]
         ]
     },
@@ -600,8 +592,79 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 570,
-        "y": 280,
+        "x": 630,
+        "y": 300,
         "wires": []
+    },
+    {
+        "id": "cbdb62a880d63c0c",
+        "type": "function",
+        "z": "c1ee75866ab9c2b8",
+        "name": "set marker icon",
+        "func": "const callsign = msg.payload.callsign;\n\nmsg.payload.icon = callsign.match('^N')\n    ? \"smallplane\"\n    : callsign.match(/^[A-Z]{3}/)\n    ? \"plane\"\n    : \"arrow\"\n\nmsg.payload.accuracy = 20 * Math.abs(msg.payload.delta.heading)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 160,
+        "wires": [
+            [
+                "8f34915eccc11987",
+                "dbc91fbba56c7d0f"
+            ]
+        ]
+    },
+    {
+        "id": "c041eaecbfdf5e67",
+        "type": "change",
+        "z": "c1ee75866ab9c2b8",
+        "name": "fix position",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.lon",
+                "pt": "msg",
+                "to": "payload.lng",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.lng",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "1805ea9136bc7bb0"
+            ]
+        ]
+    },
+    {
+        "id": "1805ea9136bc7bb0",
+        "type": "function",
+        "z": "c1ee75866ab9c2b8",
+        "name": "calculate deltas",
+        "func": "// get current info\nconst data = flow.get('data')\nconst current = {speed:msg.payload.speed, altitude:msg.payload.altitude, heading:msg.payload.heading, seen:msg.payload.seen}\nconst prev = data[msg.payload.icao] || current\nconst delta = {}\n\n// calc current info\nfor (var key in current) {\n    delta[key] = current[key] - prev[key];\n}\n\n// save current info\ndata[msg.payload.icao] = current\nflow.set('data', data)\n\n// update msg\nmsg.payload.delta = delta\n\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('data', {})",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 280,
+        "wires": [
+            [
+                "61dd7bc080ea7765"
+            ]
+        ]
     }
 ]
