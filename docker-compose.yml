@@ -5,7 +5,7 @@ services:
     build: ./images/sdr
     networks:
       - internal
-    restart: always
+    restart: on-failure
     devices:
       - "/dev/bus/usb"
     depends_on:
@@ -14,16 +14,17 @@ services:
     image: eclipse-mosquitto
     networks:
       - internal
-    restart: always
+    restart: on-failure
     ports:
       - "1883:1883"
     volumes:
-      - "./images/mq/mosquitto.conf:/mosquitto/config/mosquitto.conf"
+      - "./src/mq/mosquitto.conf:/mosquitto/config/mosquitto.conf"
   app:
     image: nodered/node-red
     networks:
       - internal
-    restart: always
+    restart: on-failure
+    volumes:
     ports:
       - "1880:1880"
     volumes:

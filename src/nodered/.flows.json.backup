@@ -514,8 +514,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 450,
-        "y": 60,
+        "x": 590,
+        "y": 80,
         "wires": []
     },
     {
@@ -591,15 +591,15 @@
         "coords": "none",
         "showgrid": "false",
         "allowFileDrop": "false",
-        "path": "/worldmap",
+        "path": "/flights",
         "overlist": "DR,CO,RA,DN,HM",
         "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
         "mapname": "",
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 500,
-        "y": 220,
+        "x": 570,
+        "y": 280,
         "wires": []
     },
     {
@@ -655,8 +655,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 120,
+        "x": 330,
+        "y": 60,
         "wires": [
             [
                 "e7fc9b42b8f964b8"
