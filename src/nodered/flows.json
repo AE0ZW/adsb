@@ -270,7 +270,7 @@
         "repeat": "2",
         "crontab": "",
         "once": true,
-        "onceDelay": 0.1,
+        "onceDelay": "1",
         "topic": "",
         "x": 180,
         "y": 160,
@@ -395,23 +395,6 @@
         ]
     },
     {
-        "id": "8f34915eccc11987",
-        "type": "debug",
-        "z": "c1ee75866ab9c2b8",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 610,
-        "y": 60,
-        "wires": []
-    },
-    {
         "id": "61dd7bc080ea7765",
         "type": "change",
         "z": "c1ee75866ab9c2b8",
@@ -460,8 +443,7 @@
         "y": 160,
         "wires": [
             [
-                "8f34915eccc11987",
-                "1657bf204946c34b"
+                "1f4b7ec65056044e"
             ]
         ]
     },
@@ -560,5 +542,38 @@
                 "1657bf204946c34b"
             ]
         ]
+    },
+    {
+        "id": "1f4b7ec65056044e",
+        "type": "worldmap-tracks",
+        "z": "c1ee75866ab9c2b8",
+        "name": "",
+        "depth": 20,
+        "layer": "combined",
+        "smooth": true,
+        "x": 530,
+        "y": 220,
+        "wires": [
+            [
+                "1657bf204946c34b",
+                "2d401ee1a1d3af3b"
+            ]
+        ]
+    },
+    {
+        "id": "2d401ee1a1d3af3b",
+        "type": "debug",
+        "z": "c1ee75866ab9c2b8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 120,
+        "wires": []
     }
 ]
