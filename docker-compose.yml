@@ -5,7 +5,7 @@ services:
     build: ./images/sdr
     networks:
       - internal
-    restart: on-failure
+    restart: unless-stopped
     devices:
       - "/dev/bus/usb"
     depends_on:
@@ -14,7 +14,7 @@ services:
     image: eclipse-mosquitto
     networks:
       - internal
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - "1883:1883"
     volumes:
@@ -23,7 +23,7 @@ services:
     image: nodered/node-red
     networks:
       - internal
-    restart: on-failure
+    restart: unless-stopped
     volumes:
     ports:
       - "1880:1880"
