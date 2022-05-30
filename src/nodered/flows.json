@@ -85,8 +85,8 @@
         "correl": "",
         "expiry": "",
         "broker": "8e203d9b43fa53f9",
-        "x": 640,
-        "y": 320,
+        "x": 380,
+        "y": 280,
         "wires": []
     },
     {
@@ -100,8 +100,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 250,
-        "y": 160,
+        "x": 150,
+        "y": 120,
         "wires": [
             [
                 "1172ca092396f833",
@@ -122,8 +122,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 350,
-        "y": 260,
+        "x": 370,
+        "y": 120,
         "wires": []
     },
     {
@@ -139,8 +139,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 610,
-        "y": 80,
+        "x": 350,
+        "y": 240,
         "wires": []
     },
     {
@@ -156,7 +156,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 370,
-        "y": 40,
+        "y": 60,
         "wires": []
     },
     {
@@ -170,8 +170,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 630,
-        "y": 220,
+        "x": 150,
+        "y": 240,
         "wires": [
             [
                 "f8172e6b0b1308a9",
@@ -195,8 +195,8 @@
                 "module": "mode-s-decoder"
             }
         ],
-        "x": 460,
-        "y": 140,
+        "x": 140,
+        "y": 180,
         "wires": [
             [
                 "f56aec8d3a5f9128"
@@ -238,8 +238,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 610,
-        "y": 340,
+        "x": 410,
+        "y": 300,
         "wires": []
     },
     {
@@ -253,8 +253,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 160,
-        "y": 260,
+        "x": 140,
+        "y": 220,
         "wires": [
             [
                 "770e2f408de592b2"
@@ -292,7 +292,7 @@
         "stream": false,
         "addname": "",
         "x": 150,
-        "y": 340,
+        "y": 280,
         "wires": [
             [
                 "c0afeb1355d21b2b"
@@ -313,8 +313,8 @@
         "correl": "",
         "expiry": "",
         "broker": "8e203d9b43fa53f9",
-        "x": 630,
-        "y": 160,
+        "x": 430,
+        "y": 340,
         "wires": []
     },
     {
@@ -330,7 +330,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 430,
-        "y": 120,
+        "y": 40,
         "wires": []
     },
     {
@@ -344,8 +344,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 220,
+        "x": 170,
+        "y": 340,
         "wires": [
             [
                 "b1d19a6904cbd86e",
@@ -369,8 +369,8 @@
                 "module": "mode-s-aircraft-store"
             }
         ],
-        "x": 450,
-        "y": 60,
+        "x": 430,
+        "y": 80,
         "wires": []
     },
     {
@@ -390,7 +390,8 @@
         "y": 60,
         "wires": [
             [
-                "c041eaecbfdf5e67"
+                "c041eaecbfdf5e67",
+                "8fb2d17b94e21892"
             ]
         ]
     },
@@ -420,8 +421,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
-        "y": 60,
+        "x": 150,
+        "y": 260,
         "wires": [
             [
                 "cbdb62a880d63c0c"
@@ -439,11 +440,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 460,
-        "y": 160,
+        "x": 140,
+        "y": 320,
         "wires": [
             [
-                "1f4b7ec65056044e"
+                "1657bf204946c34b",
+                "05ebf27e4d1aa2de"
             ]
         ]
     },
@@ -471,11 +473,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 150,
-        "y": 160,
+        "x": 130,
+        "y": 140,
         "wires": [
             [
-                "1805ea9136bc7bb0"
+                "1805ea9136bc7bb0",
+                "1f4b7ec65056044e"
             ]
         ]
     },
@@ -490,8 +493,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('data', {})",
         "finalize": "",
         "libs": [],
-        "x": 260,
-        "y": 280,
+        "x": 140,
+        "y": 200,
         "wires": [
             [
                 "61dd7bc080ea7765"
@@ -526,7 +529,7 @@
         "mapopt": "",
         "mapwms": false,
         "x": 590,
-        "y": 280,
+        "y": 140,
         "wires": []
     },
     {
@@ -535,8 +538,8 @@
         "z": "c1ee75866ab9c2b8",
         "name": "map control in",
         "links": [],
-        "x": 425,
-        "y": 360,
+        "x": 555,
+        "y": 60,
         "wires": [
             [
                 "1657bf204946c34b"
@@ -548,20 +551,19 @@
         "type": "worldmap-tracks",
         "z": "c1ee75866ab9c2b8",
         "name": "",
-        "depth": 20,
+        "depth": "5",
         "layer": "combined",
         "smooth": true,
-        "x": 530,
-        "y": 220,
+        "x": 370,
+        "y": 140,
         "wires": [
             [
-                "1657bf204946c34b",
-                "2d401ee1a1d3af3b"
+                "1657bf204946c34b"
             ]
         ]
     },
     {
-        "id": "2d401ee1a1d3af3b",
+        "id": "8fb2d17b94e21892",
         "type": "debug",
         "z": "c1ee75866ab9c2b8",
         "name": "",
@@ -572,8 +574,24 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 670,
-        "y": 120,
+        "x": 390,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "05ebf27e4d1aa2de",
+        "type": "debug",
+        "z": "c1ee75866ab9c2b8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 320,
         "wires": []
     }
 ]
