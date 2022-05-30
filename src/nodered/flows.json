@@ -267,7 +267,7 @@
         "z": "f2d18d1445b04b8f",
         "name": "trigger aircraft dump",
         "props": [],
-        "repeat": "1",
+        "repeat": "2",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,

@@ -10,13 +10,6 @@ a `node-red` application.
 git clone https://github.com/ke8hmv/adsb-nodered.git
 cd adsb-nodered
 ```
-3. Install dependencies. 
-```bash 
-docker run -it --rm -v $(pwd)/src/nodered:/data --entrypoint sh nodered/node-red
-cd /data
-npm install
-exit
-```
-4. Start the containers. `docker compose up -d`
-5. Open your browser to `http://localhost:1880/flights`
+2. Start the containers. `docker compose up -d` Node-red will automatically install the dependencies.
+3. Open your browser to `http://localhost:1880/flights`
 
