@@ -50,122 +50,6 @@
         "sessionExpiry": ""
     },
     {
-        "id": "5c5ff734c923ff9d",
-        "type": "ui_tab",
-        "name": "ADS-B Geolocator",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "4df2cf9f1c246909",
-        "type": "ui_base",
-        "theme": {
-            "name": "theme-light",
-            "lightTheme": {
-                "default": "#0094CE",
-                "baseColor": "#0094CE",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
-                "reset": false
-            },
-            "darkTheme": {
-                "default": "#097479",
-                "baseColor": "#097479",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
-            },
-            "customTheme": {
-                "name": "Untitled Theme 1",
-                "default": "#4B7930",
-                "baseColor": "#4B7930",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-            },
-            "themeState": {
-                "base-color": {
-                    "default": "#0094CE",
-                    "value": "#0094CE",
-                    "edited": false
-                },
-                "page-titlebar-backgroundColor": {
-                    "value": "#0094CE",
-                    "edited": false
-                },
-                "page-backgroundColor": {
-                    "value": "#fafafa",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#1bbfff",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "widget-textColor": {
-                    "value": "#111111",
-                    "edited": false
-                },
-                "widget-backgroundColor": {
-                    "value": "#0094ce",
-                    "edited": false
-                },
-                "widget-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "base-font": {
-                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
-                }
-            },
-            "angularTheme": {
-                "primary": "indigo",
-                "accents": "blue",
-                "warn": "red",
-                "background": "grey",
-                "palette": "light"
-            }
-        },
-        "site": {
-            "name": "Node-RED Dashboard",
-            "hideToolbar": "false",
-            "allowSwipe": "false",
-            "lockMenu": "false",
-            "allowTempTheme": "true",
-            "dateFormat": "DD/MM/YYYY",
-            "sizes": {
-                "sx": 48,
-                "sy": 48,
-                "gx": 6,
-                "gy": 6,
-                "cx": 6,
-                "cy": 6,
-                "px": 0,
-                "py": 0
-            }
-        }
-    },
-    {
-        "id": "eb7218b02fd8d276",
-        "type": "ui_group",
-        "name": "map",
-        "tab": "5c5ff734c923ff9d",
-        "order": 1,
-        "disp": false,
-        "width": "24",
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "c120271a4061c7c6",
         "type": "mqtt in",
         "z": "06f12ee94683dc5b",
@@ -269,11 +153,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 650,
+        "x": 670,
         "y": 80,
         "wires": []
     },
@@ -344,11 +228,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 630,
+        "x": 650,
         "y": 340,
         "wires": []
     },
@@ -562,41 +446,6 @@
         ]
     },
     {
-        "id": "dbc91fbba56c7d0f",
-        "type": "ui_worldmap",
-        "z": "c1ee75866ab9c2b8",
-        "group": "eb7218b02fd8d276",
-        "order": 0,
-        "width": "24",
-        "height": "12",
-        "name": "",
-        "lat": "39.5",
-        "lon": "-98.35",
-        "zoom": "4",
-        "layer": "OSMC",
-        "cluster": "",
-        "maxage": "120",
-        "usermenu": "hide",
-        "layers": "hide",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "true",
-        "coords": "none",
-        "showgrid": "false",
-        "allowFileDrop": "false",
-        "path": "/flights",
-        "overlist": "DR,CO,RA,DN,HM",
-        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
-        "mapname": "",
-        "mapurl": "",
-        "mapopt": "",
-        "mapwms": false,
-        "x": 630,
-        "y": 300,
-        "wires": []
-    },
-    {
         "id": "cbdb62a880d63c0c",
         "type": "function",
         "z": "c1ee75866ab9c2b8",
@@ -612,7 +461,7 @@
         "wires": [
             [
                 "8f34915eccc11987",
-                "dbc91fbba56c7d0f"
+                "1657bf204946c34b"
             ]
         ]
     },
@@ -664,6 +513,51 @@
         "wires": [
             [
                 "61dd7bc080ea7765"
+            ]
+        ]
+    },
+    {
+        "id": "1657bf204946c34b",
+        "type": "worldmap",
+        "z": "c1ee75866ab9c2b8",
+        "name": "",
+        "lat": "39.5",
+        "lon": "-98.35",
+        "zoom": "4",
+        "layer": "OSMC",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "true",
+        "allowFileDrop": "false",
+        "path": "/flights",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 590,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "939ad548affd7e37",
+        "type": "link in",
+        "z": "c1ee75866ab9c2b8",
+        "name": "map control in",
+        "links": [],
+        "x": 425,
+        "y": 360,
+        "wires": [
+            [
+                "1657bf204946c34b"
             ]
         ]
     }

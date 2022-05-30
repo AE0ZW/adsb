@@ -269,11 +269,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 650,
+        "x": 670,
         "y": 80,
         "wires": []
     },
@@ -344,11 +344,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 630,
+        "x": 650,
         "y": 340,
         "wires": []
     },
@@ -562,46 +562,11 @@
         ]
     },
     {
-        "id": "dbc91fbba56c7d0f",
-        "type": "ui_worldmap",
-        "z": "c1ee75866ab9c2b8",
-        "group": "eb7218b02fd8d276",
-        "order": 0,
-        "width": "24",
-        "height": "12",
-        "name": "",
-        "lat": "39.5",
-        "lon": "-98.35",
-        "zoom": "4",
-        "layer": "OSMC",
-        "cluster": "",
-        "maxage": "120",
-        "usermenu": "hide",
-        "layers": "hide",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "true",
-        "coords": "none",
-        "showgrid": "false",
-        "allowFileDrop": "false",
-        "path": "/flights",
-        "overlist": "DR,CO,RA,DN,HM",
-        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
-        "mapname": "",
-        "mapurl": "",
-        "mapopt": "",
-        "mapwms": false,
-        "x": 630,
-        "y": 300,
-        "wires": []
-    },
-    {
         "id": "cbdb62a880d63c0c",
         "type": "function",
         "z": "c1ee75866ab9c2b8",
         "name": "set marker icon",
-        "func": "const callsign = msg.payload.callsign;\n\nmsg.payload.icon = callsign.match('^N')\n    ? \"smallplane\"\n    : callsign.match(/^[A-Z]{3}/)\n    ? \"plane\"\n    : \"arrow\"\n\nmsg.payload.accuracy = 10 * Math.abs(msg.payload.delta.heading)\n\nreturn msg;",
+        "func": "const callsign = msg.payload.callsign;\n\nmsg.payload.icon = callsign.match('^N')\n    ? \"smallplane\"\n    : callsign.match(/^[A-Z]{3}/)\n    ? \"plane\"\n    : \"arrow\"\n\nmsg.payload.accuracy = 20 * Math.abs(msg.payload.delta.heading)\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -612,7 +577,7 @@
         "wires": [
             [
                 "8f34915eccc11987",
-                "dbc91fbba56c7d0f"
+                "1657bf204946c34b"
             ]
         ]
     },
@@ -664,6 +629,51 @@
         "wires": [
             [
                 "61dd7bc080ea7765"
+            ]
+        ]
+    },
+    {
+        "id": "1657bf204946c34b",
+        "type": "worldmap",
+        "z": "c1ee75866ab9c2b8",
+        "name": "",
+        "lat": "39.5",
+        "lon": "-98.35",
+        "zoom": "4",
+        "layer": "OSMC",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "true",
+        "allowFileDrop": "false",
+        "path": "/flights",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 590,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "939ad548affd7e37",
+        "type": "link in",
+        "z": "c1ee75866ab9c2b8",
+        "name": "map control in",
+        "links": [],
+        "x": 425,
+        "y": 360,
+        "wires": [
+            [
+                "1657bf204946c34b"
             ]
         ]
     }

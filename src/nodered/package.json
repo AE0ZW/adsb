@@ -5,7 +5,6 @@
     "private": true,
     "dependencies": {
         "node-red-contrib-functionx": "~1.0.2",
-        "node-red-contrib-web-worldmap": "~2.28.1",
-        "node-red-dashboard": "~3.1.7"
+        "node-red-contrib-web-worldmap": "~2.28.1"
     }
 }
