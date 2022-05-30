@@ -477,8 +477,7 @@
         "y": 140,
         "wires": [
             [
-                "1805ea9136bc7bb0",
-                "1f4b7ec65056044e"
+                "1805ea9136bc7bb0"
             ]
         ]
     },
@@ -540,22 +539,6 @@
         "links": [],
         "x": 555,
         "y": 60,
-        "wires": [
-            [
-                "1657bf204946c34b"
-            ]
-        ]
-    },
-    {
-        "id": "1f4b7ec65056044e",
-        "type": "worldmap-tracks",
-        "z": "c1ee75866ab9c2b8",
-        "name": "",
-        "depth": "5",
-        "layer": "combined",
-        "smooth": true,
-        "x": 370,
-        "y": 140,
         "wires": [
             [
                 "1657bf204946c34b"

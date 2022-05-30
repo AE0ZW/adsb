@@ -551,7 +551,7 @@
         "type": "worldmap-tracks",
         "z": "c1ee75866ab9c2b8",
         "name": "",
-        "depth": 20,
+        "depth": "5",
         "layer": "combined",
         "smooth": true,
         "x": 370,
