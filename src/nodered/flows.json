@@ -72,24 +72,6 @@
         ]
     },
     {
-        "id": "82d2482ce8a525fb",
-        "type": "functionx",
-        "z": "06f12ee94683dc5b",
-        "name": "decoder",
-        "func": "const decoder = require('mode-s-decoder')();\nconst payload = decoder.parse(msg.payload);\n\n// delete payload.msg\n\nreturn {payload};",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 500,
-        "y": 160,
-        "wires": [
-            [
-                "f56aec8d3a5f9128"
-            ]
-        ]
-    },
-    {
         "id": "f8172e6b0b1308a9",
         "type": "mqtt out",
         "z": "06f12ee94683dc5b",
@@ -118,12 +100,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 120,
+        "x": 250,
+        "y": 160,
         "wires": [
             [
-                "82d2482ce8a525fb",
-                "1172ca092396f833"
+                "1172ca092396f833",
+                "e9acdfac9915dec6"
             ]
         ]
     },
@@ -140,7 +122,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 390,
+        "x": 350,
         "y": 260,
         "wires": []
     },
@@ -153,11 +135,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 670,
+        "x": 610,
         "y": 80,
         "wires": []
     },
@@ -198,6 +180,30 @@
         ]
     },
     {
+        "id": "e9acdfac9915dec6",
+        "type": "function",
+        "z": "06f12ee94683dc5b",
+        "name": "decode",
+        "func": "\nmsg.payload = flow.get('decoder').parse(msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('decoder', new modeSDecoder())\n",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "modeSDecoder",
+                "module": "mode-s-decoder"
+            }
+        ],
+        "x": 460,
+        "y": 140,
+        "wires": [
+            [
+                "f56aec8d3a5f9128"
+            ]
+        ]
+    },
+    {
         "id": "47b250829aa21e7b",
         "type": "mqtt in",
         "z": "f2d18d1445b04b8f",
@@ -214,8 +220,8 @@
         "y": 80,
         "wires": [
             [
-                "06b300345345615a",
-                "4a582bc66cfad05b"
+                "4a582bc66cfad05b",
+                "063101feea6a58d7"
             ]
         ]
     },
@@ -228,36 +234,20 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 650,
+        "x": 610,
         "y": 340,
         "wires": []
-    },
-    {
-        "id": "06b300345345615a",
-        "type": "functionx",
-        "z": "f2d18d1445b04b8f",
-        "name": "aircraft store",
-        "func": "if(! flow.get('db')) {\n    const timeout = 120000\n    const store = require('mode-s-aircraft-store')({timeout})\n    flow.set('db', store)\n\n}\nflow.get('db').addMessage(msg.payload)\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 450,
-        "y": 60,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "a37effad043c3550",
         "type": "function",
         "z": "f2d18d1445b04b8f",
         "name": "read store",
-        "func": "msg.payload = flow.get('db').getAircrafts()\n\nreturn msg;",
+        "func": "msg.payload = flow.get('aircraftStore').getAircrafts()\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -276,22 +266,12 @@
         "type": "inject",
         "z": "f2d18d1445b04b8f",
         "name": "trigger aircraft dump",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "2",
+        "props": [],
+        "repeat": "1",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
         "x": 180,
         "y": 160,
         "wires": [
@@ -372,6 +352,26 @@
                 "e11c90bfbdc8b848"
             ]
         ]
+    },
+    {
+        "id": "063101feea6a58d7",
+        "type": "function",
+        "z": "f2d18d1445b04b8f",
+        "name": "aircraft store",
+        "func": "flow.get('aircraftStore').addMessage(msg.payload)\n\nreturn null;",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('aircraftStore', new modeSAircraftStore())\n",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "modeSAircraftStore",
+                "module": "mode-s-aircraft-store"
+            }
+        ],
+        "x": 450,
+        "y": 60,
+        "wires": []
     },
     {
         "id": "90498269f62dca31",
@@ -527,12 +527,12 @@
         "layer": "OSMC",
         "cluster": "",
         "maxage": "",
-        "usermenu": "show",
-        "layers": "show",
+        "usermenu": "hide",
+        "layers": "hide",
         "panit": "false",
         "panlock": "false",
         "zoomlock": "false",
-        "hiderightclick": "false",
+        "hiderightclick": "true",
         "coords": "none",
         "showgrid": "true",
         "allowFileDrop": "false",

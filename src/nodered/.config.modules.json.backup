@@ -1,0 +1,8 @@
+{
+    "mode-s-decoder": {
+        "spec": "mode-s-decoder",
+        "module": "mode-s-decoder",
+        "builtin": false,
+        "known": false
+    }
+}
