@@ -32,6 +32,14 @@
         "env": []
     },
     {
+        "id": "bc38bbda0f6e9514",
+        "type": "tab",
+        "label": "http",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "8e203d9b43fa53f9",
         "type": "mqtt-broker",
         "name": "mq",
@@ -411,6 +419,13 @@
         "rules": [
             {
                 "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "aircraft",
+                "tot": "str"
+            },
+            {
+                "t": "set",
                 "p": "payload.name",
                 "pt": "msg",
                 "to": "payload.callsign",
@@ -422,13 +437,6 @@
                 "pt": "msg",
                 "to": "payload.callsign",
                 "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "aircraft",
-                "tot": "str"
             }
         ],
         "action": "",
@@ -523,7 +531,7 @@
         "lat": "39.5",
         "lon": "-98.35",
         "zoom": "4",
-        "layer": "OSMG",
+        "layer": "EsriC",
         "cluster": "",
         "maxage": "60",
         "usermenu": "hide",
@@ -531,13 +539,13 @@
         "panit": "false",
         "panlock": "false",
         "zoomlock": "false",
-        "hiderightclick": "true",
+        "hiderightclick": "false",
         "coords": "none",
         "showgrid": "true",
         "allowFileDrop": "false",
         "path": "/flights",
-        "overlist": "HM",
-        "maplist": "OSMG,EsriC",
+        "overlist": "DR,AC,TL,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,OpTop",
         "mapname": "",
         "mapurl": "",
         "mapopt": "",
@@ -628,13 +636,13 @@
         "id": "e4389b845b844e5a",
         "type": "change",
         "z": "2d3e93311623de37",
-        "name": "show overlays",
+        "name": "set titlebar props",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"command\":{\"showlayer\":[\"air corridors\",\"aircraft\"]}}",
+                "to": "{\"command\":{\"toptitle\":\"ADS-B Flight Tracker\",\"toplogo\":\"/logo\"}}",
                 "tot": "json"
             }
         ],
@@ -657,7 +665,7 @@
         "z": "2d3e93311623de37",
         "name": "",
         "path": "/flights",
-        "events": "connect",
+        "events": "connect,disconnect,point,layer,bounds,draw,other",
         "x": 90,
         "y": 60,
         "wires": [
@@ -677,19 +685,61 @@
         "rules": [
             {
                 "t": "eq",
+                "v": "bounds",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
                 "v": "connected",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "disconnect",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "layer",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "addlayer",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "dellayer",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "point",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "delete",
                 "vt": "str"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 1,
-        "x": 150,
-        "y": 140,
+        "outputs": 8,
+        "x": 210,
+        "y": 220,
         "wires": [
+            [],
             [
                 "e4389b845b844e5a"
-            ]
+            ],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
         ]
     },
     {
@@ -707,6 +757,97 @@
         "statusType": "auto",
         "x": 430,
         "y": 60,
+        "wires": []
+    },
+    {
+        "id": "f0fe0bde2b4bb8c1",
+        "type": "http in",
+        "z": "bc38bbda0f6e9514",
+        "name": "",
+        "url": "/logo",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 60,
+        "wires": [
+            [
+                "e04e200eeb0e623b"
+            ]
+        ]
+    },
+    {
+        "id": "4e44bd1dda14be83",
+        "type": "http response",
+        "z": "bc38bbda0f6e9514",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 650,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e04e200eeb0e623b",
+        "type": "file in",
+        "z": "bc38bbda0f6e9514",
+        "name": "read logo",
+        "filename": "/data/assets/airplane.png",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 280,
+        "y": 60,
+        "wires": [
+            [
+                "972034f9cea3701a"
+            ]
+        ]
+    },
+    {
+        "id": "972034f9cea3701a",
+        "type": "change",
+        "z": "bc38bbda0f6e9514",
+        "name": "set headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.Content-Type",
+                "pt": "msg",
+                "to": "image/png",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 60,
+        "wires": [
+            [
+                "4e44bd1dda14be83",
+                "32116dafe3e0a102"
+            ]
+        ]
+    },
+    {
+        "id": "32116dafe3e0a102",
+        "type": "debug",
+        "z": "bc38bbda0f6e9514",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 220,
         "wires": []
     }
 ]
