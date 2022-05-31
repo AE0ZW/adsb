@@ -20,7 +20,7 @@ This application works really well in kiosk mode. `firefox --kiosk http://localh
 ## Processing Pipeline
 
 Mosquitto MQ is used instead of Node-Red links to pass information between flows. This allows other applications to 
-tap into the pipeline at any point and provide further processing.
+tap into the pipeline at any point and provide further processing. Mosquitto is exposed on port `1883`.
 
 The MQTT topics are:
 * adsb/raw
