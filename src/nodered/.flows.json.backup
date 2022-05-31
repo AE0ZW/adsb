@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "2d3e93311623de37",
+        "type": "tab",
+        "label": "control",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "8e203d9b43fa53f9",
         "type": "mqtt-broker",
         "name": "mq",
@@ -399,7 +407,7 @@
         "id": "61dd7bc080ea7765",
         "type": "change",
         "z": "c1ee75866ab9c2b8",
-        "name": "set marker labels",
+        "name": "set marker properties",
         "rules": [
             {
                 "t": "set",
@@ -414,6 +422,13 @@
                 "pt": "msg",
                 "to": "payload.callsign",
                 "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "aircraft",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -421,7 +436,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 150,
+        "x": 160,
         "y": 260,
         "wires": [
             [
@@ -477,8 +492,7 @@
         "y": 140,
         "wires": [
             [
-                "1805ea9136bc7bb0",
-                "1f4b7ec65056044e"
+                "1805ea9136bc7bb0"
             ]
         ]
     },
@@ -509,11 +523,11 @@
         "lat": "39.5",
         "lon": "-98.35",
         "zoom": "4",
-        "layer": "OSMC",
+        "layer": "OSMG",
         "cluster": "",
-        "maxage": "",
+        "maxage": "60",
         "usermenu": "hide",
-        "layers": "hide",
+        "layers": "show",
         "panit": "false",
         "panlock": "false",
         "zoomlock": "false",
@@ -522,8 +536,8 @@
         "showgrid": "true",
         "allowFileDrop": "false",
         "path": "/flights",
-        "overlist": "DR,CO,RA,DN,HM",
-        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
+        "overlist": "HM",
+        "maplist": "OSMG,EsriC",
         "mapname": "",
         "mapurl": "",
         "mapopt": "",
@@ -537,28 +551,15 @@
         "type": "link in",
         "z": "c1ee75866ab9c2b8",
         "name": "map control in",
-        "links": [],
+        "links": [
+            "cf9dee4085dafcf7"
+        ],
         "x": 555,
         "y": 60,
         "wires": [
             [
-                "1657bf204946c34b"
-            ]
-        ]
-    },
-    {
-        "id": "1f4b7ec65056044e",
-        "type": "worldmap-tracks",
-        "z": "c1ee75866ab9c2b8",
-        "name": "",
-        "depth": "5",
-        "layer": "combined",
-        "smooth": true,
-        "x": 370,
-        "y": 140,
-        "wires": [
-            [
-                "1657bf204946c34b"
+                "1657bf204946c34b",
+                "5f64c60cc642187b"
             ]
         ]
     },
@@ -592,6 +593,120 @@
         "statusType": "auto",
         "x": 390,
         "y": 320,
+        "wires": []
+    },
+    {
+        "id": "5f64c60cc642187b",
+        "type": "debug",
+        "z": "c1ee75866ab9c2b8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "cf9dee4085dafcf7",
+        "type": "link out",
+        "z": "2d3e93311623de37",
+        "name": "map control out",
+        "mode": "link",
+        "links": [
+            "939ad548affd7e37"
+        ],
+        "x": 635,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e4389b845b844e5a",
+        "type": "change",
+        "z": "2d3e93311623de37",
+        "name": "show overlays",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"command\":{\"showlayer\":[\"air corridors\",\"aircraft\"]}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 140,
+        "wires": [
+            [
+                "cf9dee4085dafcf7"
+            ]
+        ]
+    },
+    {
+        "id": "860b51f7584a7165",
+        "type": "worldmap in",
+        "z": "2d3e93311623de37",
+        "name": "",
+        "path": "/flights",
+        "events": "connect",
+        "x": 90,
+        "y": 60,
+        "wires": [
+            [
+                "9d5285bbd6933a23",
+                "b27d83ecb799822a"
+            ]
+        ]
+    },
+    {
+        "id": "9d5285bbd6933a23",
+        "type": "switch",
+        "z": "2d3e93311623de37",
+        "name": "dispatch on action",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "connected",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "e4389b845b844e5a"
+            ]
+        ]
+    },
+    {
+        "id": "b27d83ecb799822a",
+        "type": "debug",
+        "z": "2d3e93311623de37",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 60,
         "wires": []
     }
 ]
