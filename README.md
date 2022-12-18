@@ -10,7 +10,7 @@ a `node-red` application. The adsb application should publish the raw data using
 git clone https://github.com/ke8hmv/adsb-nodered.git
 cd adsb-nodered
 ```
-1. Start the containers. `docker compose up -d` Node-red will automatically install the dependencies.
+2. Start the containers. `docker compose up -d` Node-red will automatically install the dependencies.
 1. Configure the IP address of the rtl_adsb datasource at `http://localhost:1880`
 1. Open your browser to `http://localhost:1880/flights`
 
