@@ -1,35 +1,9 @@
 version: "3.9"
 services:
-  sdr:
-    image: sdr
-    build: ./images/sdr
-    networks:
-      - internal
-    restart: unless-stopped
-    devices:
-      - "/dev/bus/usb"
-    depends_on:
-      - mq
-  mq:
-    image: eclipse-mosquitto
-    networks:
-      - internal
-    restart: unless-stopped
-    ports:
-      - "1883:1883"
-    volumes:
-      - "./src/mq/mosquitto.conf:/mosquitto/config/mosquitto.conf"
-  app:
+  ui:
     image: nodered/node-red
-    networks:
-      - internal
     restart: unless-stopped
-    volumes:
     ports:
       - "1880:1880"
     volumes:
-      - "./src/nodered:/data"
-    depends_on:
-      - mq
-networks:
-  internal:
+      - "./src:/data"
