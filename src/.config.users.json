@@ -13,8 +13,9 @@
                 "view-show-welcome-tours": true
             },
             "tours": {
-                "welcome": "2.2.2"
+                "welcome": "3.0.2"
             }
-        }
+        },
+        "menu-menu-item-sidebar": true
     }
 }

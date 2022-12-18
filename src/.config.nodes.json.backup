@@ -405,25 +405,6 @@
             }
         }
     },
-    "node-red-contrib-functionx": {
-        "name": "node-red-contrib-functionx",
-        "version": "1.0.2",
-        "local": true,
-        "user": true,
-        "nodes": {
-            "functionx": {
-                "name": "functionx",
-                "types": [
-                    "functionx"
-                ],
-                "enabled": true,
-                "local": true,
-                "user": false,
-                "module": "node-red-contrib-functionx",
-                "file": "/data/node_modules/node-red-contrib-functionx/functionx.js"
-            }
-        }
-    },
     "node-red-contrib-web-worldmap": {
         "name": "node-red-contrib-web-worldmap",
         "version": "2.28.1",
