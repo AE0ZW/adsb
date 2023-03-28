@@ -4,8 +4,12 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
+        "hex-array": "^1.0.0",
+        "hex-to-array-buffer": "^2.0.0",
         "mode-s-aircraft-store": "^1.0.1",
         "mode-s-decoder": "^1.0.1",
-        "node-red-contrib-web-worldmap": "~2.28.1"
+        "node-red-contrib-ui-clock": "~1.0.2",
+        "node-red-contrib-web-worldmap": "~2.33.0",
+        "node-red-dashboard": "~3.3.1"
     }
 }

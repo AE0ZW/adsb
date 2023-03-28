@@ -1,0 +1,20 @@
+{
+    "hex-to-array-buffer": {
+        "spec": "hex-to-array-buffer",
+        "module": "hex-to-array-buffer",
+        "builtin": false,
+        "known": false
+    },
+    "mode-s-decoder": {
+        "spec": "mode-s-decoder",
+        "module": "mode-s-decoder",
+        "builtin": false,
+        "known": false
+    },
+    "hex-array": {
+        "spec": "hex-array",
+        "module": "hex-array",
+        "builtin": false,
+        "known": false
+    }
+}
