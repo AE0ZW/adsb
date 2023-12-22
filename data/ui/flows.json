@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "a434980c0d70073f",
+        "type": "tab",
+        "label": "map",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "c93dccbd18aefb14",
         "type": "mqtt-broker",
         "name": "",
@@ -90,7 +98,7 @@
         "type": "function",
         "z": "0ab19c4188bb8abf",
         "name": "decode",
-        "func": "msg.payload = context.decoder.parse(msg.payload);\nreturn msg;",
+        "func": "msg.payload = context.decoder.parse(msg.payload);\nmsg.payload.unit = msg.payload.unit==Decoder.UNIT_FEET\n? 'ft'\n: 'm';\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -102,12 +110,11 @@
                 "module": "mode-s-decoder"
             }
         ],
-        "x": 340,
-        "y": 180,
+        "x": 320,
+        "y": 220,
         "wires": [
             [
-                "3efb69c880ea5228",
-                "1a5bbfc301fba6ea"
+                "42c2da1c37e321db"
             ]
         ]
     },
@@ -116,7 +123,7 @@
         "type": "function",
         "z": "0ab19c4188bb8abf",
         "name": "store",
-        "func": "const store = context.get('store');\nif(msg.payload.crcOk){\n    store.addMessage(msg.payload);\n}\nconst aircraft = store.getAircrafts()\n\nreturn {\n    topic:'known_aircraft',\n    payload:aircraft\n}",
+        "func": "const store = context.get('store');\nstore.addMessage(msg.payload);\n\nconst aircraft = store.getAircrafts()\n\nreturn {\n    topic:'known_aircraft',\n    payload:aircraft\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -140,7 +147,7 @@
         "id": "5334e3f99de6268b",
         "type": "function",
         "z": "0ab19c4188bb8abf",
-        "name": "aircraft count",
+        "name": "aircraft db size",
         "func": "return {\n    topic: 'know_aircraft_count',\n    payload: msg.payload.length\n};",
         "outputs": 1,
         "timeout": 0,
@@ -148,7 +155,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 770,
+        "x": 780,
         "y": 100,
         "wires": [
             [
@@ -192,7 +199,9 @@
         "z": "0ab19c4188bb8abf",
         "name": "known aircraft",
         "mode": "link",
-        "links": [],
+        "links": [
+            "4404caecbde969ef"
+        ],
         "x": 895,
         "y": 180,
         "wires": []
@@ -230,8 +239,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.cnt = 0;\ncontext.err = 0;",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 260,
+        "x": 440,
+        "y": 420,
         "wires": [
             [
                 "3288b2fd090ec8d6"
@@ -245,8 +254,8 @@
         "name": "crc error count",
         "mode": "link",
         "links": [],
-        "x": 515,
-        "y": 260,
+        "x": 595,
+        "y": 420,
         "wires": []
     },
     {
@@ -261,8 +270,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.n = 0;",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 320,
+        "x": 430,
+        "y": 480,
         "wires": [
             [
                 "be4cae98a85c1f15"
@@ -276,8 +285,380 @@
         "name": "message count",
         "mode": "link",
         "links": [],
-        "x": 515,
-        "y": 320,
+        "x": 595,
+        "y": 480,
         "wires": []
+    },
+    {
+        "id": "42c2da1c37e321db",
+        "type": "switch",
+        "z": "0ab19c4188bb8abf",
+        "name": "check crc",
+        "property": "payload.crcOk",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 300,
+        "wires": [
+            [
+                "3efb69c880ea5228"
+            ],
+            [
+                "1a5bbfc301fba6ea"
+            ]
+        ]
+    },
+    {
+        "id": "4404caecbde969ef",
+        "type": "link in",
+        "z": "a434980c0d70073f",
+        "name": "link in 1",
+        "links": [
+            "478573537a398f02"
+        ],
+        "x": 165,
+        "y": 80,
+        "wires": [
+            [
+                "2d6155d8546da6cb"
+            ]
+        ]
+    },
+    {
+        "id": "50e127837c345e61",
+        "type": "worldmap",
+        "z": "a434980c0d70073f",
+        "name": "Plane Spotter",
+        "lat": "39.98659",
+        "lon": "-83.00171",
+        "zoom": "10",
+        "layer": "OSMG",
+        "cluster": "9",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "deg",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 1120,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "03565d1e34e0f066",
+        "type": "change",
+        "z": "a434980c0d70073f",
+        "name": "prepare for mapping",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.lng",
+                "pt": "msg",
+                "to": "payload.lon",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "aircraft",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.icon",
+                "pt": "msg",
+                "to": "plane",
+                "tot": "str"
+            },
+            {
+                "t": "delete",
+                "p": "payload.count",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.seen",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.alt",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 220,
+        "y": 180,
+        "wires": [
+            [
+                "d1bf963c0af13232"
+            ]
+        ]
+    },
+    {
+        "id": "2d6155d8546da6cb",
+        "type": "change",
+        "z": "a434980c0d70073f",
+        "name": "remove cruft",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload._oddCprLat",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload._evenCprLat",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload._oddCprLng",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload._evenCprLng",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload._oddCprTime",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload._evenCprTime",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "03565d1e34e0f066"
+            ]
+        ]
+    },
+    {
+        "id": "d1bf963c0af13232",
+        "type": "switch",
+        "z": "a434980c0d70073f",
+        "name": "has callsign?",
+        "property": "payload.callsign",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 470,
+        "y": 180,
+        "wires": [
+            [
+                "bc502453312cb200"
+            ],
+            [
+                "a7ed90fe34deafbd"
+            ]
+        ]
+    },
+    {
+        "id": "bc502453312cb200",
+        "type": "change",
+        "z": "a434980c0d70073f",
+        "name": "callsign -> name",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.callsign",
+                "pt": "msg",
+                "to": "payload.name",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.label",
+                "pt": "msg",
+                "to": "payload.name",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "blue",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 80,
+        "wires": [
+            [
+                "472f03a94276dd04"
+            ]
+        ]
+    },
+    {
+        "id": "a7ed90fe34deafbd",
+        "type": "change",
+        "z": "a434980c0d70073f",
+        "name": "icao -> name",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.name",
+                "pt": "msg",
+                "to": "$join([\"ICAO\", $string(payload.icao)],\" \")",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.label",
+                "pt": "msg",
+                "to": "payload.name",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.ttl",
+                "pt": "msg",
+                "to": "20",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.icon",
+                "pt": "msg",
+                "to": "arrow",
+                "tot": "str"
+            },
+            {
+                "t": "delete",
+                "p": "payload.callsign",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "slateblue",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 260,
+        "wires": [
+            [
+                "50e127837c345e61"
+            ]
+        ]
+    },
+    {
+        "id": "472f03a94276dd04",
+        "type": "switch",
+        "z": "a434980c0d70073f",
+        "name": "is small craft",
+        "property": "payload.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "^N",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 790,
+        "y": 180,
+        "wires": [
+            [
+                "c5e3bc18fe33db62"
+            ],
+            [
+                "50e127837c345e61"
+            ]
+        ]
+    },
+    {
+        "id": "c5e3bc18fe33db62",
+        "type": "change",
+        "z": "a434980c0d70073f",
+        "name": "small craft icon",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.icon",
+                "pt": "msg",
+                "to": "smallplane",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 60,
+        "wires": [
+            [
+                "50e127837c345e61"
+            ]
+        ]
     }
 ]
