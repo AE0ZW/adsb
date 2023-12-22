@@ -48,14 +48,6 @@
         "env": []
     },
     {
-        "id": "bd0cc726957d86f8",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "5195689fbf66dada",
         "type": "ui_base",
         "theme": {
@@ -478,6 +470,7 @@
         "name": "-> buffer",
         "func": "msg.payload = msg.payload.replace(/[^0-9a-fA-F]/g,'');\nmsg.payload = hexArray.fromString(msg.payload);\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -744,7 +737,7 @@
         "type": "debug",
         "z": "6da3a61d65c18cea",
         "name": "debug 2",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -833,43 +826,6 @@
         "wires": []
     },
     {
-        "id": "7d947304f0096453",
-        "type": "ui_worldmap",
-        "z": "186846b5a2a991f0",
-        "group": "e9c61b6c290bbeef",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "lat": "",
-        "lon": "",
-        "zoom": "0",
-        "layer": "OSMC",
-        "cluster": "8",
-        "maxage": "120",
-        "usermenu": "hide",
-        "layers": "show",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "true",
-        "coords": "none",
-        "showgrid": "false",
-        "showruler": "false",
-        "allowFileDrop": "false",
-        "path": "/worldmap",
-        "overlist": "HM",
-        "maplist": "OSMG,OSMC,EsriC,EsriT",
-        "mapname": "",
-        "mapurl": "",
-        "mapopt": "",
-        "mapwms": false,
-        "x": 475,
-        "y": 40,
-        "wires": [],
-        "l": false
-    },
-    {
         "id": "f4812cfef757a9d5",
         "type": "link in",
         "z": "186846b5a2a991f0",
@@ -877,8 +833,8 @@
         "links": [
             "c0fad167ebdb37d3"
         ],
-        "x": 325,
-        "y": 40,
+        "x": 345,
+        "y": 260,
         "wires": [
             [
                 "7d947304f0096453"
@@ -906,8 +862,7 @@
         "y": 120,
         "wires": [
             [
-                "25de052565052c07",
-                "1a32d3d96cc65f69"
+                "25de052565052c07"
             ]
         ]
     },
@@ -952,12 +907,9 @@
         "y": 360,
         "wires": [
             [
-                "c7a23f2effce5628",
-                "54b210b68c37e357"
+                "c7a23f2effce5628"
             ],
-            [
-                "54b210b68c37e357"
-            ],
+            [],
             [
                 "19b559fc9d3b8908"
             ],
@@ -1181,22 +1133,6 @@
         "wires": []
     },
     {
-        "id": "1a32d3d96cc65f69",
-        "type": "debug",
-        "z": "186846b5a2a991f0",
-        "name": "debug 3",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 260,
-        "y": 100,
-        "wires": []
-    },
-    {
         "id": "c7a23f2effce5628",
         "type": "function",
         "z": "186846b5a2a991f0",
@@ -1208,29 +1144,12 @@
         "finalize": "",
         "libs": [],
         "x": 290,
-        "y": 280,
+        "y": 320,
         "wires": [
             [
-                "7d947304f0096453",
-                "54b210b68c37e357"
+                "7d947304f0096453"
             ]
         ]
-    },
-    {
-        "id": "54b210b68c37e357",
-        "type": "debug",
-        "z": "186846b5a2a991f0",
-        "name": "debug 4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 540,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "19b559fc9d3b8908",
@@ -1246,10 +1165,45 @@
         "x": 280,
         "y": 380,
         "wires": [
-            [
-                "54b210b68c37e357"
-            ]
+            []
         ]
+    },
+    {
+        "id": "7d947304f0096453",
+        "type": "ui_worldmap",
+        "z": "186846b5a2a991f0",
+        "group": "e9c61b6c290bbeef",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "0",
+        "layer": "OSMC",
+        "cluster": "8",
+        "maxage": "120",
+        "usermenu": "hide",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriT",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 635,
+        "y": 280,
+        "wires": [],
+        "l": false
     },
     {
         "id": "4681187b1ea43383",
