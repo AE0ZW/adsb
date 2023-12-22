@@ -23,7 +23,3 @@ services:
       - "9001:9001"
     volumes:
       - "./conf/mosquitto.conf:/mosquitto/config/mosquitto.conf"
-  tsdb:
-    image: tsdb
-    build:
-      context: ./build/tsdb

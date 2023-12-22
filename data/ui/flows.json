@@ -1,0 +1,283 @@
+[
+    {
+        "id": "0ab19c4188bb8abf",
+        "type": "tab",
+        "label": "adsb decode",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c93dccbd18aefb14",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "076ac2a7a4c50daf",
+        "type": "mqtt in",
+        "z": "0ab19c4188bb8abf",
+        "name": "",
+        "topic": "adsb",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c93dccbd18aefb14",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 320,
+        "wires": [
+            [
+                "93082e13fd712414",
+                "886a7f77b880419c"
+            ]
+        ]
+    },
+    {
+        "id": "93082e13fd712414",
+        "type": "function",
+        "z": "0ab19c4188bb8abf",
+        "name": "-> buffer",
+        "func": "const hex = msg.payload.replace(/[^0-9a-z]/gi,'');\nmsg.payload = hexArray.fromString(hex);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "hexArray",
+                "module": "hex-array"
+            }
+        ],
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "7c9f184cc30d5d0f"
+            ]
+        ]
+    },
+    {
+        "id": "7c9f184cc30d5d0f",
+        "type": "function",
+        "z": "0ab19c4188bb8abf",
+        "name": "decode",
+        "func": "msg.payload = context.decoder.parse(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.decoder = new Decoder();",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "Decoder",
+                "module": "mode-s-decoder"
+            }
+        ],
+        "x": 340,
+        "y": 180,
+        "wires": [
+            [
+                "3efb69c880ea5228",
+                "1a5bbfc301fba6ea"
+            ]
+        ]
+    },
+    {
+        "id": "3efb69c880ea5228",
+        "type": "function",
+        "z": "0ab19c4188bb8abf",
+        "name": "store",
+        "func": "const store = context.get('store');\nif(msg.payload.crcOk){\n    store.addMessage(msg.payload);\n}\nconst aircraft = store.getAircrafts()\n\nreturn {\n    topic:'known_aircraft',\n    payload:aircraft\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('store', new AircraftStore({\n    timeout: 120000 // remove airplane from store if we haven't seen it for 2 minutes\n}))",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "AircraftStore",
+                "module": "mode-s-aircraft-store"
+            }
+        ],
+        "x": 450,
+        "y": 100,
+        "wires": [
+            [
+                "d0e7b1c68d266424"
+            ]
+        ]
+    },
+    {
+        "id": "5334e3f99de6268b",
+        "type": "function",
+        "z": "0ab19c4188bb8abf",
+        "name": "aircraft count",
+        "func": "return {\n    topic: 'know_aircraft_count',\n    payload: msg.payload.length\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 100,
+        "wires": [
+            [
+                "e1071538d8474f2d"
+            ]
+        ]
+    },
+    {
+        "id": "e1071538d8474f2d",
+        "type": "link out",
+        "z": "0ab19c4188bb8abf",
+        "name": "known aircraft count",
+        "mode": "link",
+        "links": [],
+        "x": 895,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "84b0f24d6e4770a4",
+        "type": "split",
+        "z": "0ab19c4188bb8abf",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 790,
+        "y": 180,
+        "wires": [
+            [
+                "478573537a398f02"
+            ]
+        ]
+    },
+    {
+        "id": "478573537a398f02",
+        "type": "link out",
+        "z": "0ab19c4188bb8abf",
+        "name": "known aircraft",
+        "mode": "link",
+        "links": [],
+        "x": 895,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d0e7b1c68d266424",
+        "type": "function",
+        "z": "0ab19c4188bb8abf",
+        "name": "mappable aircraft",
+        "func": "const valid_aircraft = msg.payload.filter(el => el.lon != 0 &&  el.lat != 0);\nmsg.payload = valid_aircraft;\nreturn valid_aircraft.length > 0\n? msg\n: null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 180,
+        "wires": [
+            [
+                "5334e3f99de6268b",
+                "84b0f24d6e4770a4"
+            ]
+        ]
+    },
+    {
+        "id": "1a5bbfc301fba6ea",
+        "type": "function",
+        "z": "0ab19c4188bb8abf",
+        "name": "crc error count",
+        "func": "context.cnt++;\ncontext.err += msg.payload.crcOk ? 0 : 1;\nreturn {\n    topic: 'crc_error_rate',\n    payload: context.err / context.cnt\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.cnt = 0;\ncontext.err = 0;",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "3288b2fd090ec8d6"
+            ]
+        ]
+    },
+    {
+        "id": "3288b2fd090ec8d6",
+        "type": "link out",
+        "z": "0ab19c4188bb8abf",
+        "name": "crc error count",
+        "mode": "link",
+        "links": [],
+        "x": 515,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "886a7f77b880419c",
+        "type": "function",
+        "z": "0ab19c4188bb8abf",
+        "name": "msg count",
+        "func": "context.n++;\nreturn {\n    topic: 'message_count',\n    payload: context.n\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.n = 0;",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 320,
+        "wires": [
+            [
+                "be4cae98a85c1f15"
+            ]
+        ]
+    },
+    {
+        "id": "be4cae98a85c1f15",
+        "type": "link out",
+        "z": "0ab19c4188bb8abf",
+        "name": "message count",
+        "mode": "link",
+        "links": [],
+        "x": 515,
+        "y": 320,
+        "wires": []
+    }
+]
