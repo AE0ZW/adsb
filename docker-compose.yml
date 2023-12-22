@@ -1,29 +1,29 @@
 version: "3.8"
 services:
   ui:
-    image: nodered/node-red
-    restart: unless-stopped
+    image: nodered/node-red:latest-minimal
     ports: 
       - "1880:1880"
+    depends_on:
+      - mqtt
     volumes: 
       - "./data/ui:/data"
-    networks:
-      - default
   sdr:
     image: sdr
-    restart: unless-stopped
     build:
-      context: ./build
+      context: ./build/sdr
     depends_on:
       - mqtt
     devices:
       - "/dev/bus/usb/001"
-    networks:
-      - default
   mqtt:
     image: eclipse-mosquitto
     ports:
       - "1883:1883"
       - "9001:9001"
     volumes:
-      - "./conf/mosquitto.conf:/mosquitto/conf/mostquitto.conf"
+      - "./conf/mosquitto.conf:/mosquitto/config/mosquitto.conf"
+  tsdb:
+    image: tsdb
+    build:
+      context: ./build/tsdb
