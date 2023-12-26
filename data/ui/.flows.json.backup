@@ -16,6 +16,14 @@
         "env": []
     },
     {
+        "id": "eeaa68697bf28d0e",
+        "type": "tab",
+        "label": "dashboard",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "c93dccbd18aefb14",
         "type": "mqtt-broker",
         "name": "",
@@ -45,6 +53,145 @@
         "willMsg": {},
         "userProps": "",
         "sessionExpiry": ""
+    },
+    {
+        "id": "65a0877e913c9221",
+        "type": "ui_tab",
+        "name": "Plane Spotter",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "5c701558e935be96",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#c0c0c0",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Plane Spotter",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "8363fd07a79e8b50",
+        "type": "ui_group",
+        "name": "Map",
+        "tab": "65a0877e913c9221",
+        "order": 1,
+        "disp": false,
+        "width": "20",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0bcbeda61b5f475a",
+        "type": "ui_group",
+        "name": "Metrics",
+        "tab": "65a0877e913c9221",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "83cc5c212ef6ab45",
+        "type": "ui_group",
+        "name": "Aircraft Info",
+        "tab": "65a0877e913c9221",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "076ac2a7a4c50daf",
@@ -98,7 +245,7 @@
         "type": "function",
         "z": "0ab19c4188bb8abf",
         "name": "decode",
-        "func": "msg.payload = context.decoder.parse(msg.payload);\nmsg.payload.unit = msg.payload.unit==Decoder.UNIT_FEET\n? 'ft'\n: 'm';\nreturn msg;",
+        "func": "msg.payload = context.decoder.parse(msg.payload);\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -148,7 +295,7 @@
         "type": "function",
         "z": "0ab19c4188bb8abf",
         "name": "aircraft db size",
-        "func": "return {\n    topic: 'know_aircraft_count',\n    payload: msg.payload.length\n};",
+        "func": "return {\n    topic: 'know_aircraft_count',\n    payload: msg.payload.length || 0\n};",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -169,7 +316,9 @@
         "z": "0ab19c4188bb8abf",
         "name": "known aircraft count",
         "mode": "link",
-        "links": [],
+        "links": [
+            "0c2e1608f79c4d0f"
+        ],
         "x": 895,
         "y": 100,
         "wires": []
@@ -232,15 +381,15 @@
         "type": "function",
         "z": "0ab19c4188bb8abf",
         "name": "crc error count",
-        "func": "context.cnt++;\ncontext.err += msg.payload.crcOk ? 0 : 1;\nreturn {\n    topic: 'crc_error_rate',\n    payload: context.err / context.cnt\n};",
+        "func": "if(msg.topic == 'message_count'){\n    context.n = msg.payload;\n    return null;\n} else {\n    context.err += msg.payload.crcOk ? 0 : 1;\n    return {\n    topic: 'crc_error_rate',\n    payload: context.err/context.n\n};\n}\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.cnt = 0;\ncontext.err = 0;",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.n = 0;\ncontext.err = 0;",
         "finalize": "",
         "libs": [],
-        "x": 440,
-        "y": 420,
+        "x": 540,
+        "y": 380,
         "wires": [
             [
                 "3288b2fd090ec8d6"
@@ -253,9 +402,11 @@
         "z": "0ab19c4188bb8abf",
         "name": "crc error count",
         "mode": "link",
-        "links": [],
-        "x": 595,
-        "y": 420,
+        "links": [
+            "4bdf1fb8f0def292"
+        ],
+        "x": 745,
+        "y": 380,
         "wires": []
     },
     {
@@ -270,11 +421,12 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.n = 0;",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 480,
+        "x": 310,
+        "y": 440,
         "wires": [
             [
-                "be4cae98a85c1f15"
+                "be4cae98a85c1f15",
+                "1a5bbfc301fba6ea"
             ]
         ]
     },
@@ -284,9 +436,11 @@
         "z": "0ab19c4188bb8abf",
         "name": "message count",
         "mode": "link",
-        "links": [],
-        "x": 595,
-        "y": 480,
+        "links": [
+            "cb4c763b28cf1390"
+        ],
+        "x": 745,
+        "y": 440,
         "wires": []
     },
     {
@@ -338,13 +492,13 @@
         "id": "50e127837c345e61",
         "type": "worldmap",
         "z": "a434980c0d70073f",
-        "name": "",
+        "name": "Plane Spotter",
         "lat": "39.98659",
         "lon": "-83.00171",
         "zoom": "10",
         "layer": "OSMG",
         "cluster": "9",
-        "maxage": "",
+        "maxage": "60",
         "usermenu": "show",
         "layers": "show",
         "panit": "false",
@@ -362,7 +516,7 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 1100,
+        "x": 1120,
         "y": 260,
         "wires": []
     },
@@ -372,6 +526,13 @@
         "z": "a434980c0d70073f",
         "name": "prepare for mapping",
         "rules": [
+            {
+                "t": "set",
+                "p": "payload.name",
+                "pt": "msg",
+                "to": "$join(['ICAO', $string(payload.icao)],' ')",
+                "tot": "jsonata"
+            },
             {
                 "t": "move",
                 "p": "payload.lng",
@@ -399,14 +560,11 @@
                 "pt": "msg"
             },
             {
-                "t": "delete",
-                "p": "payload.seen",
-                "pt": "msg"
-            },
-            {
-                "t": "delete",
-                "p": "payload.alt",
-                "pt": "msg"
+                "t": "set",
+                "p": "payload.clickable",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
             }
         ],
         "action": "",
@@ -418,7 +576,7 @@
         "y": 180,
         "wires": [
             [
-                "d1bf963c0af13232"
+                "9711191965b9a998"
             ]
         ]
     },
@@ -490,8 +648,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 470,
-        "y": 180,
+        "x": 430,
+        "y": 240,
         "wires": [
             [
                 "bc502453312cb200"
@@ -505,20 +663,13 @@
         "id": "bc502453312cb200",
         "type": "change",
         "z": "a434980c0d70073f",
-        "name": "callsign -> name",
+        "name": "callsign -> label",
         "rules": [
-            {
-                "t": "move",
-                "p": "payload.callsign",
-                "pt": "msg",
-                "to": "payload.name",
-                "tot": "msg"
-            },
             {
                 "t": "set",
                 "p": "payload.label",
                 "pt": "msg",
-                "to": "payload.name",
+                "to": "payload.callsign",
                 "tot": "msg"
             },
             {
@@ -546,15 +697,8 @@
         "id": "a7ed90fe34deafbd",
         "type": "change",
         "z": "a434980c0d70073f",
-        "name": "icao -> name",
+        "name": "name -> label",
         "rules": [
-            {
-                "t": "set",
-                "p": "payload.name",
-                "pt": "msg",
-                "to": "$join([\"ICAO\", $string(payload.icao)],\" \")",
-                "tot": "jsonata"
-            },
             {
                 "t": "set",
                 "p": "payload.label",
@@ -564,22 +708,10 @@
             },
             {
                 "t": "set",
-                "p": "payload.ttl",
-                "pt": "msg",
-                "to": "20",
-                "tot": "str"
-            },
-            {
-                "t": "set",
                 "p": "payload.icon",
                 "pt": "msg",
                 "to": "arrow",
                 "tot": "str"
-            },
-            {
-                "t": "delete",
-                "p": "payload.callsign",
-                "pt": "msg"
             },
             {
                 "t": "set",
@@ -594,12 +726,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 630,
+        "x": 640,
         "y": 260,
         "wires": [
             [
-                "50e127837c345e61",
-                "619069403c69243a"
+                "50e127837c345e61"
             ]
         ]
     },
@@ -607,8 +738,8 @@
         "id": "472f03a94276dd04",
         "type": "switch",
         "z": "a434980c0d70073f",
-        "name": "is small craft",
-        "property": "payload.name",
+        "name": "is small craft?",
+        "property": "payload.callsign",
         "propertyType": "msg",
         "rules": [
             {
@@ -624,7 +755,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 790,
+        "x": 800,
         "y": 180,
         "wires": [
             [
@@ -663,20 +794,444 @@
         ]
     },
     {
-        "id": "619069403c69243a",
-        "type": "debug",
+        "id": "9711191965b9a998",
+        "type": "function",
         "z": "a434980c0d70073f",
+        "name": "set units",
+        "func": "msg.payload.altUnit = msg.payload.unit === 0 ? 'ft' : 'm';\nmsg.payload.spdUnit = msg.payload.unit === 0 ? 'm/h' : 'kph';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 240,
+        "wires": [
+            [
+                "d1bf963c0af13232"
+            ]
+        ]
+    },
+    {
+        "id": "4bdf1fb8f0def292",
+        "type": "link in",
+        "z": "eeaa68697bf28d0e",
+        "name": "link in 2",
+        "links": [
+            "3288b2fd090ec8d6"
+        ],
+        "x": 775,
+        "y": 60,
+        "wires": [
+            [
+                "eda0e4b6bff127d0"
+            ]
+        ]
+    },
+    {
+        "id": "eda0e4b6bff127d0",
+        "type": "ui_gauge",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "group": "0bcbeda61b5f475a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Error Rate",
+        "label": "",
+        "format": " {{value*100 | number:1}}%",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 950,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "19e42b65ee2aa91e",
+        "type": "ui_worldmap",
+        "z": "eeaa68697bf28d0e",
+        "group": "8363fd07a79e8b50",
+        "order": 1,
+        "width": "20",
+        "height": "15",
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "hide",
+        "layers": "hide",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 120,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ae4840f6511b4928",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "0bcbeda61b5f475a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Mode-S Messages",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 970,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "cb4c763b28cf1390",
+        "type": "link in",
+        "z": "eeaa68697bf28d0e",
+        "name": "link in 3",
+        "links": [
+            "be4cae98a85c1f15"
+        ],
+        "x": 775,
+        "y": 100,
+        "wires": [
+            [
+                "ae4840f6511b4928"
+            ]
+        ]
+    },
+    {
+        "id": "0c2e1608f79c4d0f",
+        "type": "link in",
+        "z": "eeaa68697bf28d0e",
+        "name": "link in 4",
+        "links": [
+            "e1071538d8474f2d"
+        ],
+        "x": 775,
+        "y": 140,
+        "wires": [
+            [
+                "734e60f7cae097f6"
+            ]
+        ]
+    },
+    {
+        "id": "734e60f7cae097f6",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "0bcbeda61b5f475a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Known Aircraft",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 960,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "0dc1e8ca7312ce60",
+        "type": "worldmap in",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "path": "/worldmap",
+        "events": "other",
+        "x": 120,
+        "y": 340,
+        "wires": [
+            [
+                "ce0fd7e38ded8131",
+                "43b9a245fe6c88f2"
+            ]
+        ]
+    },
+    {
+        "id": "ce0fd7e38ded8131",
+        "type": "switch",
+        "z": "eeaa68697bf28d0e",
+        "name": "dispatch",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "click",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 300,
+        "y": 340,
+        "wires": [
+            [
+                "04c4d98c6460f45f",
+                "b63bd2f3f2165dec",
+                "2cae26c9a779415d",
+                "93da4060c7bee384",
+                "99df79504a875ac9"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "81adb75b2e44b854",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "83cc5c212ef6ab45",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Ident",
+        "label": "{{msg.topic}}",
+        "format": "{{msg.payload.ident}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 550,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "04c4d98c6460f45f",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "83cc5c212ef6ab45",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Altitude",
+        "format": "{{msg.payload.altitude | number:0}} {{msg.payload.altUnit}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 560,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "b63bd2f3f2165dec",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "83cc5c212ef6ab45",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Speed",
+        "format": "{{msg.payload.speed | number:0}} {{msg.payload.spdUnit}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 550,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "2cae26c9a779415d",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "83cc5c212ef6ab45",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Heading",
+        "format": "{{msg.payload.heading | number:2}}&deg;",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 560,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "93da4060c7bee384",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "83cc5c212ef6ab45",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Location",
+        "format": "{{msg.payload.lat | number:4}}&deg;, {{msg.payload.lon | number:4}}&deg;",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 560,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "43b9a245fe6c88f2",
+        "type": "debug",
+        "z": "eeaa68697bf28d0e",
         "name": "debug 1",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 430,
-        "y": 440,
+        "x": 270,
+        "y": 500,
         "wires": []
+    },
+    {
+        "id": "b646a87662d922b0",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "ident: callsign",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Callsign",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.ident",
+                "pt": "msg",
+                "to": "payload.callsign",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 240,
+        "wires": [
+            [
+                "81adb75b2e44b854"
+            ]
+        ]
+    },
+    {
+        "id": "99df79504a875ac9",
+        "type": "switch",
+        "z": "eeaa68697bf28d0e",
+        "name": "has callsign?",
+        "property": "payload.callsign",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "b646a87662d922b0"
+            ],
+            [
+                "678aca5328b8feae"
+            ]
+        ]
+    },
+    {
+        "id": "678aca5328b8feae",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "ident: icao",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "ICAO",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.ident",
+                "pt": "msg",
+                "to": "payload.icao",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 280,
+        "wires": [
+            [
+                "81adb75b2e44b854"
+            ]
+        ]
     }
 ]
