@@ -565,6 +565,20 @@
                 "pt": "msg",
                 "to": "false",
                 "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "payload.altUnit",
+                "pt": "msg",
+                "to": "payload.unit = 0 ? 'ft' : 'm'",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.spdUnit",
+                "pt": "msg",
+                "to": "payload.unit=0?'m/h':'kph'",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -572,11 +586,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 220,
-        "y": 180,
+        "x": 200,
+        "y": 220,
         "wires": [
             [
-                "9711191965b9a998"
+                "d1bf963c0af13232"
             ]
         ]
     },
@@ -649,7 +663,7 @@
         "repair": false,
         "outputs": 2,
         "x": 430,
-        "y": 240,
+        "y": 220,
         "wires": [
             [
                 "bc502453312cb200"
@@ -726,7 +740,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
+        "x": 660,
         "y": 260,
         "wires": [
             [
@@ -790,26 +804,6 @@
         "wires": [
             [
                 "50e127837c345e61"
-            ]
-        ]
-    },
-    {
-        "id": "9711191965b9a998",
-        "type": "function",
-        "z": "a434980c0d70073f",
-        "name": "set units",
-        "func": "msg.payload.altUnit = msg.payload.unit === 0 ? 'ft' : 'm';\nmsg.payload.spdUnit = msg.payload.unit === 0 ? 'm/h' : 'kph';\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 200,
-        "y": 240,
-        "wires": [
-            [
-                "d1bf963c0af13232"
             ]
         ]
     },
@@ -1126,7 +1120,7 @@
         "type": "debug",
         "z": "eeaa68697bf28d0e",
         "name": "debug 1",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
