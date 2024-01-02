@@ -18,6 +18,8 @@
         },
         "debug": {
             "filter": "filterAll"
-        }
+        },
+        "menu-menu-item-sidebar": true,
+        "menu-menu-item-palette": true
     }
 }

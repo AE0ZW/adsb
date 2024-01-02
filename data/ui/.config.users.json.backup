@@ -17,7 +17,9 @@
             }
         },
         "debug": {
-            "filter": "filterSelected"
-        }
+            "filter": "filterAll"
+        },
+        "menu-menu-item-sidebar": true,
+        "menu-menu-item-palette": false
     }
 }

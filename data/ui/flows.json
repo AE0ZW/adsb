@@ -176,7 +176,7 @@
         "type": "ui_group",
         "name": "Metrics",
         "tab": "65a0877e913c9221",
-        "order": 2,
+        "order": 3,
         "disp": true,
         "width": "6",
         "collapse": false,
@@ -187,7 +187,7 @@
         "type": "ui_group",
         "name": "Aircraft Info",
         "tab": "65a0877e913c9221",
-        "order": 3,
+        "order": 2,
         "disp": true,
         "width": "6",
         "collapse": false,
@@ -721,7 +721,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
+        "x": 640,
         "y": 260,
         "wires": [
             [
@@ -1240,6 +1240,76 @@
             [
                 "04c4d98c6460f45f",
                 "b63bd2f3f2165dec"
+            ]
+        ]
+    },
+    {
+        "id": "07fdafd0e52b3b0f",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "0bcbeda61b5f475a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Uptime",
+        "format": "{{msg.payload | date}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "2efdc49e383f081b",
+        "type": "inject",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "uptime",
+        "payload": "",
+        "payloadType": "date",
+        "x": 530,
+        "y": 180,
+        "wires": [
+            [
+                "42d901469fe120d1"
+            ]
+        ]
+    },
+    {
+        "id": "42d901469fe120d1",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "calc uptime",
+        "func": "let uptime = Math.floor(Math.abs(context.startTime-msg.payload)/1000); // total seconds\nconst r = {};\nconst rstrings = []\nconst s = {                \n    day: 86400,   // feel free to add your own row\n    hour: 3600,\n    minute: 60,\n    second: 1\n};\n\nObject.keys(s).forEach(function (key) {\n    r[key] = Math.floor(uptime / s[key]);\n    uptime -= r[key] * s[key];\n    rstrings.push(r[key].toString().padStart(2,'0'));\n});\n\n\nmsg.payload = rstrings.join(':');\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.startTime=Date.now()",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 180,
+        "wires": [
+            [
+                "07fdafd0e52b3b0f"
             ]
         ]
     }

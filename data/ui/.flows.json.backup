@@ -176,7 +176,7 @@
         "type": "ui_group",
         "name": "Metrics",
         "tab": "65a0877e913c9221",
-        "order": 2,
+        "order": 3,
         "disp": true,
         "width": "6",
         "collapse": false,
@@ -187,7 +187,7 @@
         "type": "ui_group",
         "name": "Aircraft Info",
         "tab": "65a0877e913c9221",
-        "order": 3,
+        "order": 2,
         "disp": true,
         "width": "6",
         "collapse": false,
@@ -555,30 +555,11 @@
                 "tot": "str"
             },
             {
-                "t": "delete",
-                "p": "payload.count",
-                "pt": "msg"
-            },
-            {
                 "t": "set",
                 "p": "payload.clickable",
                 "pt": "msg",
                 "to": "false",
                 "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "payload.altUnit",
-                "pt": "msg",
-                "to": "payload.unit = 0 ? 'ft' : 'm'",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload.spdUnit",
-                "pt": "msg",
-                "to": "payload.unit=0?'m/h':'kph'",
-                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -740,7 +721,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
+        "x": 640,
         "y": 260,
         "wires": [
             [
@@ -1001,11 +982,10 @@
         "y": 340,
         "wires": [
             [
-                "04c4d98c6460f45f",
-                "b63bd2f3f2165dec",
-                "2cae26c9a779415d",
                 "93da4060c7bee384",
-                "99df79504a875ac9"
+                "99df79504a875ac9",
+                "52a2950be95e2eb9",
+                "2cae26c9a779415d"
             ],
             []
         ]
@@ -1027,8 +1007,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 550,
-        "y": 360,
+        "x": 890,
+        "y": 300,
         "wires": []
     },
     {
@@ -1048,8 +1028,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 560,
-        "y": 400,
+        "x": 900,
+        "y": 360,
         "wires": []
     },
     {
@@ -1069,8 +1049,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 550,
-        "y": 440,
+        "x": 890,
+        "y": 400,
         "wires": []
     },
     {
@@ -1090,8 +1070,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 560,
-        "y": 480,
+        "x": 640,
+        "y": 400,
         "wires": []
     },
     {
@@ -1111,8 +1091,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 560,
-        "y": 520,
+        "x": 640,
+        "y": 440,
         "wires": []
     },
     {
@@ -1157,8 +1137,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 560,
-        "y": 240,
+        "x": 660,
+        "y": 280,
         "wires": [
             [
                 "81adb75b2e44b854"
@@ -1183,8 +1163,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 370,
-        "y": 260,
+        "x": 450,
+        "y": 300,
         "wires": [
             [
                 "b646a87662d922b0"
@@ -1220,11 +1200,116 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 550,
-        "y": 280,
+        "x": 650,
+        "y": 320,
         "wires": [
             [
                 "81adb75b2e44b854"
+            ]
+        ]
+    },
+    {
+        "id": "52a2950be95e2eb9",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "prep unit labels",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.altUnit",
+                "pt": "msg",
+                "to": "payload.unit = 0 ? 'ft' : 'm'",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.spdUnit",
+                "pt": "msg",
+                "to": "payload.unit=0?'m/h':'kph'",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 360,
+        "wires": [
+            [
+                "04c4d98c6460f45f",
+                "b63bd2f3f2165dec"
+            ]
+        ]
+    },
+    {
+        "id": "07fdafd0e52b3b0f",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "0bcbeda61b5f475a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Uptime",
+        "format": "{{msg.payload | date}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 930,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "2efdc49e383f081b",
+        "type": "inject",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "uptime",
+        "payload": "",
+        "payloadType": "date",
+        "x": 530,
+        "y": 180,
+        "wires": [
+            [
+                "42d901469fe120d1"
+            ]
+        ]
+    },
+    {
+        "id": "42d901469fe120d1",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "calc uptime",
+        "func": "let uptime = Math.floor(Math.abs(context.startTime-msg.payload)/1000); // total seconds\nvar r = {};                                                                // result\nvar s = {                \n    day: 86400,   // feel free to add your own row\n    hour: 3600,\n    minute: 60,\n    second: 1\n};\n\nObject.keys(s).forEach(function (key) {\n    r[key] = Math.floor(uptime / s[key]);\n    uptime -= r[key] * s[key];\n});\n\nmsg.payload = r\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.startTime=Date.now()",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 180,
+        "wires": [
+            [
+                "07fdafd0e52b3b0f"
             ]
         ]
     }
