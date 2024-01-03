@@ -1,0 +1,16 @@
+{
+    "hex-array": {
+        "spec": "hex-array",
+        "module": "hex-array",
+        "subpath": "",
+        "builtin": false,
+        "known": false
+    },
+    "mode-s-decoder": {
+        "spec": "mode-s-decoder",
+        "module": "mode-s-decoder",
+        "subpath": "",
+        "builtin": false,
+        "known": false
+    }
+}
