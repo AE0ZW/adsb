@@ -194,6 +194,17 @@
         "className": ""
     },
     {
+        "id": "3228a8420605aa56",
+        "type": "ui_group",
+        "name": "Controls",
+        "tab": "65a0877e913c9221",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "076ac2a7a4c50daf",
         "type": "mqtt in",
         "z": "0ab19c4188bb8abf",
@@ -270,11 +281,11 @@
         "type": "function",
         "z": "0ab19c4188bb8abf",
         "name": "store",
-        "func": "const store = context.get('store');\nstore.addMessage(msg.payload);\n\nconst aircraft = store.getAircrafts()\n\nreturn {\n    topic:'known_aircraft',\n    payload:aircraft\n}",
+        "func": "const store = global.get('store');\nstore.addMessage(msg.payload);\n\nconst aircraft = store.getAircrafts()\n\nreturn {\n    topic:'known_aircraft',\n    payload:aircraft\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('store', new AircraftStore({\n    timeout: 120000 // remove airplane from store if we haven't seen it for 2 minutes\n}))",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('store', new AircraftStore({\n    timeout: 120000 // remove airplane from store if we haven't seen it for 2 minutes\n}))",
         "finalize": "",
         "libs": [
             {
@@ -360,7 +371,7 @@
         "type": "function",
         "z": "0ab19c4188bb8abf",
         "name": "mappable aircraft",
-        "func": "const valid_aircraft = msg.payload.filter(el => el.lon != 0 &&  el.lat != 0);\nmsg.payload = valid_aircraft;\nreturn valid_aircraft.length > 0\n? msg\n: null;",
+        "func": "const valid_aircraft = msg.payload.filter(el => el.lng != 0 &&  el.lat != 0);\nmsg.payload = valid_aircraft;\nreturn valid_aircraft.length > 0\n? msg\n: null;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -489,38 +500,6 @@
         ]
     },
     {
-        "id": "50e127837c345e61",
-        "type": "worldmap",
-        "z": "a434980c0d70073f",
-        "name": "Plane Spotter",
-        "lat": "39.98659",
-        "lon": "-83.00171",
-        "zoom": "10",
-        "layer": "OSMG",
-        "cluster": "9",
-        "maxage": "60",
-        "usermenu": "show",
-        "layers": "show",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "false",
-        "coords": "deg",
-        "showgrid": "false",
-        "showruler": "false",
-        "allowFileDrop": "false",
-        "path": "/worldmap",
-        "overlist": "HM",
-        "maplist": "OSMG,OSMC,EsriC,EsriS",
-        "mapname": "",
-        "mapurl": "",
-        "mapopt": "",
-        "mapwms": false,
-        "x": 1120,
-        "y": 260,
-        "wires": []
-    },
-    {
         "id": "03565d1e34e0f066",
         "type": "change",
         "z": "a434980c0d70073f",
@@ -530,8 +509,8 @@
                 "t": "set",
                 "p": "payload.name",
                 "pt": "msg",
-                "to": "$join(['ICAO', $string(payload.icao)],' ')",
-                "tot": "jsonata"
+                "to": "payload.icao",
+                "tot": "msg"
             },
             {
                 "t": "move",
@@ -539,13 +518,6 @@
                 "pt": "msg",
                 "to": "payload.lon",
                 "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "aircraft",
-                "tot": "str"
             },
             {
                 "t": "set",
@@ -560,6 +532,13 @@
                 "pt": "msg",
                 "to": "false",
                 "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "aircraft",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -698,8 +677,8 @@
                 "t": "set",
                 "p": "payload.label",
                 "pt": "msg",
-                "to": "payload.name",
-                "tot": "msg"
+                "to": "$join(['ICAO', $string(payload.icao)],' ')",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -725,7 +704,7 @@
         "y": 260,
         "wires": [
             [
-                "50e127837c345e61"
+                "19e42b65ee2aa91e"
             ]
         ]
     },
@@ -750,14 +729,14 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 800,
+        "x": 780,
         "y": 180,
         "wires": [
             [
                 "c5e3bc18fe33db62"
             ],
             [
-                "50e127837c345e61"
+                "19e42b65ee2aa91e"
             ]
         ]
     },
@@ -780,11 +759,63 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 960,
-        "y": 60,
+        "x": 920,
+        "y": 80,
         "wires": [
             [
-                "50e127837c345e61"
+                "19e42b65ee2aa91e"
+            ]
+        ]
+    },
+    {
+        "id": "19e42b65ee2aa91e",
+        "type": "ui_worldmap",
+        "z": "a434980c0d70073f",
+        "group": "8363fd07a79e8b50",
+        "order": 1,
+        "width": "20",
+        "height": "15",
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "10",
+        "layer": "OSMC",
+        "cluster": "8",
+        "maxage": "120",
+        "usermenu": "hide",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "deg",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "AC,HM",
+        "maplist": "OSMC,EsriC,OpTop",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 1040,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "bc940bbd8afbab5b",
+        "type": "link in",
+        "z": "a434980c0d70073f",
+        "name": "link in 5",
+        "links": [
+            "f9311951a9a04be5"
+        ],
+        "x": 875,
+        "y": 340,
+        "wires": [
+            [
+                "19e42b65ee2aa91e"
             ]
         ]
     },
@@ -796,8 +827,8 @@
         "links": [
             "3288b2fd090ec8d6"
         ],
-        "x": 775,
-        "y": 60,
+        "x": 375,
+        "y": 40,
         "wires": [
             [
                 "eda0e4b6bff127d0"
@@ -814,7 +845,7 @@
         "width": 0,
         "height": 0,
         "gtype": "gage",
-        "title": "Error Rate",
+        "title": "CRC Error Rate",
         "label": "",
         "format": " {{value*100 | number:1}}%",
         "min": 0,
@@ -828,44 +859,8 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 950,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "19e42b65ee2aa91e",
-        "type": "ui_worldmap",
-        "z": "eeaa68697bf28d0e",
-        "group": "8363fd07a79e8b50",
-        "order": 1,
-        "width": "20",
-        "height": "15",
-        "name": "",
-        "lat": "",
-        "lon": "",
-        "zoom": "",
-        "layer": "OSMG",
-        "cluster": "",
-        "maxage": "",
-        "usermenu": "hide",
-        "layers": "hide",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "true",
-        "coords": "none",
-        "showgrid": "false",
-        "showruler": "false",
-        "allowFileDrop": "false",
-        "path": "/worldmap",
-        "overlist": "DR,CO,RA,DN,HM",
-        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
-        "mapname": "",
-        "mapurl": "",
-        "mapopt": "",
-        "mapwms": false,
-        "x": 120,
-        "y": 120,
+        "x": 560,
+        "y": 40,
         "wires": []
     },
     {
@@ -877,7 +872,7 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "Mode-S Messages",
+        "label": "ADS-B Messages",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
@@ -885,8 +880,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 970,
-        "y": 100,
+        "x": 570,
+        "y": 80,
         "wires": []
     },
     {
@@ -897,8 +892,8 @@
         "links": [
             "be4cae98a85c1f15"
         ],
-        "x": 775,
-        "y": 100,
+        "x": 375,
+        "y": 80,
         "wires": [
             [
                 "ae4840f6511b4928"
@@ -913,8 +908,8 @@
         "links": [
             "e1071538d8474f2d"
         ],
-        "x": 775,
-        "y": 140,
+        "x": 375,
+        "y": 120,
         "wires": [
             [
                 "734e60f7cae097f6"
@@ -938,8 +933,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 960,
-        "y": 140,
+        "x": 560,
+        "y": 120,
         "wires": []
     },
     {
@@ -948,13 +943,12 @@
         "z": "eeaa68697bf28d0e",
         "name": "",
         "path": "/worldmap",
-        "events": "other",
-        "x": 120,
-        "y": 340,
+        "events": "connect,bounds,other",
+        "x": 80,
+        "y": 320,
         "wires": [
             [
-                "ce0fd7e38ded8131",
-                "43b9a245fe6c88f2"
+                "ce0fd7e38ded8131"
             ]
         ]
     },
@@ -972,14 +966,24 @@
                 "vt": "str"
             },
             {
+                "t": "eq",
+                "v": "bounds",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "connected",
+                "vt": "str"
+            },
+            {
                 "t": "else"
             }
         ],
-        "checkall": "true",
+        "checkall": "false",
         "repair": false,
-        "outputs": 2,
-        "x": 300,
-        "y": 340,
+        "outputs": 4,
+        "x": 260,
+        "y": 320,
         "wires": [
             [
                 "93da4060c7bee384",
@@ -987,6 +991,8 @@
                 "52a2950be95e2eb9",
                 "2cae26c9a779415d"
             ],
+            [],
+            [],
             []
         ]
     },
@@ -1007,7 +1013,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 890,
+        "x": 990,
         "y": 300,
         "wires": []
     },
@@ -1028,7 +1034,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 900,
+        "x": 1000,
         "y": 360,
         "wires": []
     },
@@ -1049,7 +1055,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 890,
+        "x": 990,
         "y": 400,
         "wires": []
     },
@@ -1063,14 +1069,14 @@
         "height": 0,
         "name": "",
         "label": "Heading",
-        "format": "{{msg.payload.heading | number:2}}&deg;",
+        "format": "{{msg.payload.heading | number:0}}&deg;",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 640,
+        "x": 740,
         "y": 400,
         "wires": []
     },
@@ -1091,24 +1097,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 640,
+        "x": 740,
         "y": 440,
-        "wires": []
-    },
-    {
-        "id": "43b9a245fe6c88f2",
-        "type": "debug",
-        "z": "eeaa68697bf28d0e",
-        "name": "debug 1",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 270,
-        "y": 500,
         "wires": []
     },
     {
@@ -1137,7 +1127,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
+        "x": 760,
         "y": 280,
         "wires": [
             [
@@ -1163,7 +1153,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 450,
+        "x": 550,
         "y": 300,
         "wires": [
             [
@@ -1200,7 +1190,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 650,
+        "x": 750,
         "y": 320,
         "wires": [
             [
@@ -1225,7 +1215,7 @@
                 "t": "set",
                 "p": "payload.spdUnit",
                 "pt": "msg",
-                "to": "payload.unit=0?'m/h':'kph'",
+                "to": "payload.unit=0?'kt':'kph'",
                 "tot": "jsonata"
             }
         ],
@@ -1234,7 +1224,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
+        "x": 760,
         "y": 360,
         "wires": [
             [
@@ -1253,15 +1243,15 @@
         "height": 0,
         "name": "",
         "label": "Uptime",
-        "format": "{{msg.payload | date}}",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 930,
-        "y": 180,
+        "x": 530,
+        "y": 160,
         "wires": []
     },
     {
@@ -1285,8 +1275,8 @@
         "topic": "uptime",
         "payload": "",
         "payloadType": "date",
-        "x": 530,
-        "y": 180,
+        "x": 130,
+        "y": 160,
         "wires": [
             [
                 "42d901469fe120d1"
@@ -1298,18 +1288,381 @@
         "type": "function",
         "z": "eeaa68697bf28d0e",
         "name": "calc uptime",
-        "func": "let uptime = Math.floor(Math.abs(context.startTime-msg.payload)/1000); // total seconds\nvar r = {};                                                                // result\nvar s = {                \n    day: 86400,   // feel free to add your own row\n    hour: 3600,\n    minute: 60,\n    second: 1\n};\n\nObject.keys(s).forEach(function (key) {\n    r[key] = Math.floor(uptime / s[key]);\n    uptime -= r[key] * s[key];\n});\n\nmsg.payload = r\nreturn msg;",
+        "func": "let uptime = Math.floor(Math.abs(context.startTime-msg.payload)/1000); // total seconds\nconst r = {};\nconst rstrings = []\nconst s = {                \n    day: 86400,   // feel free to add your own row\n    hour: 3600,\n    minute: 60,\n    second: 1\n};\n\nObject.keys(s).forEach(function (key) {\n    r[key] = Math.floor(uptime / s[key]);\n    uptime -= r[key] * s[key];\n    rstrings.push(r[key].toString().padStart(2,'0'));\n});\n\n\nmsg.payload = rstrings.join(' : ');\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.startTime=Date.now()",
         "finalize": "",
         "libs": [],
-        "x": 730,
-        "y": 180,
+        "x": 330,
+        "y": 160,
         "wires": [
             [
                 "07fdafd0e52b3b0f"
+            ]
+        ]
+    },
+    {
+        "id": "d2eab30fd054ac34",
+        "type": "ui_button",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "group": "3228a8420605aa56",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Fit All",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "fit_all",
+        "payloadType": "str",
+        "topic": "action",
+        "topicType": "msg",
+        "x": 130,
+        "y": 780,
+        "wires": [
+            [
+                "52bc29f2123c4d15"
+            ]
+        ]
+    },
+    {
+        "id": "52bc29f2123c4d15",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "bounds",
+        "func": "const store = global.get('store');\nlet points = store.getAircrafts().map(el => ({ lat: el.lat, lon: el.lng }));\npoints = points.filter(el => el.lat != 0 && el.lon != 0);\n\nif (points.length == 0) {\n    return null;\n}\n\nconst delta = 0.001;\n\nconst minLat = Math.min(...points.map(el => el.lat)) *(1-delta);\nconst maxLat = Math.max(...points.map(el => el.lat)) * (1 + delta);\nconst minLon = Math.min(...points.map(el => el.lon)) * (1 + delta);\nconst maxLon = Math.max(...points.map(el => el.lon)) * (1 - delta);\n\nconst bounds = { payload: { command: { bounds: [[minLat, minLon], [maxLat, maxLon]] } } }\n\nif (points.length == 1) {\n    const zoom = { payload: { command: { zoom: 10 } } };\n    return [[bounds, zoom]]\n} else {\n    return bounds\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 780,
+        "wires": [
+            [
+                "f9311951a9a04be5"
+            ]
+        ]
+    },
+    {
+        "id": "82fbf8c00897b09e",
+        "type": "comment",
+        "z": "eeaa68697bf28d0e",
+        "name": "Metrics",
+        "info": "",
+        "x": 70,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "0c0fd2bde7be23a5",
+        "type": "comment",
+        "z": "eeaa68697bf28d0e",
+        "name": "Aircraft Information",
+        "info": "",
+        "x": 570,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "8917f2aad0eb4149",
+        "type": "comment",
+        "z": "eeaa68697bf28d0e",
+        "name": "Controls",
+        "info": "",
+        "x": 120,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "f9311951a9a04be5",
+        "type": "link out",
+        "z": "eeaa68697bf28d0e",
+        "name": "map commands",
+        "mode": "link",
+        "links": [
+            "bc940bbd8afbab5b"
+        ],
+        "x": 495,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "5b3891526cec8c79",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "center",
+        "func": "const store = global.get('store');\nlet points = store.getAircrafts().map(el => ({ lat: el.lat, lon: el.lng }));\npoints = points.filter(el => el.lat != 0 && el.lon != 0);\n\nif (points.length == 0) {\n    return null;\n}\n\nlet center = {lat:0,lon:0};\ncenter = points.reduce((partial, el) => ({ lat: partial.lat + el.lat, lon: partial.lon +el.lon}),center) \ncenter ={\n    lat: center.lat / points.length,\n    lon: center.lon / points.length\n}\n\nreturn {\n    payload:{command:center}\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 660,
+        "wires": [
+            [
+                "f9311951a9a04be5"
+            ]
+        ]
+    },
+    {
+        "id": "a98a126d2de34f20",
+        "type": "ui_button",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "group": "3228a8420605aa56",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Center",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 130,
+        "y": 660,
+        "wires": [
+            [
+                "5b3891526cec8c79"
+            ]
+        ]
+    },
+    {
+        "id": "c1b2bc4d47db5725",
+        "type": "ui_switch",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "label": "Auto Fit",
+        "tooltip": "",
+        "group": "3228a8420605aa56",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "fit",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 300,
+        "y": 940,
+        "wires": [
+            [
+                "db5767dfae455dab",
+                "cce2eb61dbc59c5e"
+            ]
+        ]
+    },
+    {
+        "id": "15ae9d8552d9d98f",
+        "type": "inject",
+        "z": "eeaa68697bf28d0e",
+        "name": "trigger",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "trigger",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 720,
+        "wires": [
+            [
+                "a1db66bf46cf53ec"
+            ]
+        ]
+    },
+    {
+        "id": "86105341135c3ae2",
+        "type": "ui_slider",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "label": "Auto Fit Timeout",
+        "tooltip": "",
+        "group": "3228a8420605aa56",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "timeout",
+        "topicType": "msg",
+        "min": "1",
+        "max": "60",
+        "step": "5",
+        "className": "",
+        "x": 280,
+        "y": 1000,
+        "wires": [
+            [
+                "b7daaba1d29fc4fe"
+            ]
+        ]
+    },
+    {
+        "id": "7b348ed00fc51d24",
+        "type": "inject",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "30",
+        "payloadType": "num",
+        "x": 130,
+        "y": 1000,
+        "wires": [
+            [
+                "86105341135c3ae2"
+            ]
+        ]
+    },
+    {
+        "id": "db5767dfae455dab",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "set auto fit",
+        "func": "flow.set('autofit', msg.payload);\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7daaba1d29fc4fe",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "set auto fit timeout",
+        "func": "flow.set('autofittimeout', msg.payload);\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "43dabf02b9106e65",
+        "type": "inject",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 130,
+        "y": 940,
+        "wires": [
+            [
+                "c1b2bc4d47db5725"
+            ]
+        ]
+    },
+    {
+        "id": "a1db66bf46cf53ec",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "activate",
+        "func": "const autofit = flow.get('autofit');\nconst timeout = flow.get('autofittimeout') * 1000;\nconst lastseen = context.get('lastseen') || msg.payload;\n\nif (autofit && msg.payload > lastseen + timeout){\n    context.set('lastseen', msg.payload);\n    return msg;\n} else{\n    return null;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('lastseen',Date.now());",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 720,
+        "wires": [
+            [
+                "52bc29f2123c4d15"
+            ]
+        ]
+    },
+    {
+        "id": "cce2eb61dbc59c5e",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "disable button",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "$not(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 220,
+        "y": 860,
+        "wires": [
+            [
+                "d2eab30fd054ac34"
             ]
         ]
     }
