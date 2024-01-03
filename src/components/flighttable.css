@@ -1,0 +1,15 @@
+.flight {
+    width: 100%;
+}
+
+.flight tbody tr:nth-child(even) {
+    background: #FFF
+}
+
+.flight tbody tr:nth-child(odd) {
+    background: #EEE
+}
+
+.flight tbody tr:last-child td {
+    border-bottom: 1px solid #eee;
+}

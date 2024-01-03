@@ -1,0 +1,9 @@
+.container {
+    display:flex;
+    height: 100%;
+}
+
+.info {
+    width: 22%;
+    padding: 1em;
+}
