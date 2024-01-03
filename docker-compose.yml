@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-services:
-  app:
-    image: node-red-sdr
-    build: ./docker
-    restart: unless-stopped
-    ports: 
-      - "1880:1880"
-    volumes: 
-      - "./app:/data"
-    devices:
-      - "/dev/bus/usb/001"
-
-=======
 version: "3.8"
 services:
   ui:
@@ -40,4 +26,3 @@ services:
       - "9001:9001"
     volumes:
       - "./conf/mosquitto.conf:/mosquitto/config/mosquitto.conf"
->>>>>>> newest/master
