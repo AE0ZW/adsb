@@ -1,3 +1,3 @@
-# ADB-S Plane Spotting
+# Plane Spotter
 
-![Plane Spotting](adsb.png)
+![Plane Spotter](adsb-ui.png)
