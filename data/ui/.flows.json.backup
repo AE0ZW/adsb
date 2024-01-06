@@ -76,7 +76,7 @@
             },
             "darkTheme": {
                 "default": "#097479",
-                "baseColor": "#ff8000",
+                "baseColor": "#408080",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
                 "edited": true,
                 "reset": false
@@ -90,11 +90,11 @@
             "themeState": {
                 "base-color": {
                     "default": "#097479",
-                    "value": "#ff8000",
+                    "value": "#408080",
                     "edited": true
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#ff8000",
+                    "value": "#408080",
                     "edited": false
                 },
                 "page-backgroundColor": {
@@ -106,7 +106,7 @@
                     "edited": false
                 },
                 "group-textColor": {
-                    "value": "#ffa64d",
+                    "value": "#5eaeae",
                     "edited": false
                 },
                 "group-borderColor": {
@@ -122,7 +122,7 @@
                     "edited": false
                 },
                 "widget-backgroundColor": {
-                    "value": "#ff8000",
+                    "value": "#408080",
                     "edited": false
                 },
                 "widget-borderColor": {
@@ -391,16 +391,16 @@
         "id": "1a5bbfc301fba6ea",
         "type": "function",
         "z": "0ab19c4188bb8abf",
-        "name": "crc error count",
-        "func": "if(msg.topic == 'message_count'){\n    context.n = msg.payload;\n    return null;\n} else {\n    context.err += msg.payload.crcOk ? 0 : 1;\n    return {\n    topic: 'crc_error_rate',\n    payload: context.err/context.n\n};\n}\n",
+        "name": "err count",
+        "func": "const n = context.get('n');\ncontext.set('n', n+1);\n\nreturn {\n    topic:'err_count',\n    payload: n \n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.n = 0;\ncontext.err = 0;",
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('n', 0)",
         "finalize": "",
         "libs": [],
-        "x": 540,
-        "y": 380,
+        "x": 620,
+        "y": 400,
         "wires": [
             [
                 "3288b2fd090ec8d6"
@@ -411,13 +411,13 @@
         "id": "3288b2fd090ec8d6",
         "type": "link out",
         "z": "0ab19c4188bb8abf",
-        "name": "crc error count",
+        "name": "err count",
         "mode": "link",
         "links": [
-            "4bdf1fb8f0def292"
+            "cb4c763b28cf1390"
         ],
-        "x": 745,
-        "y": 380,
+        "x": 785,
+        "y": 400,
         "wires": []
     },
     {
@@ -432,12 +432,11 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.n = 0;",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 440,
+        "x": 630,
+        "y": 460,
         "wires": [
             [
-                "be4cae98a85c1f15",
-                "1a5bbfc301fba6ea"
+                "be4cae98a85c1f15"
             ]
         ]
     },
@@ -445,13 +444,13 @@
         "id": "be4cae98a85c1f15",
         "type": "link out",
         "z": "0ab19c4188bb8abf",
-        "name": "message count",
+        "name": "msg count",
         "mode": "link",
         "links": [
-            "cb4c763b28cf1390"
+            "af1e62fb40787fa9"
         ],
-        "x": 745,
-        "y": 440,
+        "x": 785,
+        "y": 460,
         "wires": []
     },
     {
@@ -476,12 +475,80 @@
         "y": 300,
         "wires": [
             [
-                "3efb69c880ea5228"
+                "3efb69c880ea5228",
+                "ae53edfbc02021d4"
             ],
             [
-                "1a5bbfc301fba6ea"
+                "1a5bbfc301fba6ea",
+                "b086f0f22c5cb8f9"
             ]
         ]
+    },
+    {
+        "id": "ae53edfbc02021d4",
+        "type": "function",
+        "z": "0ab19c4188bb8abf",
+        "name": "decode / sec",
+        "func": "const secs = (Date.now() - context.get('start'))/1000;\nconst n = context.get('n');\ncontext.set('n', n+1);\n\nreturn {\n    topic:'decodes_per_sec',\n    payload: n / secs\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('start', Date.now())\ncontext.set('n', 0)",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 280,
+        "wires": [
+            [
+                "33bbecff477a033c"
+            ]
+        ]
+    },
+    {
+        "id": "b086f0f22c5cb8f9",
+        "type": "function",
+        "z": "0ab19c4188bb8abf",
+        "name": "err / sec",
+        "func": "const secs = (Date.now() - context.get('start'))/1000;\nconst n = context.get('n');\ncontext.set('n', n+1);\n\nreturn {\n    topic:'errors_per_sec',\n    payload: n / secs\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set('start', Date.now())\ncontext.set('n', 0)",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 340,
+        "wires": [
+            [
+                "7debf716e0ea5847"
+            ]
+        ]
+    },
+    {
+        "id": "33bbecff477a033c",
+        "type": "link out",
+        "z": "0ab19c4188bb8abf",
+        "name": "decode per sec",
+        "mode": "link",
+        "links": [
+            "4bdf1fb8f0def292"
+        ],
+        "x": 785,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "7debf716e0ea5847",
+        "type": "link out",
+        "z": "0ab19c4188bb8abf",
+        "name": "err per sec",
+        "mode": "link",
+        "links": [
+            "c7c6d3a54ce1c3e2"
+        ],
+        "x": 785,
+        "y": 340,
+        "wires": []
     },
     {
         "id": "4404caecbde969ef",
@@ -825,7 +892,7 @@
         "z": "eeaa68697bf28d0e",
         "name": "link in 2",
         "links": [
-            "3288b2fd090ec8d6"
+            "33bbecff477a033c"
         ],
         "x": 375,
         "y": 40,
@@ -845,11 +912,11 @@
         "width": 0,
         "height": 0,
         "gtype": "gage",
-        "title": "CRC Error Rate",
+        "title": "Decode / Sec",
         "label": "",
-        "format": " {{value*100 | number:1}}%",
+        "format": " {{value | number:2}}",
         "min": 0,
-        "max": "1",
+        "max": "10",
         "colors": [
             "#00b500",
             "#e6e600",
@@ -868,11 +935,11 @@
         "type": "ui_text",
         "z": "eeaa68697bf28d0e",
         "group": "0bcbeda61b5f475a",
-        "order": 3,
+        "order": 5,
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "ADS-B Messages",
+        "label": "ADS-B Errors",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
@@ -880,8 +947,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 570,
-        "y": 80,
+        "x": 560,
+        "y": 160,
         "wires": []
     },
     {
@@ -890,10 +957,10 @@
         "z": "eeaa68697bf28d0e",
         "name": "link in 3",
         "links": [
-            "be4cae98a85c1f15"
+            "3288b2fd090ec8d6"
         ],
         "x": 375,
-        "y": 80,
+        "y": 160,
         "wires": [
             [
                 "ae4840f6511b4928"
@@ -909,7 +976,7 @@
             "e1071538d8474f2d"
         ],
         "x": 375,
-        "y": 120,
+        "y": 200,
         "wires": [
             [
                 "734e60f7cae097f6"
@@ -921,7 +988,7 @@
         "type": "ui_text",
         "z": "eeaa68697bf28d0e",
         "group": "0bcbeda61b5f475a",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -934,7 +1001,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 560,
-        "y": 120,
+        "y": 200,
         "wires": []
     },
     {
@@ -944,8 +1011,8 @@
         "name": "",
         "path": "/worldmap",
         "events": "connect,bounds,other",
-        "x": 80,
-        "y": 320,
+        "x": 100,
+        "y": 440,
         "wires": [
             [
                 "ce0fd7e38ded8131"
@@ -982,8 +1049,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 4,
-        "x": 260,
-        "y": 320,
+        "x": 280,
+        "y": 440,
         "wires": [
             [
                 "93da4060c7bee384",
@@ -1013,8 +1080,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 990,
-        "y": 300,
+        "x": 1010,
+        "y": 420,
         "wires": []
     },
     {
@@ -1034,8 +1101,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1000,
-        "y": 360,
+        "x": 1020,
+        "y": 480,
         "wires": []
     },
     {
@@ -1055,8 +1122,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 990,
-        "y": 400,
+        "x": 1010,
+        "y": 520,
         "wires": []
     },
     {
@@ -1076,8 +1143,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 740,
-        "y": 400,
+        "x": 760,
+        "y": 520,
         "wires": []
     },
     {
@@ -1097,8 +1164,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 740,
-        "y": 440,
+        "x": 760,
+        "y": 560,
         "wires": []
     },
     {
@@ -1127,8 +1194,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 760,
-        "y": 280,
+        "x": 780,
+        "y": 400,
         "wires": [
             [
                 "81adb75b2e44b854"
@@ -1153,8 +1220,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 550,
-        "y": 300,
+        "x": 570,
+        "y": 420,
         "wires": [
             [
                 "b646a87662d922b0"
@@ -1190,8 +1257,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 750,
-        "y": 320,
+        "x": 770,
+        "y": 440,
         "wires": [
             [
                 "81adb75b2e44b854"
@@ -1224,8 +1291,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 760,
-        "y": 360,
+        "x": 780,
+        "y": 480,
         "wires": [
             [
                 "04c4d98c6460f45f",
@@ -1238,7 +1305,7 @@
         "type": "ui_text",
         "z": "eeaa68697bf28d0e",
         "group": "0bcbeda61b5f475a",
-        "order": 3,
+        "order": 6,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1251,7 +1318,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 530,
-        "y": 160,
+        "y": 240,
         "wires": []
     },
     {
@@ -1276,7 +1343,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 130,
-        "y": 160,
+        "y": 240,
         "wires": [
             [
                 "42d901469fe120d1"
@@ -1296,7 +1363,7 @@
         "finalize": "",
         "libs": [],
         "x": 330,
-        "y": 160,
+        "y": 240,
         "wires": [
             [
                 "07fdafd0e52b3b0f"
@@ -1367,8 +1434,8 @@
         "z": "eeaa68697bf28d0e",
         "name": "Aircraft Information",
         "info": "",
-        "x": 570,
-        "y": 240,
+        "x": 590,
+        "y": 360,
         "wires": []
     },
     {
@@ -1663,6 +1730,87 @@
         "wires": [
             [
                 "d2eab30fd054ac34"
+            ]
+        ]
+    },
+    {
+        "id": "c7c6d3a54ce1c3e2",
+        "type": "link in",
+        "z": "eeaa68697bf28d0e",
+        "name": "link in 6",
+        "links": [
+            "7debf716e0ea5847"
+        ],
+        "x": 375,
+        "y": 80,
+        "wires": [
+            [
+                "267a0ba514d8b86d"
+            ]
+        ]
+    },
+    {
+        "id": "267a0ba514d8b86d",
+        "type": "ui_gauge",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "group": "0bcbeda61b5f475a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Err / Sec",
+        "label": "",
+        "format": " {{value | number:0}}",
+        "min": 0,
+        "max": "10",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "9243ed242d015921",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "0bcbeda61b5f475a",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "ADS-B Messages",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 570,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "af1e62fb40787fa9",
+        "type": "link in",
+        "z": "eeaa68697bf28d0e",
+        "name": "link in 7",
+        "links": [
+            "be4cae98a85c1f15"
+        ],
+        "x": 375,
+        "y": 120,
+        "wires": [
+            [
+                "9243ed242d015921"
             ]
         ]
     }
