@@ -24,37 +24,6 @@
         "env": []
     },
     {
-        "id": "c93dccbd18aefb14",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "mqtt",
-        "port": "1883",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": "60",
-        "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthRetain": "false",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closeRetain": "false",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willRetain": "false",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
         "id": "65a0877e913c9221",
         "type": "ui_tab",
         "name": "Plane Spotter",
@@ -203,28 +172,6 @@
         "width": "6",
         "collapse": false,
         "className": ""
-    },
-    {
-        "id": "076ac2a7a4c50daf",
-        "type": "mqtt in",
-        "z": "0ab19c4188bb8abf",
-        "name": "",
-        "topic": "adsb",
-        "qos": "2",
-        "datatype": "auto-detect",
-        "broker": "c93dccbd18aefb14",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 110,
-        "y": 320,
-        "wires": [
-            [
-                "93082e13fd712414",
-                "886a7f77b880419c"
-            ]
-        ]
     },
     {
         "id": "93082e13fd712414",
@@ -549,6 +496,57 @@
         "x": 785,
         "y": 340,
         "wires": []
+    },
+    {
+        "id": "c24d10c0a425146d",
+        "type": "tcp in",
+        "z": "0ab19c4188bb8abf",
+        "name": "",
+        "server": "client",
+        "host": "sdr",
+        "port": "32000",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "\\n",
+        "topic": "",
+        "trim": false,
+        "base64": false,
+        "tls": "",
+        "x": 110,
+        "y": 380,
+        "wires": [
+            [
+                "c878cc0289c398d9"
+            ]
+        ]
+    },
+    {
+        "id": "c878cc0289c398d9",
+        "type": "change",
+        "z": "0ab19c4188bb8abf",
+        "name": "trim",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$trim(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "93082e13fd712414",
+                "886a7f77b880419c"
+            ]
+        ]
     },
     {
         "id": "4404caecbde969ef",

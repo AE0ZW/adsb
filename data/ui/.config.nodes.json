@@ -688,5 +688,24 @@
                 "file": "/data/node_modules/node-red-contrib-web-worldmap/worldmap.js"
             }
         }
+    },
+    "node-red-node-base64": {
+        "name": "node-red-node-base64",
+        "version": "0.3.0",
+        "local": true,
+        "user": false,
+        "nodes": {
+            "base64": {
+                "name": "base64",
+                "types": [
+                    "base64"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-node-base64",
+                "file": "/data/node_modules/node-red-node-base64/70-base64.js"
+            }
+        }
     }
 }

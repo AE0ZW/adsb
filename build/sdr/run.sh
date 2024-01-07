@@ -1,4 +1,5 @@
 #!/bin/sh
 
-rtl_adsb | mosquitto_pub -h mqtt -t "adsb" -l
+echo "Listening on $PORT"
+ rtl_adsb | nc -lk -p $PORT
 

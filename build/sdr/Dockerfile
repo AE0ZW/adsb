@@ -2,10 +2,14 @@ FROM alpine
 
 WORKDIR /data
 
-RUN apk add --no-cache rtl-sdr mosquitto-clients
+RUN apk update --no-cache && \
+    apk add --no-cache rtl-sdr 
+
+ENV PORT=32000
 
 COPY run.sh .
 RUN chmod +x run.sh
 
-CMD ["/data/run.sh"]
+EXPOSE 32000
 
+ENTRYPOINT ["./run.sh"]
