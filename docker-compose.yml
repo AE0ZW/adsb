@@ -1,18 +1,14 @@
 version: "3.8"
 services:
   ui:
-    image: nodered/node-red:latest-minimal
+    image: adsb
+    build:
+      context: ./build 
     restart: always
-    depends_on:
-      - sdr
     ports: 
       - "1880:1880"
     volumes: 
       - "./data/ui:/data"
-  sdr:
-    image: sdr
-    restart: always
-    build:
-      context: ./build/sdr
     devices:
-      - "/dev/bus/usb/001"
+      - "/dev/bus/usb/001:/dev/bus/usb/001"
+

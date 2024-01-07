@@ -498,29 +498,6 @@
         "wires": []
     },
     {
-        "id": "c24d10c0a425146d",
-        "type": "tcp in",
-        "z": "0ab19c4188bb8abf",
-        "name": "",
-        "server": "client",
-        "host": "sdr",
-        "port": "32000",
-        "datamode": "stream",
-        "datatype": "utf8",
-        "newline": "\\n",
-        "topic": "",
-        "trim": false,
-        "base64": false,
-        "tls": "",
-        "x": 110,
-        "y": 380,
-        "wires": [
-            [
-                "c878cc0289c398d9"
-            ]
-        ]
-    },
-    {
         "id": "c878cc0289c398d9",
         "type": "change",
         "z": "0ab19c4188bb8abf",
@@ -545,6 +522,57 @@
             [
                 "93082e13fd712414",
                 "886a7f77b880419c"
+            ]
+        ]
+    },
+    {
+        "id": "b042e524c20bae0e",
+        "type": "exec",
+        "z": "0ab19c4188bb8abf",
+        "command": "rtl_adsb",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 140,
+        "y": 500,
+        "wires": [
+            [
+                "c878cc0289c398d9"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a9c66d147dc80460",
+        "type": "inject",
+        "z": "0ab19c4188bb8abf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 620,
+        "wires": [
+            [
+                "b042e524c20bae0e"
             ]
         ]
     },
