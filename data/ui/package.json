@@ -8,6 +8,7 @@
         "mode-s-aircraft-store": "^1.0.1",
         "mode-s-decoder": "^1.0.1",
         "node-red-contrib-web-worldmap": "~4.6.1",
-        "node-red-dashboard": "~3.6.2"
+        "node-red-dashboard": "~3.6.2",
+        "node-red-node-base64": "~0.3.0"
     }
 }
