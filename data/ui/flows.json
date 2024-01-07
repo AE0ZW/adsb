@@ -2020,6 +2020,13 @@
                 "pt": "msg",
                 "to": "{\"max\":payload }",
                 "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
             }
         ],
         "action": "",
@@ -2051,7 +2058,7 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "25",
+        "payload": "50",
         "payloadType": "num",
         "x": 710,
         "y": 260,
