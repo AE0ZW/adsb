@@ -338,6 +338,213 @@
         "wires": []
     },
     {
+        "id": "ba9bf72feac05da3",
+        "type": "debug",
+        "z": "9e95f962de164512",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "a7ed5422fd0a945e",
+        "type": "watch",
+        "z": "9e95f962de164512",
+        "name": "",
+        "files": "/data/tmp/aircraft.json",
+        "recursive": "",
+        "x": 180,
+        "y": 420,
+        "wires": [
+            [
+                "c8c37713f6d3bdbb"
+            ]
+        ]
+    },
+    {
+        "id": "c8c37713f6d3bdbb",
+        "type": "file in",
+        "z": "9e95f962de164512",
+        "name": "",
+        "filename": "payload",
+        "filenameType": "msg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "bde103ae399da555"
+            ]
+        ]
+    },
+    {
+        "id": "bde103ae399da555",
+        "type": "json",
+        "z": "9e95f962de164512",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 510,
+        "y": 460,
+        "wires": [
+            [
+                "7f3c6f83cc47b9f3"
+            ]
+        ]
+    },
+    {
+        "id": "c6059b90618c8864",
+        "type": "watch",
+        "z": "9e95f962de164512",
+        "name": "",
+        "files": "/data/tmp/stats.json",
+        "recursive": "",
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "c8c37713f6d3bdbb"
+            ]
+        ]
+    },
+    {
+        "id": "33a68791526fe83c",
+        "type": "watch",
+        "z": "9e95f962de164512",
+        "name": "",
+        "files": "/data/tmp/receiver.json",
+        "recursive": "",
+        "x": 180,
+        "y": 500,
+        "wires": [
+            [
+                "c8c37713f6d3bdbb"
+            ]
+        ]
+    },
+    {
+        "id": "7f3c6f83cc47b9f3",
+        "type": "change",
+        "z": "9e95f962de164512",
+        "name": "basename -> topic",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "$split(file, \".\")[0]\t",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.hex",
+                "pt": "msg",
+                "to": "$uppercase(payloadhex)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 460,
+        "wires": [
+            [
+                "971b764e2dc64f2f",
+                "ba9bf72feac05da3"
+            ]
+        ]
+    },
+    {
+        "id": "971b764e2dc64f2f",
+        "type": "switch",
+        "z": "9e95f962de164512",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "aircraft",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "stats",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "receiver",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 850,
+        "y": 460,
+        "wires": [
+            [
+                "67a18c7b998b2c8a"
+            ],
+            [
+                "3aa8cd7ef5bedf96"
+            ],
+            [
+                "805de6d09119fce1"
+            ]
+        ]
+    },
+    {
+        "id": "67a18c7b998b2c8a",
+        "type": "link out",
+        "z": "9e95f962de164512",
+        "name": "aircraft json",
+        "mode": "link",
+        "links": [],
+        "x": 995,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "3aa8cd7ef5bedf96",
+        "type": "link out",
+        "z": "9e95f962de164512",
+        "name": "stats json",
+        "mode": "link",
+        "links": [],
+        "x": 995,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "805de6d09119fce1",
+        "type": "link out",
+        "z": "9e95f962de164512",
+        "name": "receiver json",
+        "mode": "link",
+        "links": [],
+        "x": 995,
+        "y": 500,
+        "wires": []
+    },
+    {
         "id": "93082e13fd712414",
         "type": "function",
         "z": "0ab19c4188bb8abf",
@@ -2058,7 +2265,7 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "25",
+        "payload": "50",
         "payloadType": "num",
         "x": 710,
         "y": 260,

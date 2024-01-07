@@ -9,6 +9,7 @@ services:
       - sdr
     volumes: 
       - "./data/ui:/data"
+      - "tmp:/data/tmp"
   sdr:
     image: dump1090-fa
     restart: always
@@ -16,4 +17,7 @@ services:
       context: ./build/dump1090
     devices:
       - "/dev/bus/usb/001"
-
+    volumes:
+      - "tmp:/data"
+volumes:
+  tmp:

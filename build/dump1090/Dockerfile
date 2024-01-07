@@ -6,15 +6,17 @@ RUN apk update --no-cache
 RUN apk add --no-cache rtl-sdr build-base git ncurses-dev libusb-dev librtlsdr-dev
 RUN git clone https://github.com/flightaware/dump1090.git 
 RUN cd dump1090 && \
-    make RTLSDR=yes
+        make RTLSDR=yes
 
 FROM alpine
+
+WORKDIR /data
 
 RUN apk update --no-cache
 RUN apk add --no-cache rtl-sdr ncurses libusb librtlsdr
 
 COPY --from=build /build/dump1090/*1090 /usr/bin/
 
-EXPOSE 30001 30002 30003 30004 30005 30104
+EXPOSE 30001 30002 30003 30004 30005 30104 8080
 
-ENTRYPOINT ["/usr/bin/dump1090", "--net", "--quiet"]
+ENTRYPOINT ["/usr/bin/dump1090", "--net", "--quiet", "--write-json","/data"]
