@@ -151,7 +151,7 @@
     {
         "id": "0bcbeda61b5f475a",
         "type": "ui_group",
-        "name": "Metrics",
+        "name": "Guages",
         "tab": "65a0877e913c9221",
         "order": 3,
         "disp": false,
@@ -176,6 +176,17 @@
         "name": "Controls",
         "tab": "65a0877e913c9221",
         "order": 4,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a0b3d097e2c8d6ea",
+        "type": "ui_group",
+        "name": "Metrics",
+        "tab": "65a0877e913c9221",
+        "order": 5,
         "disp": false,
         "width": "6",
         "collapse": false,
@@ -1050,8 +1061,8 @@
         "links": [
             "33bbecff477a033c"
         ],
-        "x": 375,
-        "y": 40,
+        "x": 875,
+        "y": 120,
         "wires": [
             [
                 "eda0e4b6bff127d0"
@@ -1082,16 +1093,16 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 560,
-        "y": 40,
+        "x": 1100,
+        "y": 120,
         "wires": []
     },
     {
         "id": "ae4840f6511b4928",
         "type": "ui_text",
         "z": "eeaa68697bf28d0e",
-        "group": "0bcbeda61b5f475a",
-        "order": 5,
+        "group": "a0b3d097e2c8d6ea",
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1143,8 +1154,8 @@
         "id": "734e60f7cae097f6",
         "type": "ui_text",
         "z": "eeaa68697bf28d0e",
-        "group": "0bcbeda61b5f475a",
-        "order": 3,
+        "group": "a0b3d097e2c8d6ea",
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1460,8 +1471,8 @@
         "id": "07fdafd0e52b3b0f",
         "type": "ui_text",
         "z": "eeaa68697bf28d0e",
-        "group": "0bcbeda61b5f475a",
-        "order": 6,
+        "group": "a0b3d097e2c8d6ea",
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1897,8 +1908,8 @@
         "links": [
             "7debf716e0ea5847"
         ],
-        "x": 375,
-        "y": 80,
+        "x": 875,
+        "y": 160,
         "wires": [
             [
                 "267a0ba514d8b86d"
@@ -1929,16 +1940,16 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 540,
-        "y": 80,
+        "x": 1120,
+        "y": 160,
         "wires": []
     },
     {
         "id": "9243ed242d015921",
         "type": "ui_text",
         "z": "eeaa68697bf28d0e",
-        "group": "0bcbeda61b5f475a",
-        "order": 4,
+        "group": "a0b3d097e2c8d6ea",
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1967,6 +1978,86 @@
         "wires": [
             [
                 "9243ed242d015921"
+            ]
+        ]
+    },
+    {
+        "id": "d86d385f04b17b6b",
+        "type": "ui_slider",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "label": "Range",
+        "tooltip": "",
+        "group": "0bcbeda61b5f475a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": "5",
+        "className": "",
+        "x": 850,
+        "y": 260,
+        "wires": [
+            [
+                "d940838b3e4ae373"
+            ]
+        ]
+    },
+    {
+        "id": "d940838b3e4ae373",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "make ui ctl msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ui_control",
+                "pt": "msg",
+                "to": "{\"max\":payload }",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 200,
+        "wires": [
+            [
+                "267a0ba514d8b86d",
+                "eda0e4b6bff127d0"
+            ]
+        ]
+    },
+    {
+        "id": "aed4add817977adc",
+        "type": "inject",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "25",
+        "payloadType": "num",
+        "x": 710,
+        "y": 260,
+        "wires": [
+            [
+                "d86d385f04b17b6b"
             ]
         ]
     }
