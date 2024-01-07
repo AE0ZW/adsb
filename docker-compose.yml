@@ -13,7 +13,7 @@ services:
     image: dump1090-fa
     restart: always
     build:
-      context: ./build/sdr
+      context: ./build/dump1090
     devices:
       - "/dev/bus/usb/001"
 
