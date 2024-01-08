@@ -10,13 +10,13 @@ RUN cd dump1090 && \
 
 FROM alpine
 
-WORKDIR /data
-
 RUN apk update --no-cache
 RUN apk add --no-cache rtl-sdr ncurses libusb librtlsdr
 
 COPY --from=build /build/dump1090/*1090 /usr/bin/
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
-EXPOSE 30001 30002 30003 30004 30005 30104 8080
+EXPOSE 30001 30002 30003 30004 30005 30104
 
-ENTRYPOINT ["/usr/bin/dump1090", "--net", "--quiet", "--write-json","/data"]
+ENTRYPOINT ["/entrypoint.sh"]
