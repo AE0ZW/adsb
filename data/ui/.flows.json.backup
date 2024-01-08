@@ -439,29 +439,18 @@
         "id": "1c56f59b69d726bc",
         "type": "inject",
         "z": "9e95f962de164512",
-        "name": "receiver.json",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "file",
-                "v": "receiver.json",
-                "vt": "str"
-            }
-        ],
+        "name": "",
+        "props": [],
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "/data/tmp/receiver.json",
-        "payloadType": "str",
         "x": 190,
-        "y": 160,
+        "y": 220,
         "wires": [
             [
-                "c8c37713f6d3bdbb"
+                "848547a58f44700d"
             ]
         ]
     },
@@ -474,7 +463,7 @@
         "order": 4,
         "width": 2,
         "height": 1,
-        "passthru": true,
+        "passthru": false,
         "label": "Refresh",
         "tooltip": "",
         "color": "",
@@ -485,10 +474,46 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 140,
-        "y": 280,
+        "x": 200,
+        "y": 260,
         "wires": [
-            []
+            [
+                "848547a58f44700d"
+            ]
+        ]
+    },
+    {
+        "id": "848547a58f44700d",
+        "type": "change",
+        "z": "9e95f962de164512",
+        "name": "receiver.json",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "/data/tmp/receiver.json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "file",
+                "pt": "msg",
+                "to": "receiver.json",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 190,
+        "y": 160,
+        "wires": [
+            [
+                "c8c37713f6d3bdbb"
+            ]
         ]
     },
     {
@@ -499,11 +524,11 @@
         "links": [
             "6a927a31926136b4"
         ],
-        "x": 165,
-        "y": 80,
+        "x": 115,
+        "y": 200,
         "wires": [
             [
-                "d388b17fb291ff1b"
+                "b54a18c9b35f8e47"
             ]
         ]
     },
@@ -547,8 +572,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 200,
-        "y": 220,
+        "x": 260,
+        "y": 340,
         "wires": [
             [
                 "d1bf963c0af13232",
@@ -574,8 +599,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 430,
-        "y": 220,
+        "x": 490,
+        "y": 340,
         "wires": [
             [
                 "bc502453312cb200"
@@ -611,8 +636,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
-        "y": 80,
+        "x": 700,
+        "y": 200,
         "wires": [
             [
                 "472f03a94276dd04"
@@ -652,8 +677,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 640,
-        "y": 260,
+        "x": 700,
+        "y": 380,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -681,8 +706,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 780,
-        "y": 180,
+        "x": 840,
+        "y": 300,
         "wires": [
             [
                 "c5e3bc18fe33db62"
@@ -711,8 +736,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 920,
-        "y": 80,
+        "x": 980,
+        "y": 200,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -751,8 +776,8 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 1040,
-        "y": 260,
+        "x": 1100,
+        "y": 380,
         "wires": []
     },
     {
@@ -763,8 +788,8 @@
         "links": [
             "f9311951a9a04be5"
         ],
-        "x": 875,
-        "y": 340,
+        "x": 935,
+        "y": 460,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -783,8 +808,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 290,
-        "y": 80,
+        "x": 370,
+        "y": 200,
         "wires": [
             [
                 "03565d1e34e0f066"
@@ -845,8 +870,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 380,
-        "y": 380,
+        "x": 440,
+        "y": 500,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -865,8 +890,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 370,
-        "y": 420,
+        "x": 430,
+        "y": 540,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -885,8 +910,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 170,
-        "y": 320,
+        "x": 230,
+        "y": 440,
         "wires": []
     },
     {
@@ -897,12 +922,112 @@
         "links": [
             "805de6d09119fce1"
         ],
-        "x": 135,
-        "y": 400,
+        "x": 195,
+        "y": 520,
         "wires": [
             [
                 "f7800a14d83ea623",
                 "4bf3dd3861bb7d93"
+            ]
+        ]
+    },
+    {
+        "id": "da9d6c2d06bd4b4b",
+        "type": "ui_switch",
+        "z": "a434980c0d70073f",
+        "name": "",
+        "label": "Upd",
+        "tooltip": "Allow updating of aircraft positions",
+        "group": "5d571e7886c72a5e",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 270,
+        "y": 100,
+        "wires": [
+            [
+                "7e34ee95dc8e0367"
+            ]
+        ]
+    },
+    {
+        "id": "7e34ee95dc8e0367",
+        "type": "function",
+        "z": "a434980c0d70073f",
+        "name": "gate control",
+        "func": "flow.set('gate', msg.payload)\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('gate',true)",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b54a18c9b35f8e47",
+        "type": "switch",
+        "z": "a434980c0d70073f",
+        "name": "gate",
+        "property": "gate",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "d388b17fb291ff1b"
+            ]
+        ]
+    },
+    {
+        "id": "aab62d9dbf2996aa",
+        "type": "inject",
+        "z": "a434980c0d70073f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "da9d6c2d06bd4b4b"
             ]
         ]
     },
