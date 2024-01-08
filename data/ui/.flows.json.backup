@@ -174,6 +174,17 @@
         "className": ""
     },
     {
+        "id": "e0e523ab10095210",
+        "type": "ui_group",
+        "name": "Radio",
+        "tab": "65a0877e913c9221",
+        "order": 5,
+        "disp": true,
+        "width": "4",
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "a7ed5422fd0a945e",
         "type": "watch",
         "z": "9e95f962de164512",
@@ -464,7 +475,7 @@
         "width": 2,
         "height": 1,
         "passthru": false,
-        "label": "Refresh",
+        "label": "Home",
         "tooltip": "",
         "color": "",
         "bgcolor": "",
@@ -474,7 +485,7 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 200,
+        "x": 190,
         "y": 260,
         "wires": [
             [
@@ -883,7 +894,7 @@
         "type": "function",
         "z": "a434980c0d70073f",
         "name": "range rings",
-        "func": "const msgs = [];\nlet n = 0;\nfor(let nm of [92600,185200,370400]){\nmsgs.push({\n    payload:{\n        name:`RR_${++n}`,\n        radius:nm,\n        layer:'range',\n        lat:msg.payload.lat,\n        lon:msg.payload.lon,\n        fill:false,\n        strokeOpacity:0.8,\n        weight:1\n    }\n})\n}\n\nreturn [msgs];",
+        "func": "const msgs = [];\nlet n = 0;\nfor(let nm of [92600,185200,370400]){\nmsgs.push({\n    payload:{\n        name:`RR_${++n}`,\n        radius:nm,\n        layer:'station',\n        lat:msg.payload.lat,\n        lon:msg.payload.lon,\n        fill:false,\n        strokeOpacity:0.8,\n        weight:1\n    }\n})\n}\n\nreturn [msgs];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -939,9 +950,9 @@
         "label": "Upd",
         "tooltip": "Allow updating of aircraft positions",
         "group": "5d571e7886c72a5e",
-        "order": 4,
-        "width": "2",
-        "height": "1",
+        "order": 5,
+        "width": 2,
+        "height": 1,
         "passthru": true,
         "decouple": "false",
         "topic": "topic",
@@ -1053,7 +1064,7 @@
             },
             {
                 "field": "flight",
-                "title": "Callsign",
+                "title": "Flight",
                 "width": "",
                 "align": "left",
                 "formatter": "plaintext",
@@ -1072,8 +1083,8 @@
                 }
             },
             {
-                "field": "nav_heading",
-                "title": "Heading",
+                "field": "track",
+                "title": "Track",
                 "width": "",
                 "align": "left",
                 "formatter": "plaintext",
@@ -1094,8 +1105,8 @@
         ],
         "outputs": 1,
         "cts": true,
-        "x": 850,
-        "y": 420,
+        "x": 870,
+        "y": 80,
         "wires": [
             [
                 "ac14fbfe9a152586",
@@ -1108,7 +1119,8 @@
                 "094a915d2e8ecc27",
                 "34cc59fd649a7191",
                 "6d30a9103e1e4ff4",
-                "07105d583fe42a36"
+                "07105d583fe42a36",
+                "499dc708fa5b15c6"
             ]
         ]
     },
@@ -1120,8 +1132,8 @@
         "links": [
             "6ec40af1917d9ff4"
         ],
-        "x": 605,
-        "y": 420,
+        "x": 625,
+        "y": 80,
         "wires": [
             [
                 "a7ace214529cc712"
@@ -1145,8 +1157,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1190,
-        "y": 420,
+        "x": 1210,
+        "y": 80,
         "wires": []
     },
     {
@@ -1166,8 +1178,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1190,
-        "y": 460,
+        "x": 1210,
+        "y": 120,
         "wires": []
     },
     {
@@ -1187,8 +1199,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1200,
-        "y": 500,
+        "x": 1220,
+        "y": 160,
         "wires": []
     },
     {
@@ -1208,8 +1220,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1200,
-        "y": 540,
+        "x": 1220,
+        "y": 200,
         "wires": []
     },
     {
@@ -1229,8 +1241,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1200,
-        "y": 580,
+        "x": 1220,
+        "y": 240,
         "wires": []
     },
     {
@@ -1250,8 +1262,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1220,
-        "y": 660,
+        "x": 1240,
+        "y": 320,
         "wires": []
     },
     {
@@ -1271,8 +1283,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1190,
-        "y": 700,
+        "x": 1210,
+        "y": 360,
         "wires": []
     },
     {
@@ -1292,8 +1304,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1210,
-        "y": 740,
+        "x": 1230,
+        "y": 400,
         "wires": []
     },
     {
@@ -1301,7 +1313,7 @@
         "type": "ui_text",
         "z": "eeaa68697bf28d0e",
         "group": "2a53099271750475",
-        "order": 10,
+        "order": 11,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1313,8 +1325,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1190,
-        "y": 780,
+        "x": 1210,
+        "y": 480,
         "wires": []
     },
     {
@@ -1322,7 +1334,7 @@
         "type": "ui_text",
         "z": "eeaa68697bf28d0e",
         "group": "2a53099271750475",
-        "order": 11,
+        "order": 12,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1334,8 +1346,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1190,
-        "y": 820,
+        "x": 1210,
+        "y": 520,
         "wires": []
     },
     {
@@ -1346,8 +1358,8 @@
         "links": [
             "805de6d09119fce1"
         ],
-        "x": 165,
-        "y": 420,
+        "x": 185,
+        "y": 80,
         "wires": [
             [
                 "11562c59e67ced59",
@@ -1364,10 +1376,16 @@
         "links": [
             "3aa8cd7ef5bedf96"
         ],
-        "x": 595,
-        "y": 660,
+        "x": 195,
+        "y": 280,
         "wires": [
-            []
+            [
+                "a9e5bed8dffcd5ca",
+                "052821370bf7a1f1",
+                "737cbf8b6b504f96",
+                "267b5709df750d49",
+                "0926e908e6084683"
+            ]
         ]
     },
     {
@@ -1387,8 +1405,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 320,
-        "y": 420,
+        "x": 340,
+        "y": 80,
         "wires": []
     },
     {
@@ -1408,8 +1426,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 310,
-        "y": 500,
+        "x": 330,
+        "y": 160,
         "wires": []
     },
     {
@@ -1429,8 +1447,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 340,
-        "y": 460,
+        "x": 360,
+        "y": 120,
         "wires": []
     },
     {
@@ -1450,8 +1468,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1220,
-        "y": 620,
+        "x": 1240,
+        "y": 280,
         "wires": []
     },
     {
@@ -1473,12 +1491,265 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1040,
-        "y": 820,
+        "x": 1060,
+        "y": 520,
         "wires": [
             [
                 "cd9e87c74de263fe"
             ]
+        ]
+    },
+    {
+        "id": "634713a7cd70f4b1",
+        "type": "ui_table",
+        "z": "eeaa68697bf28d0e",
+        "group": "e0e523ab10095210",
+        "name": "By Min",
+        "order": 4,
+        "width": 4,
+        "height": 2,
+        "columns": [
+            {
+                "field": "metric",
+                "title": "Metric",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "last1min",
+                "title": "1 Min",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "last5min",
+                "title": "5 Min",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "last15min",
+                "title": "15 Min",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 470,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "499dc708fa5b15c6",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "2a53099271750475",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Speed (air)",
+        "format": "{{msg.payload.ias}} kt",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1230,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "a9e5bed8dffcd5ca",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "e0e523ab10095210",
+        "order": 1,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "Gain",
+        "format": "{{msg.payload.total.local.gain_db}} dB",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 470,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "052821370bf7a1f1",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "e0e523ab10095210",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "> -3 dBFS",
+        "format": "{{msg.payload.total.local.strong_signals}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 490,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "737cbf8b6b504f96",
+        "type": "ui_text",
+        "z": "eeaa68697bf28d0e",
+        "group": "e0e523ab10095210",
+        "order": 3,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "Peak Signal",
+        "format": "{{msg.payload.total.local.peak_signal}} dBFS",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 490,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "267b5709df750d49",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "1/5/15 Min",
+        "func": "const periods = ['last1min','last5min','last15min'];\nconst metrics = ['accepted','rejected','peak_signal'];\nconst msgs = [];\n\n// sum the accepted\nfor (let period of periods) {\n    msg.payload[period].local.accepted = msg.payload[period].local.accepted.reduce((a,b)=>a+b,0);\n    msg.payload[period].local.rejected = msg.payload[period].local.bad;\n}\n\nfor(let metric of metrics){\n    msgs.push( {\n        topic:metric,\n        payload:{\n            metric,\n            last1min: msg.payload.last1min.local[metric],\n            last5min: msg.payload.last5min.local[metric],\n            last15min: msg.payload.last15min.local[metric],\n        }\n    });\n}\n\nmsgs[msgs.length-1].complete = true;\nreturn [msgs];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "39b4ca1e2c0e181e"
+            ]
+        ]
+    },
+    {
+        "id": "39b4ca1e2c0e181e",
+        "type": "join",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 350,
+        "y": 420,
+        "wires": [
+            [
+                "634713a7cd70f4b1"
+            ]
+        ]
+    },
+    {
+        "id": "0926e908e6084683",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "lastest signal",
+        "func": "const msgs = [];\nmsgs.push({\n    topic: 'signal',\n    payload: msg.payload.last1min.local.signal\n});\nmsgs.push({\n    topic: 'noise',\n    payload: msg.payload.last1min.local.noise\n});\n\nreturn [msgs];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 500,
+        "wires": [
+            [
+                "39d1c07212f906ea"
+            ]
+        ]
+    },
+    {
+        "id": "39d1c07212f906ea",
+        "type": "ui_chart",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "group": "e0e523ab10095210",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "label": "dBFS",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 470,
+        "y": 500,
+        "wires": [
+            []
         ]
     }
 ]
