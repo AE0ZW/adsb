@@ -1,3 +1,3 @@
 # Plane Spotter
 
-![Plane Spotter](adsb-ui.png)
+![Plane Spotter](screenshot.png)
