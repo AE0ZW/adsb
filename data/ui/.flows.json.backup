@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "9484dc2f12c3f5c6",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "a434980c0d70073f",
         "type": "tab",
         "label": "map",
@@ -174,29 +182,14 @@
         "className": ""
     },
     {
-        "id": "78d1c0863c544646",
+        "id": "31a31f3d8ad6e101",
         "type": "ui_spacer",
-        "z": "9e95f962de164512",
+        "z": "a434980c0d70073f",
         "name": "spacer",
         "group": "5d571e7886c72a5e",
         "order": 11,
         "width": 2,
         "height": 1
-    },
-    {
-        "id": "a7ed5422fd0a945e",
-        "type": "watch",
-        "z": "9e95f962de164512",
-        "name": "aircraft.json",
-        "files": "/data/tmp/aircraft.json",
-        "recursive": "",
-        "x": 190,
-        "y": 80,
-        "wires": [
-            [
-                "c8c37713f6d3bdbb"
-            ]
-        ]
     },
     {
         "id": "c8c37713f6d3bdbb",
@@ -210,8 +203,8 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 400,
-        "y": 140,
+        "x": 300,
+        "y": 80,
         "wires": [
             [
                 "bde103ae399da555"
@@ -226,26 +219,11 @@
         "property": "payload",
         "action": "obj",
         "pretty": false,
-        "x": 550,
+        "x": 310,
         "y": 140,
         "wires": [
             [
                 "7f3c6f83cc47b9f3"
-            ]
-        ]
-    },
-    {
-        "id": "c6059b90618c8864",
-        "type": "watch",
-        "z": "9e95f962de164512",
-        "name": "stats.json",
-        "files": "/data/tmp/stats.json",
-        "recursive": "",
-        "x": 200,
-        "y": 120,
-        "wires": [
-            [
-                "c8c37713f6d3bdbb"
             ]
         ]
     },
@@ -268,8 +246,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 140,
+        "x": 270,
+        "y": 200,
         "wires": [
             [
                 "971b764e2dc64f2f"
@@ -303,8 +281,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 3,
-        "x": 890,
-        "y": 140,
+        "x": 530,
+        "y": 80,
         "wires": [
             [
                 "805de6d09119fce1"
@@ -326,7 +304,7 @@
         "links": [
             "87ae45c3d541df2a"
         ],
-        "x": 1035,
+        "x": 775,
         "y": 140,
         "wires": []
     },
@@ -339,10 +317,11 @@
         "links": [
             "beebb160cf9b6f36",
             "7c0fa2ce358e8e0e",
-            "807abd24f5885cc3"
+            "807abd24f5885cc3",
+            "0475633569aff1cb"
         ],
-        "x": 1035,
-        "y": 100,
+        "x": 775,
+        "y": 80,
         "wires": []
     },
     {
@@ -364,8 +343,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 730,
-        "y": 280,
+        "x": 550,
+        "y": 160,
         "wires": [
             [
                 "24a4224a09280ab5",
@@ -384,8 +363,8 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "",
-        "x": 910,
-        "y": 280,
+        "x": 530,
+        "y": 300,
         "wires": [
             [
                 "6a927a31926136b4"
@@ -401,8 +380,8 @@
         "links": [
             "4404caecbde969ef"
         ],
-        "x": 945,
-        "y": 400,
+        "x": 775,
+        "y": 200,
         "wires": []
     },
     {
@@ -414,15 +393,15 @@
         "links": [
             "1f9a326e881f765b"
         ],
-        "x": 855,
-        "y": 400,
+        "x": 775,
+        "y": 260,
         "wires": []
     },
     {
         "id": "8cdf09e540f54f76",
         "type": "change",
         "z": "9e95f962de164512",
-        "name": "",
+        "name": "aircraft db",
         "rules": [
             {
                 "t": "set",
@@ -437,8 +416,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 730,
-        "y": 400,
+        "x": 540,
+        "y": 220,
         "wires": [
             [
                 "6ec40af1917d9ff4"
@@ -446,70 +425,322 @@
         ]
     },
     {
-        "id": "1c56f59b69d726bc",
-        "type": "inject",
+        "id": "d10d82c850a158f4",
+        "type": "watch",
         "z": "9e95f962de164512",
+        "name": "aircraft.json",
+        "files": "/data/tmp/aircraft.json",
+        "recursive": "",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "c8c37713f6d3bdbb"
+            ]
+        ]
+    },
+    {
+        "id": "7d6afe9bdfbef990",
+        "type": "watch",
+        "z": "9e95f962de164512",
+        "name": "stats.json",
+        "files": "/data/tmp/stats.json",
+        "recursive": "",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "c8c37713f6d3bdbb"
+            ]
+        ]
+    },
+    {
+        "id": "a61ef5a38f39aa2a",
+        "type": "watch",
+        "z": "9e95f962de164512",
+        "name": "receiver.json",
+        "files": "/data/tmp/receiver.json",
+        "recursive": "",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "c8c37713f6d3bdbb"
+            ]
+        ]
+    },
+    {
+        "id": "7e34ee95dc8e0367",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "close gate",
+        "func": "global.set('gate', false)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('gate', true)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 320,
+        "wires": [
+            [
+                "ed396439b33bd82d",
+                "a41a3563887cee67"
+            ]
+        ]
+    },
+    {
+        "id": "aab62d9dbf2996aa",
+        "type": "inject",
+        "z": "9484dc2f12c3f5c6",
         "name": "",
-        "props": [],
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "icon",
+                "v": "fa-home",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": 0.1,
+        "onceDelay": "3",
         "topic": "",
-        "x": 190,
-        "y": 220,
+        "payload": "home",
+        "payloadType": "str",
+        "x": 130,
+        "y": 120,
         "wires": [
             [
-                "848547a58f44700d"
+                "c2a33697b3672983"
             ]
         ]
     },
     {
-        "id": "f0b7511ac6aab677",
-        "type": "ui_button",
-        "z": "9e95f962de164512",
+        "id": "ccea04533f04c5b6",
+        "type": "link out",
+        "z": "9484dc2f12c3f5c6",
+        "name": "commands",
+        "mode": "link",
+        "links": [
+            "bc940bbd8afbab5b"
+        ],
+        "x": 1025,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "68e4d4b8bb64952d",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "remove btn",
+        "func": "msg.payload = {\n    command: {\n        button:\n            { name: msg.payload }\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 200,
+        "wires": [
+            [
+                "ccea04533f04c5b6"
+            ]
+        ]
+    },
+    {
+        "id": "c2a33697b3672983",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "add btn",
+        "func": "msg.payload = {\n    command: {\n        button:\n            { action: 'button', icon: msg.icon, name: msg.payload }\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 140,
+        "wires": [
+            [
+                "ccea04533f04c5b6"
+            ]
+        ]
+    },
+    {
+        "id": "ab78783569aea395",
+        "type": "inject",
+        "z": "9484dc2f12c3f5c6",
         "name": "",
-        "group": "5d571e7886c72a5e",
-        "order": 9,
-        "width": 2,
-        "height": 1,
-        "passthru": false,
-        "label": "Home",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "icon",
+                "v": "fa-pause",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "pause",
         "payloadType": "str",
-        "topic": "topic",
-        "topicType": "msg",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "c2a33697b3672983"
+            ]
+        ]
+    },
+    {
+        "id": "871ab37f14081d6c",
+        "type": "link in",
+        "z": "9484dc2f12c3f5c6",
+        "name": "link in 11",
+        "links": [
+            "8acf7b689dd92894"
+        ],
+        "x": 65,
+        "y": 200,
+        "wires": [
+            [
+                "bf8688a339f816d6"
+            ]
+        ]
+    },
+    {
+        "id": "6beafc5d3a58f291",
+        "type": "switch",
+        "z": "9484dc2f12c3f5c6",
+        "name": "button cmd",
+        "property": "payload.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "home",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "pause",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "play",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "aebb3a98dbb3438c"
+            ],
+            [
+                "7e34ee95dc8e0367"
+            ],
+            [
+                "404bfabdd8a730dd"
+            ]
+        ]
+    },
+    {
+        "id": "bf8688a339f816d6",
+        "type": "switch",
+        "z": "9484dc2f12c3f5c6",
+        "name": "event type",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "button",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
         "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "6beafc5d3a58f291"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "aebb3a98dbb3438c",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "set home",
+        "func": "const sta = global.get('station_info');\nmsg.payload = {\n    command:{\n        lat:sta.lat,\n        lon:sta.lon\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
         "y": 260,
         "wires": [
             [
-                "848547a58f44700d"
+                "ccea04533f04c5b6"
             ]
         ]
     },
     {
-        "id": "848547a58f44700d",
+        "id": "404bfabdd8a730dd",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "open gate",
+        "func": "global.set('gate', true)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('gate', true)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 480,
+        "wires": [
+            [
+                "3179e6777df5fe1d",
+                "94c216a970a26ad9"
+            ]
+        ]
+    },
+    {
+        "id": "ed396439b33bd82d",
         "type": "change",
-        "z": "9e95f962de164512",
-        "name": "receiver.json",
+        "z": "9484dc2f12c3f5c6",
+        "name": "rm pause",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "/data/tmp/receiver.json",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "file",
-                "pt": "msg",
-                "to": "receiver.json",
+                "to": "pause",
                 "tot": "str"
             }
         ],
@@ -518,11 +749,106 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 190,
-        "y": 160,
+        "x": 660,
+        "y": 360,
         "wires": [
             [
-                "c8c37713f6d3bdbb"
+                "68e4d4b8bb64952d"
+            ]
+        ]
+    },
+    {
+        "id": "a41a3563887cee67",
+        "type": "change",
+        "z": "9484dc2f12c3f5c6",
+        "name": "add play",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "play",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "icon",
+                "pt": "msg",
+                "to": "fa-play",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 320,
+        "wires": [
+            [
+                "c2a33697b3672983"
+            ]
+        ]
+    },
+    {
+        "id": "3179e6777df5fe1d",
+        "type": "change",
+        "z": "9484dc2f12c3f5c6",
+        "name": "rm play",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "play",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 460,
+        "wires": [
+            [
+                "68e4d4b8bb64952d"
+            ]
+        ]
+    },
+    {
+        "id": "94c216a970a26ad9",
+        "type": "change",
+        "z": "9484dc2f12c3f5c6",
+        "name": "add pause",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "pause",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "icon",
+                "pt": "msg",
+                "to": "fa-pause",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 500,
+        "wires": [
+            [
+                "c2a33697b3672983"
             ]
         ]
     },
@@ -535,7 +861,7 @@
             "6a927a31926136b4"
         ],
         "x": 115,
-        "y": 200,
+        "y": 60,
         "wires": [
             [
                 "b54a18c9b35f8e47"
@@ -582,12 +908,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 260,
-        "y": 340,
+        "x": 160,
+        "y": 220,
         "wires": [
             [
-                "d1bf963c0af13232",
-                "56e46faeb90ec333"
+                "d1bf963c0af13232"
             ]
         ]
     },
@@ -609,8 +934,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 490,
-        "y": 340,
+        "x": 450,
+        "y": 100,
         "wires": [
             [
                 "bc502453312cb200"
@@ -646,8 +971,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 700,
-        "y": 200,
+        "x": 680,
+        "y": 80,
         "wires": [
             [
                 "472f03a94276dd04"
@@ -687,8 +1012,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 700,
-        "y": 380,
+        "x": 560,
+        "y": 220,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -716,8 +1041,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 840,
-        "y": 300,
+        "x": 680,
+        "y": 160,
         "wires": [
             [
                 "c5e3bc18fe33db62"
@@ -746,8 +1071,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 980,
-        "y": 200,
+        "x": 900,
+        "y": 140,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -761,7 +1086,7 @@
         "group": "8363fd07a79e8b50",
         "order": 1,
         "width": 20,
-        "height": 16,
+        "height": 14,
         "name": "",
         "lat": "",
         "lon": "",
@@ -786,20 +1111,20 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 1100,
-        "y": 380,
+        "x": 960,
+        "y": 260,
         "wires": []
     },
     {
         "id": "bc940bbd8afbab5b",
         "type": "link in",
         "z": "a434980c0d70073f",
-        "name": "link in 5",
+        "name": "map commands",
         "links": [
-            "f9311951a9a04be5"
+            "ccea04533f04c5b6"
         ],
-        "x": 935,
-        "y": 460,
+        "x": 905,
+        "y": 400,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -818,12 +1143,102 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 370,
-        "y": 200,
+        "x": 190,
+        "y": 140,
         "wires": [
             [
                 "03565d1e34e0f066"
             ]
+        ]
+    },
+    {
+        "id": "b54a18c9b35f8e47",
+        "type": "switch",
+        "z": "a434980c0d70073f",
+        "name": "gate",
+        "property": "gate",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 210,
+        "y": 60,
+        "wires": [
+            [
+                "d388b17fb291ff1b"
+            ]
+        ]
+    },
+    {
+        "id": "de1ae4030d39dba1",
+        "type": "worldmap in",
+        "z": "a434980c0d70073f",
+        "name": "",
+        "path": "/worldmap",
+        "events": "connect,disconnect,point,draw,layer,bounds,files,other",
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "8acf7b689dd92894"
+            ]
+        ]
+    },
+    {
+        "id": "8acf7b689dd92894",
+        "type": "link out",
+        "z": "a434980c0d70073f",
+        "name": "map events",
+        "mode": "link",
+        "links": [
+            "871ab37f14081d6c"
+        ],
+        "x": 315,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "576c95c48853412c",
+        "type": "function",
+        "z": "a434980c0d70073f",
+        "name": "read sta ifno",
+        "func": "msg.payload = global.get('station_info')||{};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 560,
+        "wires": [
+            [
+                "f7800a14d83ea623",
+                "4bf3dd3861bb7d93"
+            ]
+        ]
+    },
+    {
+        "id": "f927f6a83992dda2",
+        "type": "function",
+        "z": "a434980c0d70073f",
+        "name": "store station location",
+        "func": "global.set('station_info',msg.payload);\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('station', [39,-83]);",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 480,
+        "wires": [
+            []
         ]
     },
     {
@@ -881,7 +1296,7 @@
         "to": "",
         "reg": false,
         "x": 440,
-        "y": 500,
+        "y": 540,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -893,15 +1308,15 @@
         "type": "function",
         "z": "a434980c0d70073f",
         "name": "range rings",
-        "func": "const msgs = [];\nlet n = 0;\nfor(let nm of [92600,185200,370400]){\nmsgs.push({\n    payload:{\n        name:`RR_${++n}`,\n        radius:nm,\n        layer:'station',\n        lat:msg.payload.lat,\n        lon:msg.payload.lon,\n        fill:false,\n        strokeOpacity:0.8,\n        weight:1\n    }\n})\n}\n\nreturn [msgs];",
+        "func": "const msgs = [];\nconst m_per_nm = 18520;\nfor (let i = 1; i <= 20; i++) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            fill: false,\n            weight: i%5==0?0.5:0.1\n        }\n    })\n}\n\nreturn [msgs];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 540,
+        "x": 450,
+        "y": 580,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -909,135 +1324,37 @@
         ]
     },
     {
-        "id": "56e46faeb90ec333",
-        "type": "debug",
-        "z": "a434980c0d70073f",
-        "name": "debug 1",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 230,
-        "y": 440,
-        "wires": []
-    },
-    {
-        "id": "807abd24f5885cc3",
+        "id": "0475633569aff1cb",
         "type": "link in",
         "z": "a434980c0d70073f",
-        "name": "link in 9",
+        "name": "link in 10",
         "links": [
             "805de6d09119fce1"
         ],
-        "x": 195,
-        "y": 520,
+        "x": 95,
+        "y": 480,
         "wires": [
             [
-                "f7800a14d83ea623",
-                "4bf3dd3861bb7d93"
+                "f927f6a83992dda2"
             ]
         ]
     },
     {
-        "id": "da9d6c2d06bd4b4b",
-        "type": "ui_switch",
-        "z": "a434980c0d70073f",
-        "name": "",
-        "label": "Upd",
-        "tooltip": "Allow updating of aircraft positions",
-        "group": "5d571e7886c72a5e",
-        "order": 10,
-        "width": 2,
-        "height": 1,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "topic",
-        "topicType": "msg",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "animate": false,
-        "className": "",
-        "x": 270,
-        "y": 100,
-        "wires": [
-            [
-                "7e34ee95dc8e0367"
-            ]
-        ]
-    },
-    {
-        "id": "7e34ee95dc8e0367",
-        "type": "function",
-        "z": "a434980c0d70073f",
-        "name": "gate control",
-        "func": "flow.set('gate', msg.payload)\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set('gate',true)",
-        "finalize": "",
-        "libs": [],
-        "x": 410,
-        "y": 100,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "b54a18c9b35f8e47",
-        "type": "switch",
-        "z": "a434980c0d70073f",
-        "name": "gate",
-        "property": "gate",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 210,
-        "y": 200,
-        "wires": [
-            [
-                "d388b17fb291ff1b"
-            ]
-        ]
-    },
-    {
-        "id": "aab62d9dbf2996aa",
+        "id": "b9a9c54c6864cbe0",
         "type": "inject",
         "z": "a434980c0d70073f",
         "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
+        "props": [],
         "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 130,
-        "y": 100,
+        "x": 90,
+        "y": 560,
         "wires": [
             [
-                "da9d6c2d06bd4b4b"
+                "576c95c48853412c"
             ]
         ]
     },
@@ -1337,7 +1654,7 @@
         "width": 4,
         "height": 1,
         "name": "",
-        "label": "Last",
+        "label": "Last Seen",
         "format": "{{msg.payload}} sec",
         "layout": "row-spread",
         "className": "",
@@ -1345,7 +1662,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1210,
+        "x": 1220,
         "y": 520,
         "wires": []
     },
