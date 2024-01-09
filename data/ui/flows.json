@@ -844,7 +844,7 @@
         "id": "f927f6a83992dda2",
         "type": "function",
         "z": "a434980c0d70073f",
-        "name": "store station location",
+        "name": "store station info",
         "func": "global.set('station_info',msg.payload);\nreturn null;",
         "outputs": 1,
         "timeout": 0,
@@ -852,7 +852,7 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('station', [39,-83]);",
         "finalize": "",
         "libs": [],
-        "x": 320,
+        "x": 300,
         "y": 480,
         "wires": [
             []
@@ -889,7 +889,7 @@
                 "t": "set",
                 "p": "payload.label",
                 "pt": "msg",
-                "to": "Plane Spotter",
+                "to": "Station",
                 "tot": "str"
             },
             {
@@ -976,6 +976,56 @@
         ]
     },
     {
+        "id": "aab62d9dbf2996aa",
+        "type": "inject",
+        "z": "a434980c0d70073f",
+        "name": "home btn",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "{\"command\":{\"button\":{\"action\":\"button\",\"name\":\"home\",\"icon\":\"fa-home\"}}}",
+        "payloadType": "json",
+        "x": 520,
+        "y": 280,
+        "wires": [
+            [
+                "19e42b65ee2aa91e"
+            ]
+        ]
+    },
+    {
+        "id": "ab78783569aea395",
+        "type": "inject",
+        "z": "a434980c0d70073f",
+        "name": "pause btn",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "{\"command\":{\"button\":{\"action\":\"button\",\"name\":\"pause\",\"icon\":\"fa-pause\"}}}",
+        "payloadType": "json",
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "19e42b65ee2aa91e"
+            ]
+        ]
+    },
+    {
         "id": "7e34ee95dc8e0367",
         "type": "function",
         "z": "9484dc2f12c3f5c6",
@@ -987,42 +1037,12 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('gate', true)\n",
         "finalize": "",
         "libs": [],
-        "x": 510,
-        "y": 320,
+        "x": 470,
+        "y": 200,
         "wires": [
             [
                 "ed396439b33bd82d",
                 "a41a3563887cee67"
-            ]
-        ]
-    },
-    {
-        "id": "aab62d9dbf2996aa",
-        "type": "inject",
-        "z": "9484dc2f12c3f5c6",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "icon",
-                "v": "fa-home",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "3",
-        "topic": "",
-        "payload": "home",
-        "payloadType": "str",
-        "x": 130,
-        "y": 120,
-        "wires": [
-            [
-                "c2a33697b3672983"
             ]
         ]
     },
@@ -1035,8 +1055,8 @@
         "links": [
             "bc940bbd8afbab5b"
         ],
-        "x": 1025,
-        "y": 300,
+        "x": 1075,
+        "y": 340,
         "wires": []
     },
     {
@@ -1051,8 +1071,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 810,
-        "y": 200,
+        "x": 890,
+        "y": 280,
         "wires": [
             [
                 "ccea04533f04c5b6"
@@ -1071,41 +1091,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 140,
-        "wires": [
-            [
-                "ccea04533f04c5b6"
-            ]
-        ]
-    },
-    {
-        "id": "ab78783569aea395",
-        "type": "inject",
-        "z": "9484dc2f12c3f5c6",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "icon",
-                "v": "fa-pause",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "3",
-        "topic": "",
-        "payload": "pause",
-        "payloadType": "str",
-        "x": 130,
+        "x": 900,
         "y": 160,
         "wires": [
             [
-                "c2a33697b3672983"
+                "ccea04533f04c5b6"
             ]
         ]
     },
@@ -1135,17 +1125,17 @@
         "rules": [
             {
                 "t": "eq",
-                "v": "home",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
                 "v": "pause",
                 "vt": "str"
             },
             {
                 "t": "eq",
                 "v": "play",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "home",
                 "vt": "str"
             }
         ],
@@ -1156,13 +1146,13 @@
         "y": 300,
         "wires": [
             [
-                "aebb3a98dbb3438c"
-            ],
-            [
                 "7e34ee95dc8e0367"
             ],
             [
                 "404bfabdd8a730dd"
+            ],
+            [
+                "aebb3a98dbb3438c"
             ]
         ]
     },
@@ -1207,8 +1197,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 820,
-        "y": 260,
+        "x": 660,
+        "y": 400,
         "wires": [
             [
                 "ccea04533f04c5b6"
@@ -1227,8 +1217,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('gate', true)\n",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 480,
+        "x": 480,
+        "y": 300,
         "wires": [
             [
                 "3179e6777df5fe1d",
@@ -1256,7 +1246,7 @@
         "to": "",
         "reg": false,
         "x": 660,
-        "y": 360,
+        "y": 240,
         "wires": [
             [
                 "68e4d4b8bb64952d"
@@ -1290,7 +1280,7 @@
         "to": "",
         "reg": false,
         "x": 660,
-        "y": 320,
+        "y": 200,
         "wires": [
             [
                 "c2a33697b3672983"
@@ -1316,8 +1306,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 520,
-        "y": 460,
+        "x": 660,
+        "y": 300,
         "wires": [
             [
                 "68e4d4b8bb64952d"
@@ -1350,8 +1340,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 530,
-        "y": 500,
+        "x": 650,
+        "y": 340,
         "wires": [
             [
                 "c2a33697b3672983"

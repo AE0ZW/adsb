@@ -8,17 +8,17 @@
         "env": []
     },
     {
-        "id": "9484dc2f12c3f5c6",
+        "id": "a434980c0d70073f",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "map",
         "disabled": false,
         "info": "",
         "env": []
     },
     {
-        "id": "a434980c0d70073f",
+        "id": "9484dc2f12c3f5c6",
         "type": "tab",
-        "label": "map",
+        "label": "map buttons",
         "disabled": false,
         "info": "",
         "env": []
@@ -470,389 +470,6 @@
         ]
     },
     {
-        "id": "7e34ee95dc8e0367",
-        "type": "function",
-        "z": "9484dc2f12c3f5c6",
-        "name": "close gate",
-        "func": "global.set('gate', false)\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('gate', true)\n",
-        "finalize": "",
-        "libs": [],
-        "x": 510,
-        "y": 320,
-        "wires": [
-            [
-                "ed396439b33bd82d",
-                "a41a3563887cee67"
-            ]
-        ]
-    },
-    {
-        "id": "aab62d9dbf2996aa",
-        "type": "inject",
-        "z": "9484dc2f12c3f5c6",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "icon",
-                "v": "fa-home",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "3",
-        "topic": "",
-        "payload": "home",
-        "payloadType": "str",
-        "x": 130,
-        "y": 120,
-        "wires": [
-            [
-                "c2a33697b3672983"
-            ]
-        ]
-    },
-    {
-        "id": "ccea04533f04c5b6",
-        "type": "link out",
-        "z": "9484dc2f12c3f5c6",
-        "name": "commands",
-        "mode": "link",
-        "links": [
-            "bc940bbd8afbab5b"
-        ],
-        "x": 1025,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "68e4d4b8bb64952d",
-        "type": "function",
-        "z": "9484dc2f12c3f5c6",
-        "name": "remove btn",
-        "func": "msg.payload = {\n    command: {\n        button:\n            { name: msg.payload }\n    }\n};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 810,
-        "y": 200,
-        "wires": [
-            [
-                "ccea04533f04c5b6"
-            ]
-        ]
-    },
-    {
-        "id": "c2a33697b3672983",
-        "type": "function",
-        "z": "9484dc2f12c3f5c6",
-        "name": "add btn",
-        "func": "msg.payload = {\n    command: {\n        button:\n            { action: 'button', icon: msg.icon, name: msg.payload }\n    }\n};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 800,
-        "y": 140,
-        "wires": [
-            [
-                "ccea04533f04c5b6"
-            ]
-        ]
-    },
-    {
-        "id": "ab78783569aea395",
-        "type": "inject",
-        "z": "9484dc2f12c3f5c6",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "icon",
-                "v": "fa-pause",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "3",
-        "topic": "",
-        "payload": "pause",
-        "payloadType": "str",
-        "x": 130,
-        "y": 160,
-        "wires": [
-            [
-                "c2a33697b3672983"
-            ]
-        ]
-    },
-    {
-        "id": "871ab37f14081d6c",
-        "type": "link in",
-        "z": "9484dc2f12c3f5c6",
-        "name": "link in 11",
-        "links": [
-            "8acf7b689dd92894"
-        ],
-        "x": 65,
-        "y": 200,
-        "wires": [
-            [
-                "bf8688a339f816d6"
-            ]
-        ]
-    },
-    {
-        "id": "6beafc5d3a58f291",
-        "type": "switch",
-        "z": "9484dc2f12c3f5c6",
-        "name": "button cmd",
-        "property": "payload.name",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "home",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "pause",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "play",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 3,
-        "x": 290,
-        "y": 300,
-        "wires": [
-            [
-                "aebb3a98dbb3438c"
-            ],
-            [
-                "7e34ee95dc8e0367"
-            ],
-            [
-                "404bfabdd8a730dd"
-            ]
-        ]
-    },
-    {
-        "id": "bf8688a339f816d6",
-        "type": "switch",
-        "z": "9484dc2f12c3f5c6",
-        "name": "event type",
-        "property": "payload.action",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "button",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 190,
-        "y": 200,
-        "wires": [
-            [
-                "6beafc5d3a58f291"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "aebb3a98dbb3438c",
-        "type": "function",
-        "z": "9484dc2f12c3f5c6",
-        "name": "set home",
-        "func": "const sta = global.get('station_info');\nmsg.payload = {\n    command:{\n        lat:sta.lat,\n        lon:sta.lon\n    }\n}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 820,
-        "y": 260,
-        "wires": [
-            [
-                "ccea04533f04c5b6"
-            ]
-        ]
-    },
-    {
-        "id": "404bfabdd8a730dd",
-        "type": "function",
-        "z": "9484dc2f12c3f5c6",
-        "name": "open gate",
-        "func": "global.set('gate', true)\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('gate', true)\n",
-        "finalize": "",
-        "libs": [],
-        "x": 360,
-        "y": 480,
-        "wires": [
-            [
-                "3179e6777df5fe1d",
-                "94c216a970a26ad9"
-            ]
-        ]
-    },
-    {
-        "id": "ed396439b33bd82d",
-        "type": "change",
-        "z": "9484dc2f12c3f5c6",
-        "name": "rm pause",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "pause",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 660,
-        "y": 360,
-        "wires": [
-            [
-                "68e4d4b8bb64952d"
-            ]
-        ]
-    },
-    {
-        "id": "a41a3563887cee67",
-        "type": "change",
-        "z": "9484dc2f12c3f5c6",
-        "name": "add play",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "play",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "icon",
-                "pt": "msg",
-                "to": "fa-play",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 660,
-        "y": 320,
-        "wires": [
-            [
-                "c2a33697b3672983"
-            ]
-        ]
-    },
-    {
-        "id": "3179e6777df5fe1d",
-        "type": "change",
-        "z": "9484dc2f12c3f5c6",
-        "name": "rm play",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "play",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 520,
-        "y": 460,
-        "wires": [
-            [
-                "68e4d4b8bb64952d"
-            ]
-        ]
-    },
-    {
-        "id": "94c216a970a26ad9",
-        "type": "change",
-        "z": "9484dc2f12c3f5c6",
-        "name": "add pause",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "pause",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "icon",
-                "pt": "msg",
-                "to": "fa-pause",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 530,
-        "y": 500,
-        "wires": [
-            [
-                "c2a33697b3672983"
-            ]
-        ]
-    },
-    {
         "id": "4404caecbde969ef",
         "type": "link in",
         "z": "a434980c0d70073f",
@@ -1227,7 +844,7 @@
         "id": "f927f6a83992dda2",
         "type": "function",
         "z": "a434980c0d70073f",
-        "name": "store station location",
+        "name": "store station info",
         "func": "global.set('station_info',msg.payload);\nreturn null;",
         "outputs": 1,
         "timeout": 0,
@@ -1235,7 +852,7 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('station', [39,-83]);",
         "finalize": "",
         "libs": [],
-        "x": 320,
+        "x": 300,
         "y": 480,
         "wires": [
             []
@@ -1272,7 +889,7 @@
                 "t": "set",
                 "p": "payload.label",
                 "pt": "msg",
-                "to": "Plane Spotter",
+                "to": "Station",
                 "tot": "str"
             },
             {
@@ -1355,6 +972,379 @@
         "wires": [
             [
                 "576c95c48853412c"
+            ]
+        ]
+    },
+    {
+        "id": "aab62d9dbf2996aa",
+        "type": "inject",
+        "z": "a434980c0d70073f",
+        "name": "home btn",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "{\"command\":{\"button\":{\"action\":\"button\",\"name\":\"home\",\"icon\":\"fa-home\"}}}",
+        "payloadType": "json",
+        "x": 520,
+        "y": 280,
+        "wires": [
+            [
+                "19e42b65ee2aa91e"
+            ]
+        ]
+    },
+    {
+        "id": "ab78783569aea395",
+        "type": "inject",
+        "z": "a434980c0d70073f",
+        "name": "pause btn",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "{\"command\":{\"button\":{\"action\":\"button\",\"name\":\"pause\",\"icon\":\"fa-pause\"}}}",
+        "payloadType": "json",
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "19e42b65ee2aa91e"
+            ]
+        ]
+    },
+    {
+        "id": "7e34ee95dc8e0367",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "close gate",
+        "func": "global.set('gate', false)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('gate', true)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 200,
+        "wires": [
+            [
+                "ed396439b33bd82d",
+                "a41a3563887cee67"
+            ]
+        ]
+    },
+    {
+        "id": "ccea04533f04c5b6",
+        "type": "link out",
+        "z": "9484dc2f12c3f5c6",
+        "name": "commands",
+        "mode": "link",
+        "links": [
+            "bc940bbd8afbab5b"
+        ],
+        "x": 1075,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "68e4d4b8bb64952d",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "remove btn",
+        "func": "msg.payload = {\n    command: {\n        button:\n            { name: msg.payload }\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 280,
+        "wires": [
+            [
+                "ccea04533f04c5b6"
+            ]
+        ]
+    },
+    {
+        "id": "c2a33697b3672983",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "add btn",
+        "func": "msg.payload = {\n    command: {\n        button:\n            { action: 'button', icon: msg.icon, name: msg.payload }\n    }\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 160,
+        "wires": [
+            [
+                "ccea04533f04c5b6"
+            ]
+        ]
+    },
+    {
+        "id": "871ab37f14081d6c",
+        "type": "link in",
+        "z": "9484dc2f12c3f5c6",
+        "name": "link in 11",
+        "links": [
+            "8acf7b689dd92894"
+        ],
+        "x": 65,
+        "y": 200,
+        "wires": [
+            [
+                "bf8688a339f816d6"
+            ]
+        ]
+    },
+    {
+        "id": "6beafc5d3a58f291",
+        "type": "switch",
+        "z": "9484dc2f12c3f5c6",
+        "name": "button cmd",
+        "property": "payload.name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "pause",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "play",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "home",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "7e34ee95dc8e0367"
+            ],
+            [
+                "404bfabdd8a730dd"
+            ],
+            [
+                "aebb3a98dbb3438c"
+            ]
+        ]
+    },
+    {
+        "id": "bf8688a339f816d6",
+        "type": "switch",
+        "z": "9484dc2f12c3f5c6",
+        "name": "event type",
+        "property": "payload.action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "button",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "6beafc5d3a58f291"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "aebb3a98dbb3438c",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "set home",
+        "func": "const sta = global.get('station_info');\nmsg.payload = {\n    command:{\n        lat:sta.lat,\n        lon:sta.lon\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 500,
+        "wires": [
+            [
+                "ccea04533f04c5b6"
+            ]
+        ]
+    },
+    {
+        "id": "404bfabdd8a730dd",
+        "type": "function",
+        "z": "9484dc2f12c3f5c6",
+        "name": "open gate",
+        "func": "global.set('gate', true)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('gate', true)\n",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 300,
+        "wires": [
+            [
+                "3179e6777df5fe1d",
+                "94c216a970a26ad9"
+            ]
+        ]
+    },
+    {
+        "id": "ed396439b33bd82d",
+        "type": "change",
+        "z": "9484dc2f12c3f5c6",
+        "name": "rm pause",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "pause",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 240,
+        "wires": [
+            [
+                "68e4d4b8bb64952d"
+            ]
+        ]
+    },
+    {
+        "id": "a41a3563887cee67",
+        "type": "change",
+        "z": "9484dc2f12c3f5c6",
+        "name": "add play",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "play",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "icon",
+                "pt": "msg",
+                "to": "fa-play",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 200,
+        "wires": [
+            [
+                "c2a33697b3672983"
+            ]
+        ]
+    },
+    {
+        "id": "3179e6777df5fe1d",
+        "type": "change",
+        "z": "9484dc2f12c3f5c6",
+        "name": "rm play",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "play",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 300,
+        "wires": [
+            [
+                "68e4d4b8bb64952d"
+            ]
+        ]
+    },
+    {
+        "id": "94c216a970a26ad9",
+        "type": "change",
+        "z": "9484dc2f12c3f5c6",
+        "name": "add pause",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "pause",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "icon",
+                "pt": "msg",
+                "to": "fa-pause",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 340,
+        "wires": [
+            [
+                "c2a33697b3672983"
             ]
         ]
     },
