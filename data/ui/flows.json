@@ -207,7 +207,8 @@
         "y": 80,
         "wires": [
             [
-                "bde103ae399da555"
+                "bde103ae399da555",
+                "2c44f8ca05fa3db2"
             ]
         ]
     },
@@ -466,6 +467,48 @@
         "wires": [
             [
                 "c8c37713f6d3bdbb"
+            ]
+        ]
+    },
+    {
+        "id": "9955b22dd8d3892e",
+        "type": "debug",
+        "z": "9e95f962de164512",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "2c44f8ca05fa3db2",
+        "type": "switch",
+        "z": "9e95f962de164512",
+        "name": "",
+        "property": "file",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "receiver.json",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 290,
+        "y": 260,
+        "wires": [
+            [
+                "9955b22dd8d3892e"
             ]
         ]
     },
@@ -1707,7 +1750,7 @@
         "height": 0,
         "name": "",
         "label": "Geo",
-        "format": "{{msg.payload.lat}}, {{msg.payload.lon}}",
+        "format": "{{msg.payload.lat | number:4}}, {{msg.payload.lon | number:4}}",
         "layout": "row-spread",
         "className": "",
         "style": false,

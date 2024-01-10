@@ -207,7 +207,8 @@
         "y": 80,
         "wires": [
             [
-                "bde103ae399da555"
+                "bde103ae399da555",
+                "2c44f8ca05fa3db2"
             ]
         ]
     },
@@ -465,7 +466,50 @@
         "y": 120,
         "wires": [
             [
-                "c8c37713f6d3bdbb"
+                "c8c37713f6d3bdbb",
+                "9955b22dd8d3892e"
+            ]
+        ]
+    },
+    {
+        "id": "9955b22dd8d3892e",
+        "type": "debug",
+        "z": "9e95f962de164512",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "2c44f8ca05fa3db2",
+        "type": "switch",
+        "z": "9e95f962de164512",
+        "name": "",
+        "property": "payload.file",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "receiver.json",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 290,
+        "y": 260,
+        "wires": [
+            [
+                "9955b22dd8d3892e"
             ]
         ]
     },
@@ -926,7 +970,7 @@
         "type": "function",
         "z": "a434980c0d70073f",
         "name": "range rings",
-        "func": "const msgs = [];\nconst m_per_nm = 18520;\nfor (let i = 1; i <= 20; i++) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            fill: false,\n            weight: i%5==0?0.6:0.2\n        }\n    })\n}\n\nreturn [msgs];",
+        "func": "const msgs = [];\nconst m_per_10nm = 18520;\nfor (let i = 1; i <= 20; i++) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_10nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            fill: false,\n            weight: i%5==0?0.6:0.2\n        }\n    })\n}\n\nreturn [msgs];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1707,7 +1751,7 @@
         "height": 0,
         "name": "",
         "label": "Geo",
-        "format": "{{msg.payload.lat}}, {{msg.payload.lon}}",
+        "format": "{{msg.payload.lat | number:4}}, {{msg.payload.lon | number:4}}",
         "layout": "row-spread",
         "className": "",
         "style": false,

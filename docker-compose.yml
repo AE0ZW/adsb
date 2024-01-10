@@ -14,8 +14,9 @@ services:
     image: dump1090-fa
     restart: always
     environment:
-      STA_LAT: "39.9612"
-      STA_LON: "-82.9988"    
+      STA_LAT: 39.998344
+      STA_LON: -82.892819
+      LOC_ACCURACY: 2
     build:
       context: ./build/dump1090
     devices:
