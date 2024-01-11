@@ -207,8 +207,7 @@
         "y": 80,
         "wires": [
             [
-                "bde103ae399da555",
-                "2c44f8ca05fa3db2"
+                "bde103ae399da555"
             ]
         ]
     },
@@ -220,8 +219,8 @@
         "property": "payload",
         "action": "obj",
         "pretty": false,
-        "x": 310,
-        "y": 140,
+        "x": 450,
+        "y": 80,
         "wires": [
             [
                 "7f3c6f83cc47b9f3"
@@ -282,8 +281,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 3,
-        "x": 530,
-        "y": 80,
+        "x": 460,
+        "y": 200,
         "wires": [
             [
                 "805de6d09119fce1"
@@ -305,8 +304,8 @@
         "links": [
             "87ae45c3d541df2a"
         ],
-        "x": 685,
-        "y": 80,
+        "x": 615,
+        "y": 220,
         "wires": []
     },
     {
@@ -321,8 +320,8 @@
             "807abd24f5885cc3",
             "0475633569aff1cb"
         ],
-        "x": 685,
-        "y": 40,
+        "x": 615,
+        "y": 160,
         "wires": []
     },
     {
@@ -344,8 +343,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 530,
-        "y": 200,
+        "x": 460,
+        "y": 320,
         "wires": [
             [
                 "24a4224a09280ab5",
@@ -364,8 +363,8 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "",
-        "x": 710,
-        "y": 220,
+        "x": 610,
+        "y": 340,
         "wires": [
             [
                 "6a927a31926136b4"
@@ -381,8 +380,8 @@
         "links": [
             "4404caecbde969ef"
         ],
-        "x": 835,
-        "y": 220,
+        "x": 765,
+        "y": 340,
         "wires": []
     },
     {
@@ -394,8 +393,8 @@
         "links": [
             "1f9a326e881f765b"
         ],
-        "x": 835,
-        "y": 180,
+        "x": 765,
+        "y": 280,
         "wires": []
     },
     {
@@ -417,8 +416,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 700,
-        "y": 180,
+        "x": 630,
+        "y": 300,
         "wires": [
             [
                 "6ec40af1917d9ff4"
@@ -467,48 +466,6 @@
         "wires": [
             [
                 "c8c37713f6d3bdbb"
-            ]
-        ]
-    },
-    {
-        "id": "9955b22dd8d3892e",
-        "type": "debug",
-        "z": "9e95f962de164512",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 440,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "2c44f8ca05fa3db2",
-        "type": "switch",
-        "z": "9e95f962de164512",
-        "name": "",
-        "property": "file",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "receiver.json",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 290,
-        "y": 260,
-        "wires": [
-            [
-                "9955b22dd8d3892e"
             ]
         ]
     },
@@ -896,8 +853,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('station', [39,-83]);",
         "finalize": "",
         "libs": [],
-        "x": 260,
-        "y": 480,
+        "x": 430,
+        "y": 680,
         "wires": [
             []
         ]
@@ -969,7 +926,7 @@
         "type": "function",
         "z": "a434980c0d70073f",
         "name": "range rings",
-        "func": "const msgs = [];\nconst m_per_10nm = 18520;\nfor (let i = 1; i <= 20; i++) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_10nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            fill: false,\n            weight: i%5==0?0.6:0.2\n        }\n    })\n}\n\nreturn [msgs];",
+        "func": "const msgs = [];\nconst m_per_10nm = 18520;\nfor (let i = 1; i < 15; i++) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_10nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            weight: 0.2,\n            fill:false\n        }\n    });\n}\nfor (let i = 5; i <= 30; i+=5) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_10nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            weight: 0.6,\n            fillOpacity:0.02\n        }\n    });\n}\n\nreturn [msgs];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -992,8 +949,8 @@
         "links": [
             "805de6d09119fce1"
         ],
-        "x": 95,
-        "y": 480,
+        "x": 265,
+        "y": 680,
         "wires": [
             [
                 "f927f6a83992dda2"
