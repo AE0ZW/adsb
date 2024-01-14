@@ -1041,7 +1041,7 @@
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "green",
+                "to": "red",
                 "tot": "str"
             }
         ],

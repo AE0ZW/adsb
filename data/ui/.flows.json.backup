@@ -1035,13 +1035,13 @@
         "id": "751bfc5985b5395b",
         "type": "change",
         "z": "a434980c0d70073f",
-        "name": "red icon",
+        "name": "selected icon",
         "rules": [
             {
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "red",
+                "to": "green",
                 "tot": "str"
             }
         ],
@@ -1050,7 +1050,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 400,
+        "x": 410,
         "y": 100,
         "wires": [
             [
