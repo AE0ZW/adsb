@@ -518,6 +518,13 @@
                 "pt": "msg",
                 "to": "payload.gs * 0.5144",
                 "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "blue",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -529,7 +536,7 @@
         "y": 220,
         "wires": [
             [
-                "d1bf963c0af13232"
+                "89a2cfb06ff4e670"
             ]
         ]
     },
@@ -551,8 +558,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 450,
-        "y": 100,
+        "x": 630,
+        "y": 160,
         "wires": [
             [
                 "bc502453312cb200"
@@ -574,13 +581,6 @@
                 "pt": "msg",
                 "to": "payload.flight",
                 "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "blue",
-                "tot": "str"
             }
         ],
         "action": "",
@@ -588,8 +588,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
-        "y": 80,
+        "x": 860,
+        "y": 100,
         "wires": [
             [
                 "472f03a94276dd04"
@@ -615,13 +615,6 @@
                 "pt": "msg",
                 "to": "arrow",
                 "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "slateblue",
-                "tot": "str"
             }
         ],
         "action": "",
@@ -629,8 +622,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 560,
-        "y": 220,
+        "x": 740,
+        "y": 240,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -658,8 +651,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 680,
-        "y": 160,
+        "x": 860,
+        "y": 180,
         "wires": [
             [
                 "c5e3bc18fe33db62"
@@ -688,8 +681,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 900,
-        "y": 140,
+        "x": 1080,
+        "y": 160,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -728,8 +721,8 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 960,
-        "y": 260,
+        "x": 1140,
+        "y": 280,
         "wires": []
     },
     {
@@ -740,8 +733,8 @@
         "links": [
             "ccea04533f04c5b6"
         ],
-        "x": 905,
-        "y": 400,
+        "x": 445,
+        "y": 300,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -798,13 +791,12 @@
         "name": "",
         "path": "/worldmap",
         "events": "connect,disconnect,point,draw,layer,bounds,files,other",
-        "x": 120,
-        "y": 320,
+        "x": 300,
+        "y": 420,
         "wires": [
             [
                 "8acf7b689dd92894",
-                "00d6443f011302b7",
-                "5b4fa245eb8629bf"
+                "00d6443f011302b7"
             ]
         ]
     },
@@ -817,8 +809,8 @@
         "links": [
             "871ab37f14081d6c"
         ],
-        "x": 315,
-        "y": 320,
+        "x": 495,
+        "y": 420,
         "wires": []
     },
     {
@@ -833,8 +825,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 250,
-        "y": 560,
+        "x": 540,
+        "y": 660,
         "wires": [
             [
                 "f7800a14d83ea623",
@@ -854,8 +846,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('station', [39,-83]);",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 680,
+        "x": 720,
+        "y": 780,
         "wires": [
             []
         ]
@@ -914,8 +906,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 440,
-        "y": 540,
+        "x": 730,
+        "y": 640,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -934,8 +926,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
-        "y": 580,
+        "x": 740,
+        "y": 680,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -950,8 +942,8 @@
         "links": [
             "805de6d09119fce1"
         ],
-        "x": 265,
-        "y": 680,
+        "x": 555,
+        "y": 780,
         "wires": [
             [
                 "f927f6a83992dda2"
@@ -978,8 +970,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 330,
-        "y": 380,
+        "x": 620,
+        "y": 480,
         "wires": [
             [
                 "576c95c48853412c",
@@ -1000,8 +992,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 510,
-        "y": 280,
+        "x": 710,
+        "y": 360,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -1009,20 +1001,62 @@
         ]
     },
     {
-        "id": "5b4fa245eb8629bf",
-        "type": "debug",
+        "id": "89a2cfb06ff4e670",
+        "type": "switch",
         "z": "a434980c0d70073f",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 170,
-        "y": 420,
-        "wires": []
+        "name": "is selected?",
+        "property": "payload.hex",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "selected_aircraft",
+                "vt": "global"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 220,
+        "wires": [
+            [
+                "751bfc5985b5395b"
+            ],
+            [
+                "d1bf963c0af13232"
+            ]
+        ]
+    },
+    {
+        "id": "751bfc5985b5395b",
+        "type": "change",
+        "z": "a434980c0d70073f",
+        "name": "selected icon",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "green",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 100,
+        "wires": [
+            [
+                "d1bf963c0af13232"
+            ]
+        ]
     },
     {
         "id": "7e34ee95dc8e0367",
@@ -1425,7 +1459,8 @@
                 "6d30a9103e1e4ff4",
                 "07105d583fe42a36",
                 "499dc708fa5b15c6",
-                "fd5e3a141c325093"
+                "fd5e3a141c325093",
+                "cf9d1ea62b0b4c63"
             ]
         ]
     },
@@ -2053,6 +2088,24 @@
         "className": "",
         "x": 470,
         "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cf9d1ea62b0b4c63",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "save selected aircraft",
+        "func": "global.set('selected_aircraft', msg.payload.hex);\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('selected_aircraft',null);",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 20,
         "wires": [
             []
         ]
