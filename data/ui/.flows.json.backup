@@ -32,6 +32,29 @@
         "env": []
     },
     {
+        "id": "d159cb379744e1be",
+        "type": "junction",
+        "z": "eeaa68697bf28d0e",
+        "x": 1020,
+        "y": 240,
+        "wires": [
+            [
+                "ac14fbfe9a152586",
+                "e28964d4782e8217",
+                "b9cb0a1cdd3f4461",
+                "34cc59fd649a7191",
+                "07105d583fe42a36",
+                "fd5e3a141c325093",
+                "6d30a9103e1e4ff4",
+                "0151e9ab920d1bd1",
+                "689ba6b091c177da",
+                "074a4ccc56f2dacd",
+                "094a915d2e8ecc27",
+                "499dc708fa5b15c6"
+            ]
+        ]
+    },
+    {
         "id": "65a0877e913c9221",
         "type": "ui_tab",
         "name": "Plane Spotter",
@@ -429,7 +452,7 @@
         "type": "watch",
         "z": "9e95f962de164512",
         "name": "aircraft.json",
-        "files": "/run/dump1090-fa/aircraft.json",
+        "files": "/data/tmp/aircraft.json",
         "recursive": "",
         "x": 110,
         "y": 40,
@@ -444,7 +467,7 @@
         "type": "watch",
         "z": "9e95f962de164512",
         "name": "stats.json",
-        "files": "/run/dump1090-fa/stats.json",
+        "files": "/data/tmp/stats.json",
         "recursive": "",
         "x": 120,
         "y": 80,
@@ -459,7 +482,7 @@
         "type": "watch",
         "z": "9e95f962de164512",
         "name": "receiver.json",
-        "files": "/run/dump1090-fa/receiver.json",
+        "files": "/data/tmp/receiver.json",
         "recursive": "",
         "x": 110,
         "y": 120,
@@ -1024,7 +1047,8 @@
         "y": 220,
         "wires": [
             [
-                "751bfc5985b5395b"
+                "751bfc5985b5395b",
+                "d6762f5a047dd040"
             ],
             [
                 "d1bf963c0af13232"
@@ -1050,13 +1074,26 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 410,
+        "x": 530,
         "y": 100,
         "wires": [
             [
                 "d1bf963c0af13232"
             ]
         ]
+    },
+    {
+        "id": "d6762f5a047dd040",
+        "type": "link out",
+        "z": "a434980c0d70073f",
+        "name": "selected aircraft",
+        "mode": "link",
+        "links": [
+            "0c44eb2cbf0f050f"
+        ],
+        "x": 395,
+        "y": 60,
+        "wires": []
     },
     {
         "id": "7e34ee95dc8e0367",
@@ -1448,19 +1485,8 @@
         "y": 80,
         "wires": [
             [
-                "ac14fbfe9a152586",
-                "e28964d4782e8217",
-                "b9cb0a1cdd3f4461",
-                "0151e9ab920d1bd1",
-                "689ba6b091c177da",
-                "074a4ccc56f2dacd",
-                "094a915d2e8ecc27",
-                "34cc59fd649a7191",
-                "6d30a9103e1e4ff4",
-                "07105d583fe42a36",
-                "499dc708fa5b15c6",
-                "fd5e3a141c325093",
-                "cf9d1ea62b0b4c63"
+                "cf9d1ea62b0b4c63",
+                "d159cb379744e1be"
             ]
         ]
     },
@@ -1498,7 +1524,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 1310,
-        "y": 40,
+        "y": 80,
         "wires": []
     },
     {
@@ -1519,7 +1545,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 1310,
-        "y": 80,
+        "y": 120,
         "wires": []
     },
     {
@@ -1540,7 +1566,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 1320,
-        "y": 120,
+        "y": 160,
         "wires": []
     },
     {
@@ -1560,8 +1586,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1140,
-        "y": 420,
+        "x": 1320,
+        "y": 280,
         "wires": []
     },
     {
@@ -1581,8 +1607,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1140,
-        "y": 460,
+        "x": 1320,
+        "y": 320,
         "wires": []
     },
     {
@@ -1602,8 +1628,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1160,
-        "y": 540,
+        "x": 1340,
+        "y": 400,
         "wires": []
     },
     {
@@ -1623,8 +1649,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1130,
-        "y": 580,
+        "x": 1310,
+        "y": 440,
         "wires": []
     },
     {
@@ -1644,8 +1670,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1150,
-        "y": 620,
+        "x": 1330,
+        "y": 480,
         "wires": []
     },
     {
@@ -1666,7 +1692,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 1310,
-        "y": 160,
+        "y": 200,
         "wires": []
     },
     {
@@ -1687,7 +1713,7 @@
         "fontSize": 16,
         "color": "#000000",
         "x": 1320,
-        "y": 200,
+        "y": 240,
         "wires": []
     },
     {
@@ -1786,8 +1812,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1160,
-        "y": 500,
+        "x": 1340,
+        "y": 360,
         "wires": []
     },
     {
@@ -1810,7 +1836,7 @@
         "to": "",
         "reg": false,
         "x": 1160,
-        "y": 200,
+        "y": 240,
         "wires": [
             [
                 "cd9e87c74de263fe"
@@ -1891,8 +1917,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1150,
-        "y": 660,
+        "x": 1330,
+        "y": 520,
         "wires": []
     },
     {
@@ -2082,10 +2108,26 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('selected_aircraft',null);",
         "finalize": "",
         "libs": [],
-        "x": 1020,
-        "y": 20,
+        "x": 1120,
+        "y": 60,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "0c44eb2cbf0f050f",
+        "type": "link in",
+        "z": "eeaa68697bf28d0e",
+        "name": "link in 12",
+        "links": [
+            "d6762f5a047dd040"
+        ],
+        "x": 625,
+        "y": 140,
+        "wires": [
+            [
+                "d159cb379744e1be"
+            ]
         ]
     }
 ]

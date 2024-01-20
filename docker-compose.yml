@@ -9,19 +9,17 @@ services:
       - sdr
     volumes: 
       - "./data/ui:/data"
-      - "tmp:/data/tmp"
+      - "run:/run/dump1090"
   sdr:
     image: dump1090-fa
     restart: always
-    environment:
-      STA_LAT: 39.998344
-      STA_LON: -82.892819
-      LOC_ACCURACY: 2
+    env_file: default.env
     build:
       context: ./build/dump1090
     devices:
       - "/dev/bus/usb/001"
     volumes:
-      - "tmp:/data"
+      - "run:/run/dump1090"
 volumes:
-  tmp:
+  run:
+
