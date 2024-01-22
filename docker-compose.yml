@@ -17,7 +17,7 @@ services:
     build:
       context: ./build/dump1090
     devices:
-      - "/dev/bus/usb/001/008"
+      - "/dev/bus/usb/001"
     volumes:
       - "run:/run/dump1090"
 volumes:
