@@ -452,7 +452,7 @@
         "type": "watch",
         "z": "9e95f962de164512",
         "name": "aircraft.json",
-        "files": "/run/dump1090/aircraft.json",
+        "files": "/run/dump1090-fa/aircraft.json",
         "recursive": "",
         "x": 110,
         "y": 40,
@@ -467,7 +467,7 @@
         "type": "watch",
         "z": "9e95f962de164512",
         "name": "stats.json",
-        "files": "/run/dump1090/stats.json",
+        "files": "/run/dump1090-fa/stats.json",
         "recursive": "",
         "x": 120,
         "y": 80,
@@ -482,7 +482,7 @@
         "type": "watch",
         "z": "9e95f962de164512",
         "name": "receiver.json",
-        "files": "/run/dump1090/receiver.json",
+        "files": "/run/dump1090-fa/receiver.json",
         "recursive": "",
         "x": 110,
         "y": 120,
@@ -1938,8 +1938,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 470,
-        "y": 280,
+        "x": 330,
+        "y": 180,
         "wires": []
     },
     {
@@ -1959,8 +1959,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 490,
-        "y": 320,
+        "x": 350,
+        "y": 220,
         "wires": []
     },
     {
@@ -1980,8 +1980,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 490,
-        "y": 360,
+        "x": 350,
+        "y": 260,
         "wires": []
     },
     {
