@@ -35,7 +35,7 @@
         "id": "d159cb379744e1be",
         "type": "junction",
         "z": "eeaa68697bf28d0e",
-        "x": 1020,
+        "x": 620,
         "y": 240,
         "wires": [
             [
@@ -212,7 +212,7 @@
         "group": "2a53099271750475",
         "order": 13,
         "width": "4",
-        "height": "1"
+        "height": "2"
     },
     {
         "id": "c8c37713f6d3bdbb",
@@ -525,8 +525,8 @@
                 "t": "set",
                 "p": "payload.icon",
                 "pt": "msg",
-                "to": "plane",
-                "tot": "str"
+                "to": "payload.flight ? $match(payload.flight, /^N/) ? \"smallplane\" : \"plane\" : \"arrow\"\t",
+                "tot": "jsonata"
             },
             {
                 "t": "set",
@@ -544,10 +544,10 @@
             },
             {
                 "t": "set",
-                "p": "payload.iconColor",
+                "p": "payload.clickable",
                 "pt": "msg",
-                "to": "blue",
-                "tot": "str"
+                "to": "false",
+                "tot": "bool"
             }
         ],
         "action": "",
@@ -559,36 +559,7 @@
         "y": 220,
         "wires": [
             [
-                "89a2cfb06ff4e670"
-            ]
-        ]
-    },
-    {
-        "id": "d1bf963c0af13232",
-        "type": "switch",
-        "z": "a434980c0d70073f",
-        "name": "has callsign?",
-        "property": "payload.flight",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 630,
-        "y": 160,
-        "wires": [
-            [
-                "bc502453312cb200"
-            ],
-            [
-                "a7ed90fe34deafbd"
+                "87cc40c1a40284e1"
             ]
         ]
     },
@@ -596,48 +567,14 @@
         "id": "bc502453312cb200",
         "type": "change",
         "z": "a434980c0d70073f",
-        "name": "callsign -> label",
+        "name": "set label",
         "rules": [
             {
                 "t": "set",
                 "p": "payload.label",
                 "pt": "msg",
-                "to": "payload.flight",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 860,
-        "y": 100,
-        "wires": [
-            [
-                "472f03a94276dd04"
-            ]
-        ]
-    },
-    {
-        "id": "a7ed90fe34deafbd",
-        "type": "change",
-        "z": "a434980c0d70073f",
-        "name": "name -> label",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.label",
-                "pt": "msg",
-                "to": "$uppercase(payload.hex)",
+                "to": "payload.flight ? payload.flight : $uppercase(payload.name)",
                 "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload.icon",
-                "pt": "msg",
-                "to": "arrow",
-                "tot": "str"
             }
         ],
         "action": "",
@@ -645,66 +582,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 740,
-        "y": 240,
-        "wires": [
-            [
-                "19e42b65ee2aa91e"
-            ]
-        ]
-    },
-    {
-        "id": "472f03a94276dd04",
-        "type": "switch",
-        "z": "a434980c0d70073f",
-        "name": "is small craft?",
-        "property": "payload.flight",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "regex",
-                "v": "^N",
-                "vt": "str",
-                "case": false
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 860,
-        "y": 180,
-        "wires": [
-            [
-                "c5e3bc18fe33db62"
-            ],
-            [
-                "19e42b65ee2aa91e"
-            ]
-        ]
-    },
-    {
-        "id": "c5e3bc18fe33db62",
-        "type": "change",
-        "z": "a434980c0d70073f",
-        "name": "small craft icon",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.icon",
-                "pt": "msg",
-                "to": "smallplane",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1080,
+        "x": 660,
         "y": 160,
         "wires": [
             [
@@ -754,7 +632,8 @@
         "z": "a434980c0d70073f",
         "name": "map commands",
         "links": [
-            "ccea04533f04c5b6"
+            "ccea04533f04c5b6",
+            "8de3708ef73f6a49"
         ],
         "x": 445,
         "y": 300,
@@ -848,8 +727,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 540,
-        "y": 660,
+        "x": 690,
+        "y": 480,
         "wires": [
             [
                 "f7800a14d83ea623",
@@ -869,8 +748,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('station', [39,-83]);",
         "finalize": "",
         "libs": [],
-        "x": 720,
-        "y": 780,
+        "x": 310,
+        "y": 560,
         "wires": [
             []
         ]
@@ -899,13 +778,6 @@
                 "t": "set",
                 "p": "payload.name",
                 "pt": "msg",
-                "to": "station",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.label",
-                "pt": "msg",
                 "to": "Station",
                 "tot": "str"
             },
@@ -922,6 +794,13 @@
                 "pt": "msg",
                 "to": "{\t   \"lat\":payload.lat,\t   \"lon\":payload.lon,\t   \"zoom\":8         \t}",
                 "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.popup",
+                "pt": "msg",
+                "to": "$join([\"<table width=\\\"100%\\\">\",\t\"<tr><th>Version</th><td>\",\t$string(payload.version),\t\"</td></tr><tr><th>Geo</th><td>\",\t$string(payload.lat),\"&deg;, \",$string(payload.lon),\t\"&deg;</td></tr>\",\t\"</table>\"])",
+                "tot": "jsonata"
             }
         ],
         "action": "",
@@ -929,8 +808,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 730,
-        "y": 640,
+        "x": 880,
+        "y": 460,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -949,8 +828,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 740,
-        "y": 680,
+        "x": 890,
+        "y": 500,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -965,8 +844,8 @@
         "links": [
             "805de6d09119fce1"
         ],
-        "x": 555,
-        "y": 780,
+        "x": 145,
+        "y": 560,
         "wires": [
             [
                 "f927f6a83992dda2"
@@ -987,18 +866,27 @@
                 "vt": "str"
             },
             {
+                "t": "eq",
+                "v": "click",
+                "vt": "str"
+            },
+            {
                 "t": "else"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 2,
-        "x": 620,
+        "outputs": 3,
+        "x": 490,
         "y": 480,
         "wires": [
             [
                 "576c95c48853412c",
-                "f3cf3a3ccc351826"
+                "f3cf3a3ccc351826",
+                "c341eed5db7018cd"
+            ],
+            [
+                "cf9d1ea62b0b4c63"
             ],
             []
         ]
@@ -1015,8 +903,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
-        "y": 360,
+        "x": 690,
+        "y": 400,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -1043,42 +931,15 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 370,
-        "y": 220,
+        "x": 430,
+        "y": 180,
         "wires": [
             [
-                "751bfc5985b5395b",
-                "d6762f5a047dd040"
+                "d6762f5a047dd040",
+                "bc502453312cb200"
             ],
             [
-                "d1bf963c0af13232"
-            ]
-        ]
-    },
-    {
-        "id": "751bfc5985b5395b",
-        "type": "change",
-        "z": "a434980c0d70073f",
-        "name": "selected icon",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "red",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 530,
-        "y": 100,
-        "wires": [
-            [
-                "d1bf963c0af13232"
+                "f5e55d44c5c8454f"
             ]
         ]
     },
@@ -1091,9 +952,138 @@
         "links": [
             "0c44eb2cbf0f050f"
         ],
-        "x": 395,
+        "x": 465,
         "y": 60,
         "wires": []
+    },
+    {
+        "id": "f5e55d44c5c8454f",
+        "type": "change",
+        "z": "a434980c0d70073f",
+        "name": "clear label",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.label",
+                "pt": "msg",
+                "to": "null",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 200,
+        "wires": [
+            [
+                "19e42b65ee2aa91e"
+            ]
+        ]
+    },
+    {
+        "id": "cf9d1ea62b0b4c63",
+        "type": "function",
+        "z": "a434980c0d70073f",
+        "name": "save selected aircraft",
+        "func": "const current = global.get('selected_aircraft');\n\nif(msg.payload.hex == current){\n    global.set('selected_aircraft', null);\n} else {\n    global.set('selected_aircraft', msg.payload.hex);\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('selected_aircraft',null);",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 620,
+        "wires": [
+            [
+                "8de3708ef73f6a49"
+            ]
+        ]
+    },
+    {
+        "id": "8de3708ef73f6a49",
+        "type": "link out",
+        "z": "a434980c0d70073f",
+        "name": "selected",
+        "mode": "link",
+        "links": [
+            "bc940bbd8afbab5b"
+        ],
+        "x": 1145,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "87cc40c1a40284e1",
+        "type": "function",
+        "z": "a434980c0d70073f",
+        "name": "color by alt",
+        "func": "const alt = Math.min(msg.payload.alt_baro, 45000);\nconst hue = 0.00444444444*alt + 100;\nmsg.payload.iconColor = hslToHex(hue, 50, 50)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "hslToHex",
+                "module": "hsl-to-hex"
+            }
+        ],
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "89a2cfb06ff4e670",
+                "0f0ad143f7189a73"
+            ]
+        ]
+    },
+    {
+        "id": "0f0ad143f7189a73",
+        "type": "debug",
+        "z": "a434980c0d70073f",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "c341eed5db7018cd",
+        "type": "change",
+        "z": "a434980c0d70073f",
+        "name": "legend",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.command",
+                "pt": "msg",
+                "to": "{\"legend\":\"<b>Altitude</b>&nbsp;<div style=\\\"width:3rem;background:#6abf40;color:#000;align:center;display:inline-block;\\\">0 ft</div><div style=\\\"width:3rem;background:#40bf44;color:#000;align:center;display:inline-block;\\\">5000 ft</div><div style=\\\"width:3rem;background:#40bf74;color:#000;align:center;display:inline-block;\\\">10000 ft</div><div style=\\\"width:3rem;background:#40bfa3;color:#000;align:center;display:inline-block;\\\">15000 ft</div><div style=\\\"width:3rem;background:#40acbf;color:#000;align:center;display:inline-block;\\\">20000 ft</div><div style=\\\"width:3rem;background:#407dbf;color:#000;align:center;display:inline-block;\\\">25000 ft</div><div style=\\\"width:3rem;background:#404ebf;color:#000;align:center;display:inline-block;\\\">30000 ft</div><div style=\\\"width:3rem;background:#6140bf;color:#000;align:center;display:inline-block;\\\">35000 ft</div><div style=\\\"width:3rem;background:#9040bf;color:#000;align:center;display:inline-block;\\\">40000 ft</div>\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 910,
+        "y": 540,
+        "wires": [
+            [
+                "19e42b65ee2aa91e"
+            ]
+        ]
     },
     {
         "id": "7e34ee95dc8e0367",
@@ -1449,16 +1439,6 @@
                 }
             },
             {
-                "field": "alt_baro",
-                "title": "Alt",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
                 "field": "track",
                 "title": "Track",
                 "width": "",
@@ -1477,16 +1457,25 @@
                 "formatterParams": {
                     "target": "_blank"
                 }
+            },
+            {
+                "field": "alt_baro",
+                "title": "Alt",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
             }
         ],
         "outputs": 1,
         "cts": true,
-        "x": 890,
+        "x": 430,
         "y": 80,
         "wires": [
             [
-                "cf9d1ea62b0b4c63",
-                "d159cb379744e1be"
+                "8b016976a684ee48"
             ]
         ]
     },
@@ -1498,7 +1487,7 @@
         "links": [
             "6ec40af1917d9ff4"
         ],
-        "x": 625,
+        "x": 225,
         "y": 80,
         "wires": [
             [
@@ -1523,7 +1512,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1310,
+        "x": 910,
         "y": 80,
         "wires": []
     },
@@ -1544,7 +1533,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1310,
+        "x": 910,
         "y": 120,
         "wires": []
     },
@@ -1565,7 +1554,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1320,
+        "x": 920,
         "y": 160,
         "wires": []
     },
@@ -1586,7 +1575,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1320,
+        "x": 920,
         "y": 280,
         "wires": []
     },
@@ -1607,7 +1596,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1320,
+        "x": 920,
         "y": 320,
         "wires": []
     },
@@ -1628,7 +1617,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1340,
+        "x": 940,
         "y": 400,
         "wires": []
     },
@@ -1649,7 +1638,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1310,
+        "x": 910,
         "y": 440,
         "wires": []
     },
@@ -1670,7 +1659,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1330,
+        "x": 930,
         "y": 480,
         "wires": []
     },
@@ -1691,7 +1680,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1310,
+        "x": 910,
         "y": 200,
         "wires": []
     },
@@ -1712,23 +1701,9 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1320,
+        "x": 920,
         "y": 240,
         "wires": []
-    },
-    {
-        "id": "beebb160cf9b6f36",
-        "type": "link in",
-        "z": "eeaa68697bf28d0e",
-        "name": "link in 7",
-        "links": [
-            "805de6d09119fce1"
-        ],
-        "x": 185,
-        "y": 80,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "87ae45c3d541df2a",
@@ -1738,7 +1713,7 @@
         "links": [
             "3aa8cd7ef5bedf96"
         ],
-        "x": 195,
+        "x": 315,
         "y": 280,
         "wires": [
             [
@@ -1764,7 +1739,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1340,
+        "x": 940,
         "y": 360,
         "wires": []
     },
@@ -1787,7 +1762,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1160,
+        "x": 760,
         "y": 240,
         "wires": [
             [
@@ -1848,7 +1823,7 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 470,
+        "x": 590,
         "y": 420,
         "wires": []
     },
@@ -1869,7 +1844,7 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 1330,
+        "x": 930,
         "y": 520,
         "wires": []
     },
@@ -1885,7 +1860,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 190,
+        "x": 310,
         "y": 420,
         "wires": [
             [
@@ -1913,7 +1888,7 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 350,
+        "x": 470,
         "y": 420,
         "wires": [
             [
@@ -1933,7 +1908,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 190,
+        "x": 310,
         "y": 500,
         "wires": [
             [
@@ -1979,26 +1954,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 470,
+        "x": 590,
         "y": 500,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "cf9d1ea62b0b4c63",
-        "type": "function",
-        "z": "eeaa68697bf28d0e",
-        "name": "save selected aircraft",
-        "func": "global.set('selected_aircraft', msg.payload.hex);\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('selected_aircraft',null);",
-        "finalize": "",
-        "libs": [],
-        "x": 1120,
-        "y": 60,
         "wires": [
             []
         ]
@@ -2011,12 +1968,30 @@
         "links": [
             "d6762f5a047dd040"
         ],
-        "x": 625,
+        "x": 225,
         "y": 140,
         "wires": [
             [
                 "d159cb379744e1be"
             ]
+        ]
+    },
+    {
+        "id": "8b016976a684ee48",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "save selected aircraft",
+        "func": "const current = global.get('selected_aircraft');\n\nif(msg.payload.hex == current){\n    global.set('selected_aircraft', null);\n} else {\n    global.set('selected_aircraft', msg.payload.hex);\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('selected_aircraft',null);",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 80,
+        "wires": [
+            []
         ]
     }
 ]

@@ -4,7 +4,10 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
+        "color-convert": "^2.0.1",
+        "color-functions": "^3.0.1",
         "hex-array": "^1.0.0",
+        "hsl-to-hex": "^1.0.0",
         "mode-s-aircraft-store": "^1.0.1",
         "mode-s-decoder": "^1.0.1",
         "node-red-contrib-web-worldmap": "~4.6.1",

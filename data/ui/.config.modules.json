@@ -19,5 +19,26 @@
         "subpath": "",
         "builtin": false,
         "known": false
+    },
+    "color-functions": {
+        "spec": "color-functions",
+        "module": "color-functions",
+        "subpath": "",
+        "builtin": false,
+        "known": false
+    },
+    "color-convert": {
+        "spec": "color-convert",
+        "module": "color-convert",
+        "subpath": "",
+        "builtin": false,
+        "known": false
+    },
+    "hsl-to-hex": {
+        "spec": "hsl-to-hex",
+        "module": "hsl-to-hex",
+        "subpath": "",
+        "builtin": false,
+        "known": false
     }
 }
