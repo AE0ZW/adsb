@@ -35,8 +35,8 @@
         "id": "d159cb379744e1be",
         "type": "junction",
         "z": "eeaa68697bf28d0e",
-        "x": 620,
-        "y": 240,
+        "x": 640,
+        "y": 140,
         "wires": [
             [
                 "ac14fbfe9a152586",
@@ -44,13 +44,13 @@
                 "b9cb0a1cdd3f4461",
                 "34cc59fd649a7191",
                 "07105d583fe42a36",
-                "fd5e3a141c325093",
-                "6d30a9103e1e4ff4",
-                "0151e9ab920d1bd1",
-                "689ba6b091c177da",
-                "074a4ccc56f2dacd",
-                "094a915d2e8ecc27",
-                "499dc708fa5b15c6"
+                "bc236f22919be28f",
+                "9130f980f5816580",
+                "74330f337669ee8e",
+                "94b4ed28bf5f5067",
+                "ccbf121cac399284",
+                "30dd1bf03fb3b359",
+                "4cd24fa4a2a8069e"
             ]
         ]
     },
@@ -635,7 +635,7 @@
             "ccea04533f04c5b6",
             "8de3708ef73f6a49"
         ],
-        "x": 445,
+        "x": 595,
         "y": 300,
         "wires": [
             [
@@ -1037,26 +1037,9 @@
         "y": 320,
         "wires": [
             [
-                "89a2cfb06ff4e670",
-                "0f0ad143f7189a73"
+                "89a2cfb06ff4e670"
             ]
         ]
-    },
-    {
-        "id": "0f0ad143f7189a73",
-        "type": "debug",
-        "z": "a434980c0d70073f",
-        "name": "debug 1",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 470,
-        "y": 360,
-        "wires": []
     },
     {
         "id": "c341eed5db7018cd",
@@ -1512,8 +1495,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 910,
-        "y": 80,
+        "x": 1090,
+        "y": 60,
         "wires": []
     },
     {
@@ -1533,8 +1516,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 910,
-        "y": 120,
+        "x": 1090,
+        "y": 100,
         "wires": []
     },
     {
@@ -1554,8 +1537,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 920,
-        "y": 160,
+        "x": 1100,
+        "y": 140,
         "wires": []
     },
     {
@@ -1568,15 +1551,15 @@
         "height": 1,
         "name": "",
         "label": "Alt (baro)",
-        "format": "{{msg.payload.alt_baro}} ft",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 920,
-        "y": 280,
+        "x": 1100,
+        "y": 260,
         "wires": []
     },
     {
@@ -1589,15 +1572,15 @@
         "height": 1,
         "name": "",
         "label": "Alt (geo)",
-        "format": "{{msg.payload.alt_geom}} ft",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 920,
-        "y": 320,
+        "x": 1100,
+        "y": 300,
         "wires": []
     },
     {
@@ -1610,15 +1593,15 @@
         "height": 1,
         "name": "",
         "label": "Heading (nav)",
-        "format": "{{msg.payload.nav_heading}} &deg;",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 940,
-        "y": 400,
+        "x": 1120,
+        "y": 380,
         "wires": []
     },
     {
@@ -1631,15 +1614,15 @@
         "height": 1,
         "name": "",
         "label": "Track",
-        "format": "{{msg.payload.track}} &deg;",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 910,
-        "y": 440,
+        "x": 1090,
+        "y": 420,
         "wires": []
     },
     {
@@ -1652,15 +1635,15 @@
         "height": 1,
         "name": "",
         "label": "Speed (gnd)",
-        "format": "{{msg.payload.gs}} kt",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 930,
-        "y": 480,
+        "x": 1110,
+        "y": 460,
         "wires": []
     },
     {
@@ -1680,8 +1663,8 @@
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 910,
-        "y": 200,
+        "x": 1090,
+        "y": 180,
         "wires": []
     },
     {
@@ -1694,15 +1677,15 @@
         "height": 1,
         "name": "",
         "label": "Last Seen",
-        "format": "{{msg.payload}} sec",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 920,
-        "y": 240,
+        "x": 1110,
+        "y": 220,
         "wires": []
     },
     {
@@ -1713,8 +1696,8 @@
         "links": [
             "3aa8cd7ef5bedf96"
         ],
-        "x": 315,
-        "y": 280,
+        "x": 205,
+        "y": 360,
         "wires": [
             [
                 "267b5709df750d49",
@@ -1731,16 +1714,16 @@
         "width": 4,
         "height": 1,
         "name": "",
-        "label": "Vert Rate (baro)",
-        "format": "{{msg.payload.baro_rate}} ft/min",
+        "label": "Vert Rate",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 940,
-        "y": 360,
+        "x": 1100,
+        "y": 340,
         "wires": []
     },
     {
@@ -1753,7 +1736,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$min([payload.seen, payload.seen_pos])\t",
+                "to": "$join([$string($min([payload.seen, payload.seen_pos])),\" sec\"],\" \")\t",
                 "tot": "jsonata"
             }
         ],
@@ -1762,8 +1745,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 760,
-        "y": 240,
+        "x": 940,
+        "y": 220,
         "wires": [
             [
                 "cd9e87c74de263fe"
@@ -1823,7 +1806,7 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 590,
+        "x": 610,
         "y": 420,
         "wires": []
     },
@@ -1837,15 +1820,15 @@
         "height": 1,
         "name": "",
         "label": "Speed (air)",
-        "format": "{{msg.payload.ias}} kt",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
-        "x": 930,
-        "y": 520,
+        "x": 1110,
+        "y": 500,
         "wires": []
     },
     {
@@ -1860,8 +1843,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 420,
+        "x": 350,
+        "y": 340,
         "wires": [
             [
                 "39b4ca1e2c0e181e"
@@ -1888,8 +1871,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 470,
-        "y": 420,
+        "x": 510,
+        "y": 340,
         "wires": [
             [
                 "634713a7cd70f4b1"
@@ -1908,8 +1891,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 500,
+        "x": 350,
+        "y": 460,
         "wires": [
             [
                 "39d1c07212f906ea"
@@ -1954,8 +1937,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 590,
-        "y": 500,
+        "x": 610,
+        "y": 460,
         "wires": [
             []
         ]
@@ -1972,7 +1955,8 @@
         "y": 140,
         "wires": [
             [
-                "d159cb379744e1be"
+                "d159cb379744e1be",
+                "b0535308b63860ad"
             ]
         ]
     },
@@ -1992,6 +1976,211 @@
         "y": 80,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "bc236f22919be28f",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "set unit",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.alt_baro ? $join([$string(payload.alt_baro),\"ft\"],\" \") : \"\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 260,
+        "wires": [
+            [
+                "fd5e3a141c325093"
+            ]
+        ]
+    },
+    {
+        "id": "b0535308b63860ad",
+        "type": "debug",
+        "z": "eeaa68697bf28d0e",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "9130f980f5816580",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "set unit",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.alt_geom ? $join([$string(payload.alt_geom),\"ft\"],\" \") : \"\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 300,
+        "wires": [
+            [
+                "0151e9ab920d1bd1"
+            ]
+        ]
+    },
+    {
+        "id": "74330f337669ee8e",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "set unit",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.baro_rate ? $join([$string(payload.baro_rate),\"ft/min\"],\" \") : \"\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 340,
+        "wires": [
+            [
+                "6d30a9103e1e4ff4"
+            ]
+        ]
+    },
+    {
+        "id": "94b4ed28bf5f5067",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "set unit",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.nav_heading ? $join([$string(payload.nav_heading),\"&deg;\"],\" \") : \"\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 380,
+        "wires": [
+            [
+                "689ba6b091c177da"
+            ]
+        ]
+    },
+    {
+        "id": "ccbf121cac399284",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "set unit",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.track ? $join([$string(payload.track),\"&deg;\"],\" \") : \"\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 420,
+        "wires": [
+            [
+                "074a4ccc56f2dacd"
+            ]
+        ]
+    },
+    {
+        "id": "30dd1bf03fb3b359",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "set unit",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.gs ? $join([$string(payload.gs),\"kt\"],\" \") : \"\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 460,
+        "wires": [
+            [
+                "094a915d2e8ecc27"
+            ]
+        ]
+    },
+    {
+        "id": "4cd24fa4a2a8069e",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "set unit",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ias ? $join([$string(payload.ias),\"kt\"],\" \") : \"\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 940,
+        "y": 500,
+        "wires": [
+            [
+                "499dc708fa5b15c6"
+            ]
         ]
     }
 ]
