@@ -2058,7 +2058,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "payload.baro_rate ? $join([$string(payload.baro_rate),\"ft/min\"],\" \") : \"\"",
+                "to": "payload.baro_rate ? $join([$string(payload.baro_rate),\"ft/min\"],\" \") : \"---\"",
                 "tot": "jsonata"
             }
         ],
