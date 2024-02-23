@@ -58,7 +58,7 @@
         "id": "65a0877e913c9221",
         "type": "ui_tab",
         "name": "Plane Spotter",
-        "icon": "dashboard",
+        "icon": "fa-plane",
         "disabled": false,
         "hidden": true
     },
@@ -76,7 +76,7 @@
             },
             "darkTheme": {
                 "default": "#097479",
-                "baseColor": "#408080",
+                "baseColor": "#004993",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
                 "edited": true,
                 "reset": false
@@ -85,16 +85,17 @@
                 "name": "Untitled Theme 1",
                 "default": "#4B7930",
                 "baseColor": "#4B7930",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
             },
             "themeState": {
                 "base-color": {
                     "default": "#097479",
-                    "value": "#408080",
+                    "value": "#004993",
                     "edited": true
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#408080",
+                    "value": "#004993",
                     "edited": false
                 },
                 "page-backgroundColor": {
@@ -102,11 +103,11 @@
                     "edited": false
                 },
                 "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "group-textColor": {
-                    "value": "#5eaeae",
+                    "value": "#006fdf",
                     "edited": false
                 },
                 "group-borderColor": {
@@ -122,7 +123,7 @@
                     "edited": false
                 },
                 "widget-backgroundColor": {
-                    "value": "#408080",
+                    "value": "#004993",
                     "edited": false
                 },
                 "widget-borderColor": {
@@ -167,7 +168,7 @@
         "tab": "65a0877e913c9221",
         "order": 2,
         "disp": false,
-        "width": "20",
+        "width": "22",
         "collapse": false,
         "className": ""
     },
@@ -205,14 +206,12 @@
         "className": ""
     },
     {
-        "id": "4949c445b9628305",
-        "type": "ui_spacer",
-        "z": "eeaa68697bf28d0e",
-        "name": "spacer",
-        "group": "2a53099271750475",
-        "order": 13,
-        "width": "4",
-        "height": "2"
+        "id": "5a56d974d4d3777e",
+        "type": "ui_link",
+        "name": "Link 2",
+        "icon": "open_in_browser",
+        "target": "newtab",
+        "order": 2
     },
     {
         "id": "c8c37713f6d3bdbb",
@@ -596,7 +595,7 @@
         "z": "a434980c0d70073f",
         "group": "8363fd07a79e8b50",
         "order": 1,
-        "width": 20,
+        "width": 22,
         "height": 14,
         "name": "",
         "lat": "",
