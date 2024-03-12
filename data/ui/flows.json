@@ -42,7 +42,6 @@
                 "ac14fbfe9a152586",
                 "e28964d4782e8217",
                 "b9cb0a1cdd3f4461",
-                "34cc59fd649a7191",
                 "07105d583fe42a36",
                 "bc236f22919be28f",
                 "9130f980f5816580",
@@ -50,7 +49,8 @@
                 "94b4ed28bf5f5067",
                 "ccbf121cac399284",
                 "30dd1bf03fb3b359",
-                "4cd24fa4a2a8069e"
+                "4cd24fa4a2a8069e",
+                "ad0dba40fedc6dfe"
             ]
         ]
     },
@@ -213,7 +213,7 @@
         "group": "2a53099271750475",
         "order": 13,
         "width": "4",
-        "height": "2"
+        "height": "3"
     },
     {
         "id": "c8c37713f6d3bdbb",
@@ -489,9 +489,26 @@
         "y": 120,
         "wires": [
             [
-                "c8c37713f6d3bdbb"
+                "c8c37713f6d3bdbb",
+                "943fd80e57980cde"
             ]
         ]
+    },
+    {
+        "id": "943fd80e57980cde",
+        "type": "debug",
+        "z": "9e95f962de164512",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 120,
+        "wires": []
     },
     {
         "id": "4404caecbde969ef",
@@ -598,7 +615,7 @@
         "group": "8363fd07a79e8b50",
         "order": 1,
         "width": 22,
-        "height": 14,
+        "height": "15",
         "name": "",
         "lat": "",
         "lon": "",
@@ -833,7 +850,8 @@
         "y": 500,
         "wires": [
             [
-                "19e42b65ee2aa91e"
+                "19e42b65ee2aa91e",
+                "176c8302a716c6bb"
             ]
         ]
     },
@@ -1068,6 +1086,22 @@
                 "19e42b65ee2aa91e"
             ]
         ]
+    },
+    {
+        "id": "176c8302a716c6bb",
+        "type": "debug",
+        "z": "a434980c0d70073f",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 460,
+        "wires": []
     },
     {
         "id": "7e34ee95dc8e0367",
@@ -1400,7 +1434,7 @@
         "name": "Aircraft Info",
         "order": 1,
         "width": 8,
-        "height": 7,
+        "height": "9",
         "columns": [
             {
                 "field": "hex",
@@ -1908,10 +1942,10 @@
         "group": "5d571e7886c72a5e",
         "order": 2,
         "width": 8,
-        "height": 4,
+        "height": "3",
         "label": "dBFS",
         "chartType": "line",
-        "legend": "true",
+        "legend": "false",
         "xformat": "HH:mm",
         "interpolate": "linear",
         "nodata": "",
@@ -2181,6 +2215,33 @@
         "wires": [
             [
                 "499dc708fa5b15c6"
+            ]
+        ]
+    },
+    {
+        "id": "ad0dba40fedc6dfe",
+        "type": "change",
+        "z": "eeaa68697bf28d0e",
+        "name": "signal level",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$join([$string($min([payload.seen, payload.seen_pos])),\" dBFS\"],\" \")\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 950,
+        "y": 180,
+        "wires": [
+            [
+                "34cc59fd649a7191"
             ]
         ]
     }
