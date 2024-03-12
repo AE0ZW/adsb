@@ -309,7 +309,8 @@
         "y": 200,
         "wires": [
             [
-                "805de6d09119fce1"
+                "805de6d09119fce1",
+                "943fd80e57980cde"
             ],
             [
                 "3aa8cd7ef5bedf96"
@@ -489,8 +490,7 @@
         "y": 120,
         "wires": [
             [
-                "c8c37713f6d3bdbb",
-                "943fd80e57980cde"
+                "c8c37713f6d3bdbb"
             ]
         ]
     },
@@ -503,11 +503,12 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 830,
-        "y": 60,
+        "x": 980,
+        "y": 120,
         "wires": []
     },
     {
@@ -1691,7 +1692,7 @@
         "height": 1,
         "name": "",
         "label": "Signal",
-        "format": "{{msg.payload.rssi}} dBFS",
+        "format": "{{msg.payload.rssi}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
