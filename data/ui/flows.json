@@ -1657,7 +1657,7 @@
         "height": 1,
         "name": "",
         "label": "Signal",
-        "format": "{{msg.payload.rssi}}",
+        "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
         "style": false,
@@ -1731,7 +1731,7 @@
         "id": "07105d583fe42a36",
         "type": "change",
         "z": "eeaa68697bf28d0e",
-        "name": "last seen",
+        "name": "set unit",
         "rules": [
             {
                 "t": "set",
@@ -2171,13 +2171,13 @@
         "id": "ad0dba40fedc6dfe",
         "type": "change",
         "z": "eeaa68697bf28d0e",
-        "name": "signal level",
+        "name": "set unit",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$join([$string($min([payload.seen, payload.seen_pos])),\" dBFS\"],\" \")\t",
+                "to": "payload.rssi ? $join([$string(payload.rssi),\"dBFS\"],\" \") : \"\"",
                 "tot": "jsonata"
             }
         ],
@@ -2186,7 +2186,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 950,
+        "x": 940,
         "y": 180,
         "wires": [
             [
