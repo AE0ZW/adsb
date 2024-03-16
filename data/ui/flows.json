@@ -216,6 +216,27 @@
         "height": "3"
     },
     {
+        "id": "17ec8980f99bcf15",
+        "type": "ui_spacer",
+        "z": "eeaa68697bf28d0e",
+        "name": "spacer",
+        "group": "350b84a00a67874f",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "4d1967cb65cc77be",
+        "type": "ui_group",
+        "name": "Group 5",
+        "tab": "65a0877e913c9221",
+        "order": 5,
+        "disp": false,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "c8c37713f6d3bdbb",
         "type": "file in",
         "z": "9e95f962de164512",
@@ -1400,7 +1421,7 @@
         "name": "Aircraft Info",
         "order": 1,
         "width": 8,
-        "height": "9",
+        "height": "8",
         "columns": [
             {
                 "field": "hex",
@@ -1905,7 +1926,7 @@
         "type": "ui_chart",
         "z": "eeaa68697bf28d0e",
         "name": "",
-        "group": "5d571e7886c72a5e",
+        "group": "4d1967cb65cc77be",
         "order": 2,
         "width": 8,
         "height": "3",
