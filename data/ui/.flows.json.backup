@@ -533,7 +533,7 @@
         "z": "9e95f962de164512",
         "name": "",
         "props": [],
-        "repeat": "3600",
+        "repeat": "10",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
@@ -2240,30 +2240,13 @@
             }
         ],
         "tostatus": false,
-        "x": 300,
-        "y": 520,
+        "x": 220,
+        "y": 240,
         "wires": [
             [
-                "640dc3801531f2a3",
                 "50b0dd087d686c09"
             ],
             []
         ]
-    },
-    {
-        "id": "640dc3801531f2a3",
-        "type": "debug",
-        "z": "eeaa68697bf28d0e",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 610,
-        "y": 540,
-        "wires": []
     }
 ]
