@@ -291,7 +291,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 270,
+        "x": 290,
         "y": 220,
         "wires": [
             [
@@ -354,7 +354,7 @@
             "87ae45c3d541df2a"
         ],
         "x": 595,
-        "y": 100,
+        "y": 180,
         "wires": []
     },
     {
@@ -376,8 +376,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 460,
-        "y": 320,
+        "x": 650,
+        "y": 260,
         "wires": [
             [
                 "24a4224a09280ab5",
@@ -396,8 +396,8 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "",
-        "x": 610,
-        "y": 340,
+        "x": 810,
+        "y": 280,
         "wires": [
             [
                 "6a927a31926136b4"
@@ -413,8 +413,8 @@
         "links": [
             "4404caecbde969ef"
         ],
-        "x": 765,
-        "y": 340,
+        "x": 935,
+        "y": 280,
         "wires": []
     },
     {
@@ -426,8 +426,8 @@
         "links": [
             "1f9a326e881f765b"
         ],
-        "x": 765,
-        "y": 280,
+        "x": 935,
+        "y": 240,
         "wires": []
     },
     {
@@ -449,8 +449,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 630,
-        "y": 300,
+        "x": 820,
+        "y": 240,
         "wires": [
             [
                 "6ec40af1917d9ff4"
@@ -640,8 +640,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 660,
-        "y": 200,
+        "x": 760,
+        "y": 240,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -811,7 +811,7 @@
                 "t": "set",
                 "p": "payload.command",
                 "pt": "msg",
-                "to": "{\t   \"lat\":payload.lat,\t   \"lon\":payload.lon,\t   \"zoom\":8         \t}",
+                "to": "{\t   \"lat\":payload.lat,\t   \"lon\":payload.lon\t}",
                 "tot": "jsonata"
             },
             {
@@ -933,8 +933,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 430,
-        "y": 180,
+        "x": 570,
+        "y": 220,
         "wires": [
             [
                 "d6762f5a047dd040",
@@ -954,8 +954,8 @@
         "links": [
             "0c44eb2cbf0f050f"
         ],
-        "x": 885,
-        "y": 80,
+        "x": 715,
+        "y": 200,
         "wires": []
     },
     {
@@ -977,8 +977,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 670,
-        "y": 240,
+        "x": 770,
+        "y": 280,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -1035,8 +1035,8 @@
                 "module": "hsl-to-hex"
             }
         ],
-        "x": 290,
-        "y": 320,
+        "x": 370,
+        "y": 220,
         "wires": [
             [
                 "89a2cfb06ff4e670"
@@ -1091,6 +1091,60 @@
             ],
             []
         ]
+    },
+    {
+        "id": "50b0dd087d686c09",
+        "type": "function",
+        "z": "a434980c0d70073f",
+        "name": "clr info panel",
+        "func": "\nreturn !msg.payload ? msg : null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 580,
+        "wires": [
+            [
+                "fd2c1e025c7ee70b"
+            ]
+        ]
+    },
+    {
+        "id": "203f73770cea7a6c",
+        "type": "context-monitor",
+        "z": "a434980c0d70073f",
+        "name": "",
+        "monitoring": [
+            {
+                "scope": "global",
+                "key": "selected_aircraft"
+            }
+        ],
+        "tostatus": false,
+        "x": 280,
+        "y": 580,
+        "wires": [
+            [
+                "50b0dd087d686c09"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "fd2c1e025c7ee70b",
+        "type": "link out",
+        "z": "a434980c0d70073f",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "0c44eb2cbf0f050f"
+        ],
+        "x": 625,
+        "y": 580,
+        "wires": []
     },
     {
         "id": "7e34ee95dc8e0367",
@@ -1973,7 +2027,8 @@
         "z": "eeaa68697bf28d0e",
         "name": "link in 12",
         "links": [
-            "d6762f5a047dd040"
+            "d6762f5a047dd040",
+            "fd2c1e025c7ee70b"
         ],
         "x": 225,
         "y": 140,
@@ -2215,47 +2270,6 @@
             [
                 "34cc59fd649a7191"
             ]
-        ]
-    },
-    {
-        "id": "50b0dd087d686c09",
-        "type": "function",
-        "z": "eeaa68697bf28d0e",
-        "name": "clr info panel",
-        "func": "\nreturn !msg.payload ? msg : null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 450,
-        "y": 240,
-        "wires": [
-            [
-                "d159cb379744e1be"
-            ]
-        ]
-    },
-    {
-        "id": "203f73770cea7a6c",
-        "type": "context-monitor",
-        "z": "eeaa68697bf28d0e",
-        "name": "",
-        "monitoring": [
-            {
-                "scope": "global",
-                "key": "selected_aircraft"
-            }
-        ],
-        "tostatus": false,
-        "x": 220,
-        "y": 240,
-        "wires": [
-            [
-                "50b0dd087d686c09"
-            ],
-            []
         ]
     }
 ]
