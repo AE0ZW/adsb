@@ -249,7 +249,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 300,
-        "y": 80,
+        "y": 100,
         "wires": [
             [
                 "bde103ae399da555"
@@ -265,7 +265,7 @@
         "action": "obj",
         "pretty": false,
         "x": 450,
-        "y": 80,
+        "y": 100,
         "wires": [
             [
                 "7f3c6f83cc47b9f3"
@@ -292,7 +292,7 @@
         "to": "",
         "reg": false,
         "x": 270,
-        "y": 200,
+        "y": 220,
         "wires": [
             [
                 "971b764e2dc64f2f"
@@ -314,22 +314,34 @@
             },
             {
                 "t": "eq",
+                "v": "receiver",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
                 "v": "aircraft",
                 "vt": "str"
+            },
+            {
+                "t": "else"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 2,
-        "x": 460,
-        "y": 200,
+        "outputs": 4,
+        "x": 470,
+        "y": 220,
         "wires": [
             [
                 "3aa8cd7ef5bedf96"
             ],
             [
+                "30e5781db4b94abc"
+            ],
+            [
                 "07477b5e52ba360d"
-            ]
+            ],
+            []
         ]
     },
     {
@@ -342,7 +354,7 @@
             "87ae45c3d541df2a"
         ],
         "x": 595,
-        "y": 160,
+        "y": 100,
         "wires": []
     },
     {
@@ -357,7 +369,7 @@
             "807abd24f5885cc3",
             "0475633569aff1cb"
         ],
-        "x": 765,
+        "x": 425,
         "y": 460,
         "wires": []
     },
@@ -492,59 +504,106 @@
         ]
     },
     {
-        "id": "8cb1091d0806b86c",
-        "type": "file in",
+        "id": "6170e6ec4598e0bc",
+        "type": "context-monitor",
+        "z": "9e95f962de164512",
+        "name": "",
+        "monitoring": [
+            {
+                "scope": "global",
+                "key": "station_info"
+            }
+        ],
+        "tostatus": false,
+        "x": 150,
+        "y": 440,
+        "wires": [
+            [
+                "67d81d8c9d04968d",
+                "805de6d09119fce1"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "6feadc2cf8efe32f",
+        "type": "watch",
         "z": "9e95f962de164512",
         "name": "receiver.json",
-        "filename": "/run/dump1090-fa/receiver.json",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 410,
-        "y": 460,
+        "files": "/run/dump1090-fa/receiver.json",
+        "recursive": "",
+        "x": 110,
+        "y": 120,
         "wires": [
             [
-                "42f49d30f5d91e51"
+                "c8c37713f6d3bdbb"
             ]
         ]
     },
     {
-        "id": "42f49d30f5d91e51",
-        "type": "json",
-        "z": "9e95f962de164512",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 610,
-        "y": 460,
-        "wires": [
-            [
-                "805de6d09119fce1"
-            ]
-        ]
-    },
-    {
-        "id": "59f94c9d99deb6b5",
+        "id": "4560f06d8b3ec5e3",
         "type": "inject",
         "z": "9e95f962de164512",
-        "name": "",
-        "props": [],
-        "repeat": "10",
+        "name": "receiver.json",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "file",
+                "v": "receiver.json",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": 0.1,
+        "onceDelay": "0.1",
         "topic": "",
-        "x": 210,
-        "y": 460,
+        "payload": "/run/dump1090-fa/receiver.json",
+        "payloadType": "str",
+        "x": 110,
+        "y": 160,
         "wires": [
             [
-                "8cb1091d0806b86c"
+                "c8c37713f6d3bdbb"
             ]
         ]
+    },
+    {
+        "id": "30e5781db4b94abc",
+        "type": "function",
+        "z": "9e95f962de164512",
+        "name": "set station",
+        "func": "global.set('station_info',msg.payload);\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "67d81d8c9d04968d",
+        "type": "debug",
+        "z": "9e95f962de164512",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 400,
+        "wires": []
     },
     {
         "id": "4404caecbde969ef",
