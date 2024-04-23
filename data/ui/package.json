@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
+        "@ralphwetzel/node-red-context-monitor": "~1.2.1",
         "color-convert": "^2.0.1",
         "color-functions": "^3.0.1",
         "hex-array": "^1.0.0",

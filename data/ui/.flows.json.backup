@@ -197,7 +197,7 @@
     {
         "id": "5d571e7886c72a5e",
         "type": "ui_group",
-        "name": "Metrics",
+        "name": "Message Counts",
         "tab": "65a0877e913c9221",
         "order": 4,
         "disp": false,
@@ -228,11 +228,13 @@
     {
         "id": "4d1967cb65cc77be",
         "type": "ui_group",
-        "name": "Group 5",
+        "name": "Signal Strength",
         "tab": "65a0877e913c9221",
         "order": 5,
-        "disp": true,
-        "width": 6
+        "disp": false,
+        "width": "8",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "c8c37713f6d3bdbb",
@@ -307,11 +309,6 @@
         "rules": [
             {
                 "t": "eq",
-                "v": "receiver",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
                 "v": "stats",
                 "vt": "str"
             },
@@ -323,13 +320,10 @@
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 3,
+        "outputs": 2,
         "x": 460,
         "y": 200,
         "wires": [
-            [
-                "805de6d09119fce1"
-            ],
             [
                 "3aa8cd7ef5bedf96"
             ],
@@ -347,8 +341,8 @@
         "links": [
             "87ae45c3d541df2a"
         ],
-        "x": 615,
-        "y": 220,
+        "x": 595,
+        "y": 160,
         "wires": []
     },
     {
@@ -363,8 +357,8 @@
             "807abd24f5885cc3",
             "0475633569aff1cb"
         ],
-        "x": 615,
-        "y": 160,
+        "x": 765,
+        "y": 460,
         "wires": []
     },
     {
@@ -498,17 +492,57 @@
         ]
     },
     {
-        "id": "a61ef5a38f39aa2a",
-        "type": "watch",
+        "id": "8cb1091d0806b86c",
+        "type": "file in",
         "z": "9e95f962de164512",
         "name": "receiver.json",
-        "files": "/run/dump1090-fa/receiver.json",
-        "recursive": "",
-        "x": 110,
-        "y": 120,
+        "filename": "/run/dump1090-fa/receiver.json",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 410,
+        "y": 460,
         "wires": [
             [
-                "c8c37713f6d3bdbb"
+                "42f49d30f5d91e51"
+            ]
+        ]
+    },
+    {
+        "id": "42f49d30f5d91e51",
+        "type": "json",
+        "z": "9e95f962de164512",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 610,
+        "y": 460,
+        "wires": [
+            [
+                "805de6d09119fce1"
+            ]
+        ]
+    },
+    {
+        "id": "59f94c9d99deb6b5",
+        "type": "inject",
+        "z": "9e95f962de164512",
+        "name": "",
+        "props": [],
+        "repeat": "3600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 210,
+        "y": 460,
+        "wires": [
+            [
+                "8cb1091d0806b86c"
             ]
         ]
     },
@@ -603,7 +637,7 @@
         "to": "",
         "reg": false,
         "x": 660,
-        "y": 160,
+        "y": 200,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -642,8 +676,8 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 1140,
-        "y": 280,
+        "x": 1160,
+        "y": 420,
         "wires": []
     },
     {
@@ -736,45 +770,6 @@
         "wires": []
     },
     {
-        "id": "576c95c48853412c",
-        "type": "function",
-        "z": "a434980c0d70073f",
-        "name": "read sta ifno",
-        "func": "msg.payload = global.get('station_info')||{};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 690,
-        "y": 480,
-        "wires": [
-            [
-                "f7800a14d83ea623",
-                "4bf3dd3861bb7d93"
-            ]
-        ]
-    },
-    {
-        "id": "f927f6a83992dda2",
-        "type": "function",
-        "z": "a434980c0d70073f",
-        "name": "store station info",
-        "func": "global.set('station_info',msg.payload);\nreturn null;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('station', [39,-83]);",
-        "finalize": "",
-        "libs": [],
-        "x": 310,
-        "y": 560,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "f7800a14d83ea623",
         "type": "change",
         "z": "a434980c0d70073f",
@@ -828,8 +823,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 880,
-        "y": 460,
+        "x": 560,
+        "y": 680,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -848,8 +843,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 890,
-        "y": 500,
+        "x": 570,
+        "y": 740,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -864,11 +859,12 @@
         "links": [
             "805de6d09119fce1"
         ],
-        "x": 145,
-        "y": 560,
+        "x": 295,
+        "y": 680,
         "wires": [
             [
-                "f927f6a83992dda2"
+                "f7800a14d83ea623",
+                "4bf3dd3861bb7d93"
             ]
         ]
     },
@@ -901,7 +897,6 @@
         "y": 480,
         "wires": [
             [
-                "576c95c48853412c",
                 "f3cf3a3ccc351826",
                 "c341eed5db7018cd"
             ],
@@ -972,8 +967,8 @@
         "links": [
             "0c44eb2cbf0f050f"
         ],
-        "x": 465,
-        "y": 60,
+        "x": 885,
+        "y": 80,
         "wires": []
     },
     {
@@ -996,7 +991,7 @@
         "to": "",
         "reg": false,
         "x": 670,
-        "y": 200,
+        "y": 240,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -1015,8 +1010,8 @@
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('selected_aircraft',null);",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 620,
+        "x": 720,
+        "y": 480,
         "wires": [
             [
                 "8de3708ef73f6a49"
@@ -1032,8 +1027,8 @@
         "links": [
             "bc940bbd8afbab5b"
         ],
-        "x": 1145,
-        "y": 600,
+        "x": 895,
+        "y": 480,
         "wires": []
     },
     {
@@ -1080,8 +1075,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 910,
-        "y": 540,
+        "x": 670,
+        "y": 440,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -1716,8 +1711,8 @@
         "links": [
             "3aa8cd7ef5bedf96"
         ],
-        "x": 205,
-        "y": 360,
+        "x": 105,
+        "y": 380,
         "wires": [
             [
                 "267b5709df750d49",
@@ -1756,7 +1751,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$join([$string($min([payload.seen, payload.seen_pos])),\" sec\"],\" \")\t",
+                "to": "payload.seen ? $join([$string(payload.seen),\"sec\"],\" \") : \"\"\t",
                 "tot": "jsonata"
             }
         ],
@@ -1826,8 +1821,8 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 610,
-        "y": 420,
+        "x": 550,
+        "y": 360,
         "wires": []
     },
     {
@@ -1863,8 +1858,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 340,
+        "x": 250,
+        "y": 360,
         "wires": [
             [
                 "39b4ca1e2c0e181e"
@@ -1891,8 +1886,8 @@
         "reduceInit": "",
         "reduceInitType": "",
         "reduceFixup": "",
-        "x": 510,
-        "y": 340,
+        "x": 410,
+        "y": 360,
         "wires": [
             [
                 "634713a7cd70f4b1"
@@ -1911,8 +1906,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 460,
+        "x": 250,
+        "y": 400,
         "wires": [
             [
                 "39d1c07212f906ea"
@@ -1957,8 +1952,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 610,
-        "y": 460,
+        "x": 550,
+        "y": 400,
         "wires": [
             []
         ]
@@ -2212,5 +2207,63 @@
                 "34cc59fd649a7191"
             ]
         ]
+    },
+    {
+        "id": "50b0dd087d686c09",
+        "type": "function",
+        "z": "eeaa68697bf28d0e",
+        "name": "clr info panel",
+        "func": "\nreturn !msg.payload ? msg : null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "d159cb379744e1be"
+            ]
+        ]
+    },
+    {
+        "id": "203f73770cea7a6c",
+        "type": "context-monitor",
+        "z": "eeaa68697bf28d0e",
+        "name": "",
+        "monitoring": [
+            {
+                "scope": "global",
+                "key": "selected_aircraft"
+            }
+        ],
+        "tostatus": false,
+        "x": 300,
+        "y": 520,
+        "wires": [
+            [
+                "640dc3801531f2a3",
+                "50b0dd087d686c09"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "640dc3801531f2a3",
+        "type": "debug",
+        "z": "eeaa68697bf28d0e",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 540,
+        "wires": []
     }
 ]

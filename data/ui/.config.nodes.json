@@ -726,5 +726,24 @@
                 "file": "/home/pi/.node-red/node_modules/node-red-node-ui-table/node.js"
             }
         }
+    },
+    "@ralphwetzel/node-red-context-monitor": {
+        "name": "@ralphwetzel/node-red-context-monitor",
+        "version": "1.2.1",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "context-monitor": {
+                "name": "context-monitor",
+                "types": [
+                    "context-monitor"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "@ralphwetzel/node-red-context-monitor",
+                "file": "/home/pi/.node-red/node_modules/@ralphwetzel/node-red-context-monitor/monitor.js"
+            }
+        }
     }
 }
