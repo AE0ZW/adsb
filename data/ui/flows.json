@@ -840,7 +840,7 @@
         "type": "function",
         "z": "a434980c0d70073f",
         "name": "range rings",
-        "func": "const msgs = [];\nconst m_per_10nm = 18520;\nfor (let i = 1; i < 15; i++) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_10nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            weight: 0.2,\n            fill:false\n        }\n    });\n}\nfor (let i = 5; i <= 30; i+=5) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_10nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            weight: 0.6,\n            fillOpacity:0.02\n        }\n    });\n}\n\nreturn [msgs];",
+        "func": "const msgs = [];\nconst m_per_10nm = 18520;\nfor (let i = 1; i < 15; i++) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_10nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            weight: 0.2,\n            fill:false\n        }\n    });\n}\nfor (let i = 5; i <= 30; i+=5) {\n    msgs.push({\n        payload: {\n            name: `RR_${i}`,\n            radius: i * m_per_10nm,\n            layer: 'station',\n            lat: msg.payload.lat,\n            lon: msg.payload.lon,\n            weight: 0.6,\n            fill:false\n        }\n    });\n}\n\nreturn [msgs];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
