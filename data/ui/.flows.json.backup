@@ -55,6 +55,19 @@
         ]
     },
     {
+        "id": "b6a7ecc8a0b818be",
+        "type": "junction",
+        "z": "a434980c0d70073f",
+        "x": 440,
+        "y": 580,
+        "wires": [
+            [
+                "f7800a14d83ea623",
+                "4bf3dd3861bb7d93"
+            ]
+        ]
+    },
+    {
         "id": "65a0877e913c9221",
         "type": "ui_tab",
         "name": "Plane Spotter",
@@ -520,7 +533,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "0.1",
+        "onceDelay": "1",
         "topic": "",
         "payload": "/run/dump1090-fa/receiver.json",
         "payloadType": "str",
@@ -811,7 +824,7 @@
                 "t": "set",
                 "p": "payload.command",
                 "pt": "msg",
-                "to": "{\t   \"lat\":payload.lat,\t   \"lon\":payload.lon,\t   \"zoom\":8         \t}",
+                "to": "{\t   \"lat\":payload.lat,\t   \"lon\":payload.lon\t}",
                 "tot": "jsonata"
             },
             {
@@ -827,8 +840,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 560,
-        "y": 680,
+        "x": 540,
+        "y": 560,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -847,8 +860,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 550,
-        "y": 740,
+        "x": 530,
+        "y": 600,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -885,7 +898,8 @@
         "wires": [
             [
                 "f3cf3a3ccc351826",
-                "c341eed5db7018cd"
+                "c341eed5db7018cd",
+                "f1e6ccd209d55813"
             ],
             [
                 "cf9d1ea62b0b4c63"
@@ -1082,12 +1096,11 @@
             }
         ],
         "tostatus": false,
-        "x": 310,
-        "y": 720,
+        "x": 350,
+        "y": 600,
         "wires": [
             [
-                "f7800a14d83ea623",
-                "4bf3dd3861bb7d93"
+                "b6a7ecc8a0b818be"
             ],
             []
         ]
@@ -1105,7 +1118,7 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 580,
+        "y": 800,
         "wires": [
             [
                 "fd2c1e025c7ee70b"
@@ -1125,7 +1138,7 @@
         ],
         "tostatus": false,
         "x": 280,
-        "y": 580,
+        "y": 800,
         "wires": [
             [
                 "50b0dd087d686c09"
@@ -1143,8 +1156,28 @@
             "0c44eb2cbf0f050f"
         ],
         "x": 625,
-        "y": 580,
+        "y": 800,
         "wires": []
+    },
+    {
+        "id": "f1e6ccd209d55813",
+        "type": "function",
+        "z": "a434980c0d70073f",
+        "name": "get station info",
+        "func": "msg.payload = global.get('station_info');\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 560,
+        "wires": [
+            [
+                "b6a7ecc8a0b818be"
+            ]
+        ]
     },
     {
         "id": "7e34ee95dc8e0367",
