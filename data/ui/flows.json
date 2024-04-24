@@ -55,19 +55,6 @@
         ]
     },
     {
-        "id": "b6a7ecc8a0b818be",
-        "type": "junction",
-        "z": "a434980c0d70073f",
-        "x": 600,
-        "y": 540,
-        "wires": [
-            [
-                "f7800a14d83ea623",
-                "4bf3dd3861bb7d93"
-            ]
-        ]
-    },
-    {
         "id": "65a0877e913c9221",
         "type": "ui_tab",
         "name": "Plane Spotter",
@@ -841,7 +828,7 @@
         "to": "",
         "reg": false,
         "x": 700,
-        "y": 520,
+        "y": 400,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -861,7 +848,7 @@
         "finalize": "",
         "libs": [],
         "x": 690,
-        "y": 560,
+        "y": 440,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -920,7 +907,7 @@
         "finalize": "",
         "libs": [],
         "x": 690,
-        "y": 400,
+        "y": 480,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -1012,7 +999,7 @@
         "finalize": "",
         "libs": [],
         "x": 720,
-        "y": 480,
+        "y": 560,
         "wires": [
             [
                 "8de3708ef73f6a49"
@@ -1029,7 +1016,7 @@
             "bc940bbd8afbab5b"
         ],
         "x": 895,
-        "y": 480,
+        "y": 560,
         "wires": []
     },
     {
@@ -1077,32 +1064,11 @@
         "to": "",
         "reg": false,
         "x": 670,
-        "y": 440,
+        "y": 520,
         "wires": [
             [
                 "19e42b65ee2aa91e"
             ]
-        ]
-    },
-    {
-        "id": "6170e6ec4598e0bc",
-        "type": "context-monitor",
-        "z": "a434980c0d70073f",
-        "name": "",
-        "monitoring": [
-            {
-                "scope": "global",
-                "key": "station_info"
-            }
-        ],
-        "tostatus": false,
-        "x": 510,
-        "y": 560,
-        "wires": [
-            [
-                "b6a7ecc8a0b818be"
-            ],
-            []
         ]
     },
     {
@@ -1117,7 +1083,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
+        "x": 370,
         "y": 620,
         "wires": [
             [
@@ -1164,18 +1130,19 @@
         "type": "function",
         "z": "a434980c0d70073f",
         "name": "get station info",
-        "func": "msg.payload = global.get('station_info');\nreturn msg;",
+        "func": "msg.payload =Object.assign({}, global.get('station_info'));\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 500,
-        "y": 520,
+        "x": 460,
+        "y": 420,
         "wires": [
             [
-                "b6a7ecc8a0b818be"
+                "f7800a14d83ea623",
+                "4bf3dd3861bb7d93"
             ]
         ]
     },

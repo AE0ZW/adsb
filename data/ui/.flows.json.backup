@@ -55,19 +55,6 @@
         ]
     },
     {
-        "id": "b6a7ecc8a0b818be",
-        "type": "junction",
-        "z": "a434980c0d70073f",
-        "x": 440,
-        "y": 580,
-        "wires": [
-            [
-                "f7800a14d83ea623",
-                "4bf3dd3861bb7d93"
-            ]
-        ]
-    },
-    {
         "id": "65a0877e913c9221",
         "type": "ui_tab",
         "name": "Plane Spotter",
@@ -764,8 +751,8 @@
         "name": "",
         "path": "/worldmap",
         "events": "connect,disconnect,point,draw,layer,bounds,files,other",
-        "x": 300,
-        "y": 420,
+        "x": 140,
+        "y": 400,
         "wires": [
             [
                 "8acf7b689dd92894",
@@ -782,8 +769,8 @@
         "links": [
             "871ab37f14081d6c"
         ],
-        "x": 495,
-        "y": 420,
+        "x": 275,
+        "y": 360,
         "wires": []
     },
     {
@@ -840,8 +827,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 540,
-        "y": 560,
+        "x": 700,
+        "y": 400,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -860,8 +847,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 530,
-        "y": 600,
+        "x": 690,
+        "y": 440,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -893,8 +880,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 3,
-        "x": 490,
-        "y": 480,
+        "x": 290,
+        "y": 460,
         "wires": [
             [
                 "f3cf3a3ccc351826",
@@ -920,7 +907,7 @@
         "finalize": "",
         "libs": [],
         "x": 690,
-        "y": 400,
+        "y": 480,
         "wires": [
             [
                 "19e42b65ee2aa91e"
@@ -1012,7 +999,7 @@
         "finalize": "",
         "libs": [],
         "x": 720,
-        "y": 480,
+        "y": 560,
         "wires": [
             [
                 "8de3708ef73f6a49"
@@ -1029,7 +1016,7 @@
             "bc940bbd8afbab5b"
         ],
         "x": 895,
-        "y": 480,
+        "y": 560,
         "wires": []
     },
     {
@@ -1077,32 +1064,11 @@
         "to": "",
         "reg": false,
         "x": 670,
-        "y": 440,
+        "y": 520,
         "wires": [
             [
                 "19e42b65ee2aa91e"
             ]
-        ]
-    },
-    {
-        "id": "6170e6ec4598e0bc",
-        "type": "context-monitor",
-        "z": "a434980c0d70073f",
-        "name": "",
-        "monitoring": [
-            {
-                "scope": "global",
-                "key": "station_info"
-            }
-        ],
-        "tostatus": false,
-        "x": 350,
-        "y": 600,
-        "wires": [
-            [
-                "b6a7ecc8a0b818be"
-            ],
-            []
         ]
     },
     {
@@ -1117,8 +1083,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 470,
-        "y": 800,
+        "x": 370,
+        "y": 620,
         "wires": [
             [
                 "fd2c1e025c7ee70b"
@@ -1137,8 +1103,8 @@
             }
         ],
         "tostatus": false,
-        "x": 280,
-        "y": 800,
+        "x": 140,
+        "y": 640,
         "wires": [
             [
                 "50b0dd087d686c09"
@@ -1155,8 +1121,8 @@
         "links": [
             "0c44eb2cbf0f050f"
         ],
-        "x": 625,
-        "y": 800,
+        "x": 505,
+        "y": 620,
         "wires": []
     },
     {
@@ -1164,20 +1130,39 @@
         "type": "function",
         "z": "a434980c0d70073f",
         "name": "get station info",
-        "func": "msg.payload = global.get('station_info');\nreturn msg;",
+        "func": "msg.payload =Object.assign({}, global.get('station_info'));\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
-        "y": 560,
+        "x": 460,
+        "y": 420,
         "wires": [
             [
-                "b6a7ecc8a0b818be"
+                "f7800a14d83ea623",
+                "4bf3dd3861bb7d93",
+                "9491c817c51b6e82"
             ]
         ]
+    },
+    {
+        "id": "9491c817c51b6e82",
+        "type": "debug",
+        "z": "a434980c0d70073f",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 340,
+        "wires": []
     },
     {
         "id": "7e34ee95dc8e0367",
