@@ -1,0 +1,13 @@
+FROM nodered/node-red:latest-minimal
+
+USER root
+
+WORKDIR /data
+
+COPY ./nodered/* .
+
+RUN npm install
+RUN npm install node-red
+
+ENTRYPOINT ["/usr/src/node-red/entrypoint.sh"]
+

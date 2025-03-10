@@ -522,7 +522,7 @@
         "once": true,
         "onceDelay": "1",
         "topic": "",
-        "payload": "/run/dump1090-fa/receiver.json",
+        "payload": "/run/dump1090/receiver.json",
         "payloadType": "str",
         "x": 110,
         "y": 160,

@@ -1,25 +1,28 @@
-version: "3.8"
 services:
-  ui:
-    image: nodered/node-red:latest-minimal
+  dashboard:
+    image: local/adsb-ui
+    build:
+      context: ./build
+      dockerfile: ./Dockerfile.nodered
     restart: always
     ports: 
-      - "1880:1880"
+      - 1880:1880
     depends_on:
-      - sdr
+      - dump1090
     volumes: 
-      - "./data/ui:/data"
-      - "run:/run/dump1090"
-  sdr:
-    image: dump1090-fa
+      - run:/run/dump1090
+  dump1090:
+    image: local/dump1090
     restart: always
     env_file: default.env
     build:
-      context: ./build/dump1090
+      context: ./build
+      dockerfile: ./Dockerfile.dump1090
     devices:
-      - "/dev/bus/usb/001"
+      - /dev/bus/usb
     volumes:
-      - "run:/run/dump1090"
+      - run:/run/dump1090
 volumes:
   run:
+  data:
 
