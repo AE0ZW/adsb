@@ -1,6 +1,6 @@
 # Plane Spotter
 
-An ADS-B airplay tracker.
+An ADS-B airplane tracker.
 
 ![Plane Spotter](screenshot.png)
 
