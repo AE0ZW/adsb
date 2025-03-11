@@ -1,13 +1,13 @@
 # Plane Spotter
 
+An ADS-B airplay tracker.
+
 ![Plane Spotter](screenshot.png)
 
-### Installation
-
-```docker run --rm -v ./data/ui:/data --entrypoint sh -it nodered/node-red:latest-minimal```
+### Usage
 
 ```
-$ cd /data
-$ npm install
-$ exit
+docker compose up -d
 ```
+
+Then point your browser to ```http://localhost:1880/ui/```.

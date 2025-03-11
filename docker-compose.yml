@@ -1,9 +1,9 @@
 services:
   dashboard:
-    image: local/adsb-ui
+    image: local/dashboard
     build:
-      context: ./build
-      dockerfile: ./Dockerfile.nodered
+      context: ./build/nodered
+      dockerfile: ../Dockerfile.nodered
     restart: always
     ports: 
       - 1880:1880
@@ -11,13 +11,14 @@ services:
       - dump1090
     volumes: 
       - run:/run/dump1090
+      - data:/data
   dump1090:
     image: local/dump1090
     restart: always
     env_file: default.env
     build:
-      context: ./build
-      dockerfile: ./Dockerfile.dump1090
+      context: ./build/dump1090
+      dockerfile: ../Dockerfile.dump1090
     devices:
       - /dev/bus/usb
     volumes:
