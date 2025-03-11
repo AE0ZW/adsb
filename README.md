@@ -6,6 +6,9 @@ An ADS-B airplane tracker.
 
 ### Usage
 
+Edit the ```default.env``` file to show the lat/lon of the station and the serial number of the SDR
+dongle. If you only have one dongle then set the DEVICE_SN=0.
+
 ```
 docker compose up -d
 ```
