@@ -1,0 +1,492 @@
+[
+    {
+        "id": "28509876f0bfc04d",
+        "type": "tab",
+        "label": "mode-s processing",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7d710e93c4847dd9",
+        "type": "tab",
+        "label": "aircraft processing",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "eee2edea55769a2d",
+        "type": "tab",
+        "label": "map",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "288ed9c3582684db",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "",
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "31ab085e616fec01",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "e0f5769f34981f92",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "837ab7e8d53f8437",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "31ab085e616fec01",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8ce12390882945ac",
+        "type": "tcp in",
+        "z": "28509876f0bfc04d",
+        "name": "mode-s read",
+        "server": "client",
+        "host": "localhost",
+        "port": "8080",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": ";",
+        "topic": "mode-s",
+        "trim": true,
+        "base64": false,
+        "tls": "",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "e40cf279d5e7a250"
+            ]
+        ]
+    },
+    {
+        "id": "30f0eb12b86abd3b",
+        "type": "debug",
+        "z": "28509876f0bfc04d",
+        "name": "seen aircraft",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e40cf279d5e7a250",
+        "type": "function",
+        "z": "28509876f0bfc04d",
+        "name": "mode-s parse",
+        "func": "const packet = msg.payload.trim().substr(1,msg.payload.length - 2)\nconst buffer = Buffer.from(packet, 'hex')\nconst payload = global.get('decode').parse(buffer)\nconst topic = 'adsb'\nreturn {topic, payload};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set('decode', new modeSDecoder())",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "modeSDecoder",
+                "module": "mode-s-decoder"
+            }
+        ],
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "815bc9697cb317cf",
+                "51dbec74f7d8bc73"
+            ]
+        ]
+    },
+    {
+        "id": "815bc9697cb317cf",
+        "type": "function",
+        "z": "28509876f0bfc04d",
+        "name": "mode-s store",
+        "func": "global.get(\"aircraft\").addMessage(msg.payload)\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nconst store = global.get('aircraft')\nif(!store){\n    global.set('aircraft', new modeSAircraftStore({timeout:12000}))\n}",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "modeSAircraftStore",
+                "module": "mode-s-aircraft-store"
+            }
+        ],
+        "x": 620,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0e2af8bc890ffe07",
+        "type": "inject",
+        "z": "28509876f0bfc04d",
+        "name": "db dump period",
+        "props": [],
+        "repeat": "3",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "bbca71bc7ed5c0b7"
+            ]
+        ]
+    },
+    {
+        "id": "bbca71bc7ed5c0b7",
+        "type": "function",
+        "z": "28509876f0bfc04d",
+        "name": "seen aircraft",
+        "func": "const seen = global.get('aircraft').getAircrafts().map(e => ({payload:e, topic:'aircraft'}))\nreturn [seen]",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "30f0eb12b86abd3b",
+                "c0dfba5b5803696e"
+            ]
+        ]
+    },
+    {
+        "id": "c0dfba5b5803696e",
+        "type": "link out",
+        "z": "28509876f0bfc04d",
+        "name": "seen aircraft",
+        "mode": "link",
+        "links": [
+            "2d6d762e1b2225c6"
+        ],
+        "x": 555,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "51dbec74f7d8bc73",
+        "type": "debug",
+        "z": "28509876f0bfc04d",
+        "name": "parsed ads-b",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2d6d762e1b2225c6",
+        "type": "link in",
+        "z": "7d710e93c4847dd9",
+        "name": "seen aircraft",
+        "links": [
+            "c0dfba5b5803696e"
+        ],
+        "x": 95,
+        "y": 120,
+        "wires": [
+            [
+                "d56677c3bfd05504"
+            ]
+        ]
+    },
+    {
+        "id": "d56677c3bfd05504",
+        "type": "function",
+        "z": "7d710e93c4847dd9",
+        "name": "filter non-displayable aircraft",
+        "func": "const {lat, lng} = msg.payload\nreturn lat === 0 && lng === 0\n? null\n: msg",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "3278c3db449d72c9",
+                "b1fb959d9ba6b48c"
+            ]
+        ]
+    },
+    {
+        "id": "3278c3db449d72c9",
+        "type": "debug",
+        "z": "7d710e93c4847dd9",
+        "name": "mappable aircraft",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "f6c2917885a905da",
+        "type": "link out",
+        "z": "7d710e93c4847dd9",
+        "name": "mappable aircraft",
+        "mode": "link",
+        "links": [
+            "e48b2659b941c1ec"
+        ],
+        "x": 525,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b1fb959d9ba6b48c",
+        "type": "function",
+        "z": "7d710e93c4847dd9",
+        "name": "filter aircraft data",
+        "func": "const payload = {}\nconst topic = 'map'\n\npayload.icao = msg.payload.icao.toString(16).toUpperCase()\npayload.callsign = msg.payload.callsign\n\npayload.lat = msg.payload.lat\npayload.lon = msg.payload.lng\npayload.speed = msg.payload.speed\npayload.heading = msg.payload.heading\npayload.altitude = msg.payload.altitude\n\n\nreturn {topic, payload};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 280,
+        "wires": [
+            [
+                "f6c2917885a905da"
+            ]
+        ]
+    },
+    {
+        "id": "6191ab6452bac1f5",
+        "type": "ui_worldmap",
+        "z": "eee2edea55769a2d",
+        "group": "837ab7e8d53f8437",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Radar",
+        "lat": "33.719771",
+        "lon": "-113.708309",
+        "zoom": "8",
+        "layer": "OSMC",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "hide",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "HM",
+        "maplist": "OSMC",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 510,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e48b2659b941c1ec",
+        "type": "link in",
+        "z": "eee2edea55769a2d",
+        "name": "map feed",
+        "links": [
+            "f6c2917885a905da"
+        ],
+        "x": 115,
+        "y": 140,
+        "wires": [
+            [
+                "a3a434a48246159d"
+            ]
+        ]
+    },
+    {
+        "id": "a2072c3a4dd474be",
+        "type": "debug",
+        "z": "eee2edea55769a2d",
+        "name": "map feed",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a3a434a48246159d",
+        "type": "function",
+        "z": "eee2edea55769a2d",
+        "name": "add map attributes",
+        "func": "msg.payload.name = msg.payload.callsign || msg.payload.icao\nmsg.payload.tooltip = msg.payload.name\n\nconst hue = 0.00444444444 * msg.payload.altitude + 100\nmsg.payload.iconColor = hslToHex(hue, 50, 50)\n\nif(msg.payload.callsign === ''){\n  msg.payload.layer = 'icao'\n}\nelse if (msg.payload.callsign.indexOf('?') >= 0) {\n    msg.payload.layer = 'error'\n}else {\n    const re = /^[A-Za-z]+/\n    const layer = msg.payload.callsign.match(re)[0]\n    msg.payload.layer = layer.length === 3 ? layer : 'private'\n}\n\nswitch (msg.payload.layer) {\n  case 'private':\n    msg.payload.icon = 'smallplane'\n    break;\n  case 'icao':\n    msg.payload.icon = 'neutral'\n    break;\n  case 'error':\n    msg.payload.icon = 'unknown'\n    break;\n  default:\n    msg.payload.icon = 'plane'\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "hslToHex",
+                "module": "hsl-to-hex"
+            }
+        ],
+        "x": 290,
+        "y": 140,
+        "wires": [
+            [
+                "6191ab6452bac1f5",
+                "a2072c3a4dd474be"
+            ]
+        ]
+    }
+]

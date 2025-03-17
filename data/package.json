@@ -1,0 +1,14 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "hsl-to-hex": "^1.0.0",
+        "mode-s-aircraft-store": "^1.0.1",
+        "mode-s-decoder": "^1.0.1",
+        "node-red-contrib-web-worldmap": "~5.1.2",
+        "node-red-dashboard": "~3.6.5",
+        "node-red-node-ui-table": "~0.4.4"
+    }
+}
