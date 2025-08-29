@@ -160,13 +160,13 @@
         "z": "06f12ee94683dc5b",
         "name": "adsb raw",
         "server": "client",
-        "host": "192.168.12.227",
+        "host": "sdr",
         "port": "8080",
         "datamode": "stream",
         "datatype": "utf8",
-        "newline": "",
-        "topic": "raw",
-        "trim": false,
+        "newline": ";",
+        "topic": "mode-s",
+        "trim": true,
         "base64": false,
         "tls": "",
         "x": 80,
@@ -223,7 +223,8 @@
         "y": 220,
         "wires": [
             [
-                "770e2f408de592b2"
+                "770e2f408de592b2",
+                "b0e0166e89e9404c"
             ]
         ]
     },
@@ -274,10 +275,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 430,
+        "x": 410,
         "y": 40,
         "wires": []
     },
@@ -349,6 +351,23 @@
         ],
         "x": 385,
         "y": 360,
+        "wires": []
+    },
+    {
+        "id": "b0e0166e89e9404c",
+        "type": "debug",
+        "z": "f2d18d1445b04b8f",
+        "name": "aircraft db",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 220,
         "wires": []
     },
     {
@@ -520,10 +539,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 390,
+        "x": 370,
         "y": 60,
         "wires": []
     },
